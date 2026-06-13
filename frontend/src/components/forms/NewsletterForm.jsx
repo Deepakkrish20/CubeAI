@@ -77,7 +77,7 @@ function NewsletterForm() {
         <div
           className={`mt-3 rounded-lg p-3 text-xs font-semibold ${
             status.type === 'success'
-              ? 'border border-emerald-200 bg-emerald-50 text-emerald-800'
+              ? 'border border-violet-200 bg-violet-50 text-violet-800'
               : 'border border-red-200 bg-red-50 text-red-800'
           }`}
         >

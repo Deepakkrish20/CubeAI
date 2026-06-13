@@ -218,7 +218,7 @@ function Navbar() {
               <button
                 onClick={() => setIsApplyOpen(true)}
                 type="button"
-                className="duration-250 group flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#10B981] to-[#34D399] px-6 text-sm font-bold text-white shadow-[0_4px_16px_rgba(16,185,129,0.18)] transition-all hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(16,185,129,0.28)] focus:outline-none"
+                className="duration-250 group flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#6D28D9] to-[#8B5CF6] px-6 text-sm font-bold text-white shadow-[0_4px_16px_rgba(109,40,217,0.18)] transition-all hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(109,40,217,0.28)] focus:outline-none"
               >
                 <span>Apply Now</span>
                 <FiArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -350,7 +350,7 @@ function Navbar() {
                       closeMenu();
                     }}
                     type="button"
-                    className="group flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#10B981] to-[#34D399] px-6 text-sm font-bold text-white shadow-[0_4px_16px_rgba(16,185,129,0.18)]"
+                    className="group flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#6D28D9] to-[#8B5CF6] px-6 text-sm font-bold text-white shadow-[0_4px_16px_rgba(109,40,217,0.18)]"
                   >
                     <span>Apply Now</span>
                     <FiArrowRight className="h-4 w-4" />

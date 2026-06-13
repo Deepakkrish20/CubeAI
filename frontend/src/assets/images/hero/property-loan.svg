@@ -11,8 +11,8 @@
   <!-- House illustration -->
   <g transform="translate(120, 60)">
     <!-- Roof -->
-    <polygon points="130,20 260,80 0,80" fill="#10B981"/>
-    <polygon points="130,20 130,80 0,80" fill="#0F8B5A" opacity="0.8"/>
+    <polygon points="130,20 260,80 0,80" fill="#6D28D9"/>
+    <polygon points="130,20 130,80 0,80" fill="#4C1D95" opacity="0.8"/>
     
     <!-- Chimney -->
     <rect x="180" y="10" width="25" height="40" fill="#0F172A"/>

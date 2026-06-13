@@ -217,7 +217,7 @@ const renderHighlightedHeading = (heading, highlightWords) => {
       return (
         <span
           key={index}
-          className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 bg-clip-text text-transparent font-black tracking-tight"
+          className="bg-gradient-to-r from-[#6D28D9] via-[#8B5CF6] to-[#A855F7] bg-clip-text text-transparent font-black tracking-tight"
         >
           {part}
         </span>
@@ -246,15 +246,15 @@ function FloatingWidget({ widget }) {
         animate={{ y: [0, -6, 0] }}
         transition={floatTransition}
       >
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 shrink-0">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#6D28D9]/10 text-[#6D28D9] shrink-0">
           <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1.5">
-            <p className="text-[9px] font-bold uppercase tracking-wider text-emerald-600 leading-none">{widget.title}</p>
-            <span className="inline-block px-1.5 py-0.5 text-[8px] font-bold bg-emerald-500/10 text-emerald-700 rounded-full leading-none">{widget.status}</span>
+            <p className="text-[9px] font-bold uppercase tracking-wider text-[#6D28D9] leading-none">{widget.title}</p>
+            <span className="inline-block px-1.5 py-0.5 text-[8px] font-bold bg-[#6D28D9]/10 text-[#6D28D9] rounded-full leading-none">{widget.status}</span>
           </div>
           <p className="text-[14px] sm:text-base font-extrabold text-gray-900 leading-tight mt-0.5">{widget.amount}</p>
           <p className="text-[10px] text-gray-500 truncate leading-none mt-1">{widget.detail}</p>
@@ -340,8 +340,8 @@ function HeroSection({ slides = heroSlides }) {
   return (
     <section id="hero" className="relative w-full overflow-hidden border-b border-gray-100 bg-gradient-to-b from-slate-50 via-white to-slate-50">
       {/* Background elegant radial blur */}
-      <div className="absolute top-0 right-0 -z-10 h-[600px] w-[600px] rounded-full bg-gradient-to-tr from-emerald-100/20 to-teal-50/10 blur-3xl opacity-70" />
-      <div className="absolute bottom-0 left-10 -z-10 h-[400px] w-[400px] rounded-full bg-gradient-to-tr from-amber-50/10 to-emerald-50/5 blur-3xl opacity-50" />
+      <div className="absolute top-0 right-0 -z-10 h-[600px] w-[600px] rounded-full bg-gradient-to-tr from-violet-100/20 to-purple-50/10 blur-3xl opacity-70" />
+      <div className="absolute bottom-0 left-10 -z-10 h-[400px] w-[400px] rounded-full bg-gradient-to-tr from-amber-50/10 to-violet-50/5 blur-3xl opacity-50" />
 
       <Swiper
         ref={swiperRef}
@@ -388,9 +388,9 @@ function HeroSection({ slides = heroSlides }) {
                     {/* Trust Badge */}
                     <motion.div
                       variants={itemVariants}
-                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-white/70 border border-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-emerald-800 backdrop-blur-md mb-6"
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-white/70 border border-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-[#6D28D9] backdrop-blur-md mb-6"
                     >
-                      <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="flex h-1.5 w-1.5 rounded-full bg-[#6D28D9] animate-pulse" />
                       {details.badge}
                     </motion.div>
 
@@ -417,7 +417,7 @@ function HeroSection({ slides = heroSlides }) {
                     >
                       <Link
                         to={slide.primaryBtnLink ?? ROUTES.APPLY_NOW}
-                        className="h-12 px-7 rounded-full flex items-center justify-center gap-2 group bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold text-sm shadow-[0_8px_24px_rgba(16,185,129,0.2)] hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(16,185,129,0.3)] transition-all duration-200"
+                        className="h-12 px-7 rounded-full flex items-center justify-center gap-2 group bg-gradient-to-r from-[#6D28D9] to-[#8B5CF6] text-white font-semibold text-sm shadow-[0_8px_24px_rgba(109,40,217,0.18)] hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(109,40,217,0.28)] transition-all duration-200"
                       >
                         <span>{slide.primaryBtnText ?? 'Apply Now'}</span>
                         <FiArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -465,7 +465,7 @@ function HeroSection({ slides = heroSlides }) {
                   <div className="lg:col-span-5 flex justify-center py-8 lg:py-0">
                     <div className="relative w-full max-w-[340px] sm:max-w-[420px] aspect-[4/3] flex items-center justify-center p-4">
                       {/* Glow effects behind composition */}
-                      <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-teal-500/5 to-transparent blur-2xl rounded-full" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#6D28D9]/10 via-[#8B5CF6]/5 to-transparent blur-2xl rounded-full" />
 
                       {/* Center Card */}
                       <motion.div

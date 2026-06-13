@@ -11,8 +11,8 @@
   <!-- Electric vehicle illustration -->
   <g transform="translate(100, 80)">
     <!-- Car body -->
-    <ellipse cx="150" cy="150" rx="120" ry="80" fill="#10B981" opacity="0.9"/>
-    <rect x="60" y="100" width="180" height="80" rx="20" fill="#10B981"/>
+    <ellipse cx="150" cy="150" rx="120" ry="80" fill="#6D28D9" opacity="0.9"/>
+    <rect x="60" y="100" width="180" height="80" rx="20" fill="#6D28D9"/>
     
     <!-- Windows -->
     <rect x="80" y="110" width="50" height="35" rx="8" fill="#CBD5E1" opacity="0.6"/>

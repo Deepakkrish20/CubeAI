@@ -91,7 +91,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                           key={`${feature}-${idx}`}
                           className="flex items-center text-sm text-gray-700"
                         >
-                          <span className="mr-2 text-base font-bold text-emerald-500">
+                          <span className="mr-2 text-base font-bold text-secondary">
                             &#10003;
                           </span>
                           {feature}
