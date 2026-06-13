@@ -1,0 +1,347 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import NewsletterForm from '@/components/forms/NewsletterForm';
+import { footerData } from '@/data/footerData';
+import { FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
+import { FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+
+const UNAVAILABLE_MESSAGE = 'Footer information is currently unavailable.';
+
+// Simple Modal component for Policies
+function PolicyModal({ title, isOpen, onClose, children }) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <div className="border-gray-250 flex max-h-[80vh] w-full max-w-2xl flex-col rounded-xl border bg-white shadow-lg">
+        <header className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
+          <h3 className="text-lg font-bold text-gray-900">{title}</h3>
+          <button
+            onClick={onClose}
+            type="button"
+            className="text-2xl font-semibold text-gray-400 hover:text-gray-600 focus:outline-none"
+          >
+            &times;
+          </button>
+        </header>
+        <div className="space-y-4 overflow-y-auto p-6 text-sm leading-relaxed text-gray-600">
+          {children}
+        </div>
+        <footer className="flex justify-end border-t border-gray-200 px-6 py-3">
+          <button
+            onClick={onClose}
+            type="button"
+            className="rounded-lg bg-primary px-5 py-2 text-xs font-semibold text-white hover:bg-primary/95"
+          >
+            Close
+          </button>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+function Footer({ data = footerData }) {
+  const [modalType, setModalType] = useState(null); // 'terms' | 'refund' | 'privacy' | null
+
+  if (!data || typeof data !== 'object') {
+    return (
+      <footer
+        id="footer"
+        className="w-full border-t border-gray-800 bg-gray-900 py-12 text-gray-400"
+      >
+        <div className="mx-auto max-w-7xl px-4 text-center">
+          <p className="text-sm text-gray-500">{UNAVAILABLE_MESSAGE}</p>
+        </div>
+      </footer>
+    );
+  }
+
+  const {
+    quickLinks = [],
+    serviceLinks = [],
+    contactDetails = {},
+    socialLinks = [],
+    newsletter = {},
+    copyright = {},
+  } = data;
+
+  const handleLinkClick = (e, link) => {
+    if (link.action) {
+      e.preventDefault();
+      setModalType(link.action);
+    }
+  };
+
+  const getSocialIcon = (platform) => {
+    switch (platform) {
+      case 'facebook':
+        return <FaFacebookF className="h-4 w-4" />;
+      case 'instagram':
+        return <FaInstagram className="h-4 w-4" />;
+      case 'linkedin':
+        return <FaLinkedinIn className="h-4 w-4" />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <footer
+      id="footer"
+      className="w-full border-t border-gray-800 bg-gray-900 pb-6 pt-12 text-gray-300"
+    >
+      <div className="mx-auto max-w-7xl px-4">
+        {/* Main Grid */}
+        <div className="grid gap-8 border-b border-gray-800 pb-10 md:grid-cols-2 lg:grid-cols-4">
+          {/* Office Info */}
+          <section className="flex flex-col gap-4">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-white">Our Office</h4>
+            {contactDetails.officeName && (
+              <p className="text-sm font-semibold text-gray-200">{contactDetails.officeName}</p>
+            )}
+            {contactDetails.address && (
+              <div className="flex items-start gap-2.5 text-sm text-gray-400">
+                <FiMapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                <span>{contactDetails.address}</span>
+              </div>
+            )}
+            {contactDetails.phone && (
+              <div className="flex items-center gap-2.5 text-sm text-gray-400">
+                <FiPhone className="h-4 w-4 shrink-0 text-primary" />
+                <a
+                  href={`tel:${contactDetails.phone}`}
+                  className="transition-colors hover:text-primary"
+                >
+                  {contactDetails.phone}
+                </a>
+              </div>
+            )}
+            {contactDetails.email && (
+              <div className="flex items-center gap-2.5 text-sm text-gray-400">
+                <FiMail className="h-4 w-4 shrink-0 text-primary" />
+                <a
+                  href={`mailto:${contactDetails.email}`}
+                  className="transition-colors hover:text-primary"
+                >
+                  {contactDetails.email}
+                </a>
+              </div>
+            )}
+
+            {/* Social Links */}
+            {socialLinks.length > 0 && (
+              <div className="mt-2 flex gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.platform}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="border-gray-750 flex h-9 w-9 items-center justify-center rounded-full border text-gray-400 transition-all duration-200 hover:border-white hover:bg-primary hover:text-white"
+                  >
+                    {getSocialIcon(social.platform)}
+                  </a>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* Services Links */}
+          <section className="flex flex-col gap-4">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-white">Services</h4>
+            {serviceLinks.length > 0 ? (
+              <ul className="space-y-2.5 text-sm text-gray-400">
+                {serviceLinks.map((link) => (
+                  <li key={link.id}>
+                    <Link
+                      to={link.path}
+                      className="transition-colors hover:text-white hover:underline"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-xs text-gray-500">No service links available.</p>
+            )}
+          </section>
+
+          {/* Quick Links */}
+          <section className="flex flex-col gap-4">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-white">Quick Links</h4>
+            {quickLinks.length > 0 ? (
+              <ul className="space-y-2.5 text-sm text-gray-400">
+                {quickLinks.map((link) => (
+                  <li key={link.id}>
+                    {link.action ? (
+                      <button
+                        onClick={(e) => handleLinkClick(e, link)}
+                        type="button"
+                        className="text-left transition-colors hover:text-white hover:underline"
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        to={link.path}
+                        className="transition-colors hover:text-white hover:underline"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-xs text-gray-500">No quick links available.</p>
+            )}
+          </section>
+
+          {/* Newsletter section */}
+          <section className="flex flex-col gap-4">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-white">
+              {newsletter.title || 'Newsletter'}
+            </h4>
+            {newsletter.description && (
+              <p className="text-sm leading-relaxed text-gray-400">{newsletter.description}</p>
+            )}
+            <NewsletterForm />
+          </section>
+        </div>
+
+        {/* Copyright */}
+        <div className="flex flex-col items-center justify-between gap-3 pt-6 text-center text-xs text-gray-500 md:flex-row md:text-left">
+          <p>
+            &copy; {new Date().getFullYear()}{' '}
+            {copyright.text || 'Bundela Fin Corp. All Right Reserved.'}
+          </p>
+          {copyright.designerName && (
+            <p>
+              Designed By{' '}
+              <a
+                href={copyright.designerUrl || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 underline hover:text-white hover:underline"
+              >
+                {copyright.designerName}
+              </a>{' '}
+              Distributed By{' '}
+              <a
+                href={copyright.designerUrl || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 underline hover:text-white hover:underline"
+              >
+                {copyright.designerName}
+              </a>
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* POLICY MODALS */}
+      <PolicyModal
+        title="Terms and Conditions"
+        isOpen={modalType === 'terms'}
+        onClose={() => setModalType(null)}
+      >
+        <h6 className="mb-2 text-sm font-bold uppercase text-gray-800">Acceptance of Terms</h6>
+        <p className="mb-4">
+          Before you access this Website, www.bundelafinance.com, or avail the services/purchase the
+          products offered on the Website, we request you to please go through these Terms of Use
+          (“Terms”) and the Privacy Policy. These Terms and the Privacy Policy together constitute a
+          binding legal agreement (“Agreement”) between user and BUNDELA FIN CORP.
+        </p>
+        <p className="mb-4 font-semibold uppercase text-gray-700">
+          BY CONTINUING TO ACCESS AND USE THIS WEBSITE YOU CONFIRM THAT YOU ACCEPT OUR TERMS &
+          CONDITIONS SET OUT BELOW. IF YOU DO NOT ACCEPT THE TERMS, YOU MUST LEAVE THIS WEBSITE
+          IMMEDIATELY.
+        </p>
+        <h6 className="mb-2 text-sm font-bold uppercase text-gray-800">About Us</h6>
+        <p className="mb-4">
+          www.bundelafinance.com is a website owned, maintained, and provided by BUNDELA FINANCIAL
+          CONSULTANCY PVT. LTD. (hereinafter “BUNDELA FIN CORP”) & (“BUNDELA FIN CORP” is registered
+          trademark of Bundela Financial Consultancy Pvt. Ltd).
+        </p>
+        <p>
+          <strong>Phone:</strong> +91-1205095106
+        </p>
+        <p>
+          <strong>Address:</strong> Bundela Fin Corp, C-420, 4th Floor, Block C Golden I, TechZone
+          IV, Greater Noida West, 201308, Uttar Pradesh, India
+        </p>
+        <p>
+          <strong>Email:</strong> info@bundelafinance.com
+        </p>
+      </PolicyModal>
+
+      <PolicyModal
+        title="Refund Policy"
+        isOpen={modalType === 'refund'}
+        onClose={() => setModalType(null)}
+      >
+        <h6 className="mb-2 text-sm font-bold uppercase text-gray-800">
+          1. Refund Request for Double Deduction
+        </h6>
+        <p className="mb-4">
+          Borrowers may request a refund in the event of a double deduction of EMI for a due date.
+          To initiate a refund request, borrowers must contact our customer support team at
+          redressal@bundelafinance.com or support@bundelafinance.com within 2 days of the debits
+          from their account.
+        </p>
+        <p className="mb-4">
+          If the refund request is deemed valid, resolution will be provided within 3 working days.
+          The refunded amount is expected to reflect in the customer’s account within 10 days from
+          the date of the refund.
+        </p>
+        <h6 className="mb-2 text-sm font-bold uppercase text-gray-800">
+          2. Payment Failure and Automatic Refund
+        </h6>
+        <p className="mb-4">
+          In the case of payment failure (where payment is not received by BUNDELA FIN CORP), but
+          the amount is deducted from the customer’s bank account, the payment gateway will
+          automatically refund the amount in accordance with their policy.
+        </p>
+        <p>
+          <strong>Note:</strong> All refund requests are subject to validation by BUNDELA FIN CORP,
+          and decisions will be made based on the merit of each individual case.
+        </p>
+      </PolicyModal>
+
+      <PolicyModal
+        title="Privacy Policy"
+        isOpen={modalType === 'privacy'}
+        onClose={() => setModalType(null)}
+      >
+        <p className="mb-4">
+          BUNDELA FIN CORP (“BUNDELA FIN CORP”), a partnership firm with its registered office
+          located at OC-527, 5TH Floor, Gaur City Centre, Greater Noida West, 201306 Uttar Pradesh.
+          This policy outlines the objective of requesting for your personal information and briefly
+          explains as to how we keep it secure.
+        </p>
+        <h6 className="mb-2 text-sm font-bold uppercase text-gray-800">Consent</h6>
+        <p className="mb-4">
+          BY ACCEPTING THE PRIVACY POLICY, YOU EXPRESSLY CONSENT TO COMPANY’S COLLECTION, RETENTION,
+          ANALYSIS, DESTRUCTION, USE AND DISCLOSURE OF YOUR PERSONAL INFORMATION IN ACCORDANCE WITH
+          THIS PRIVACY POLICY.
+        </p>
+        <h6 className="mb-2 text-sm font-bold uppercase text-gray-800">
+          Personal Information We Collect
+        </h6>
+        <p className="mb-4">
+          We collect personal and financial information like your name, address, date of birth, PAN
+          number, bank statements, pay slips, etc. We will also collect credit-related information
+          from sources like CIBIL and other credit bureaus.
+        </p>
+        <p>
+          <strong>Contact Info:</strong> info@bundelafinance.com
+        </p>
+      </PolicyModal>
+    </footer>
+  );
+}
+
+export default Footer;
