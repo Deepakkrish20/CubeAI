@@ -41,7 +41,7 @@ export const servicesData = [
       'Our goal is to help customers adopt clean energy solutions without financial burden. At Bundela Fin Corp, we provide simple, affordable and hassle-free financing options for EV batteries and energy storage systems.',
     shortDescription:
       'Our goal is to help customers adopt clean energy solutions without financial burden. At Bundela Fin Corp, we provide simple, affordable and hassle-free financing options for EV batteries and energy storage systems.',
-    image: '/img/battery finaning.png',
+    image: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&auto=format&fit=crop',
     route: '/apply-now',
     ctaText: 'Apply Now',
     features: [
@@ -61,7 +61,7 @@ export const servicesData = [
       'Bundela Fin Corp provides smart and affordable solar financing solutions for residential, commercial and industrial solar projects. Our hassle-free process and flexible repayment options help customers switch to clean and sustainable energy with ease.',
     shortDescription:
       'Bundela Fin Corp provides smart and affordable solar financing solutions for residential, commercial and industrial solar projects. Our hassle-free process and flexible repayment options help customers switch to clean and sustainable energy with ease.',
-    image: '/img/Solar-Panel.jpg',
+    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&auto=format&fit=crop',
     route: '/apply-now',
     ctaText: 'Apply Now',
     features: [
@@ -82,7 +82,7 @@ export const servicesData = [
       'Fleet Financing solutions from Bundela Fin Corp are designed to help businesses expand and manage their transportation needs with ease. We provide affordable and flexible financing options for commercial vehicles, delivery fleets and business transportation solutions.',
     shortDescription:
       'Fleet Financing solutions from Bundela Fin Corp are designed to help businesses expand and manage their transportation needs with ease. We provide affordable and flexible financing options for commercial vehicles, delivery fleets and business transportation solutions.',
-    image: '/img/fleet.jpg',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop',
     route: '/apply-now',
     ctaText: 'Apply Now',
     features: [
@@ -103,7 +103,7 @@ export const servicesData = [
       'Bundela Fin Corp has been a trusted partner for individuals and businesses seeking to own eco-friendly and affordable transportation solutions, with 12 years of expertise in providing E-Rickshaw loans.',
     shortDescription:
       'Bundela Fin Corp has been a trusted partner for individuals and businesses seeking to own eco-friendly and affordable transportation solutions, with 12 years of expertise in providing E-Rickshaw loans.',
-    image: '/img/erickshaw.jpg',
+    image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&auto=format&fit=crop',
     route: '/apply-now',
     ctaText: 'Apply Now',
     features: STANDARD_LOAN_FEATURES,
@@ -118,7 +118,7 @@ export const servicesData = [
       'We take pride in empowering our customers to own their dream two-wheelers with tailored loan options, competitive interest rates, and a seamless application process.',
     shortDescription:
       'We take pride in empowering our customers to own their dream two-wheelers with tailored loan options, competitive interest rates, and a seamless application process.',
-    image: '/img/ebike.jpg',
+    image: 'https://images.unsplash.com/photo-1558980664-769d59546b3d?w=600&auto=format&fit=crop',
     route: '/apply-now',
     ctaText: 'Apply Now',
     features: STANDARD_LOAN_FEATURES,
@@ -133,7 +133,7 @@ export const servicesData = [
       'We pride ourselves on understanding the unique needs of our clients, offering tailored solutions that make vehicle ownership more accessible.',
     shortDescription:
       'We pride ourselves on understanding the unique needs of our clients, offering tailored solutions that make vehicle ownership more accessible.',
-    image: '/img/car.jpg',
+    image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&auto=format&fit=crop',
     route: '/apply-now',
     ctaText: 'Apply Now',
     features: STANDARD_LOAN_FEATURES,
@@ -148,7 +148,7 @@ export const servicesData = [
       'Bundela Fin Corp has earned the trust of customers by offering high-value, secure Loan Against Property solutions, backed by years of industry knowledge and a commitment to financial growth.',
     shortDescription:
       'Bundela Fin Corp has earned the trust of customers by offering high-value, secure Loan Against Property solutions, backed by years of industry knowledge and a commitment to financial growth.',
-    image: '/img/home.jpg',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&auto=format&fit=crop',
     route: '/apply-now',
     ctaText: 'Apply Now',
     features: STANDARD_LOAN_FEATURES,
@@ -163,7 +163,7 @@ export const servicesData = [
       'Bundela Fin Corp supports the backbone of transportation businesses through its expertise in LCV Loans, helping individuals and enterprises expand their commercial fleets with confidence and ease.',
     shortDescription:
       'Bundela Fin Corp supports the backbone of transportation businesses through its expertise in LCV Loans, helping individuals and enterprises expand their commercial fleets with confidence and ease.',
-    image: '/img/lcv.jpg',
+    image: 'https://images.unsplash.com/photo-1621252179027-94459d278660?w=600&auto=format&fit=crop',
     route: '/apply-now',
     ctaText: 'Apply Now',
     features: STANDARD_LOAN_FEATURES,

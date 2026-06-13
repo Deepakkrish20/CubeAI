@@ -18,14 +18,11 @@ function NewsletterForm() {
   const onSubmit = async (data) => {
     setStatus({ type: '', message: '' });
     try {
-      // API-ready: try calling the actual service
-      // We wrap it with a simulated delay to demonstrate the spinner/loading states
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       try {
         await subscribeNewsletter(data);
       } catch (apiError) {
-        // Fallback to successful mock submission during local testing if API endpoint is missing
         console.warn('API subscription failed, falling back to mock submission:', apiError);
       }
 
@@ -42,14 +39,14 @@ function NewsletterForm() {
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-        <div className="flex flex-col gap-2 sm:flex-row">
+        <div className="flex flex-col gap-3 sm:flex-row">
           <div className="flex-1">
             <input
-              placeholder="Your email"
+              placeholder="Your email address"
               type="text"
               id="newsletter-email"
-              className={`w-full rounded-lg border bg-white px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/20 ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
+              className={`w-full rounded-2xl border bg-white/5 border-white/10 px-4 py-3 text-xs font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 focus:ring-4 focus:ring-violet-500/10 transition-all ${
+                errors.email ? 'border-red-500/50' : 'border-white/10'
               }`}
               {...register('email', {
                 required: 'Email address is required',
@@ -63,22 +60,22 @@ function NewsletterForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white transition duration-200 hover:bg-primary/95 disabled:opacity-50"
+            className="rounded-2xl bg-gradient-to-r from-[#3B0764] to-[#6D28D9] px-6 py-3 text-xs font-black uppercase tracking-wider text-white transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_6px_20px_rgba(76,29,149,0.3)] disabled:opacity-50"
           >
             {isSubmitting ? 'Signing Up...' : 'SignUp'}
           </button>
         </div>
         {errors.email && (
-          <span className="mt-1 text-xs font-semibold text-red-500">{errors.email.message}</span>
+          <span className="mt-1 text-xs font-bold text-red-500/80">{errors.email.message}</span>
         )}
       </form>
 
       {status.message && (
         <div
-          className={`mt-3 rounded-lg p-3 text-xs font-semibold ${
+          className={`mt-4 rounded-2xl p-4 text-xs font-bold ${
             status.type === 'success'
-              ? 'border border-violet-200 bg-violet-50 text-violet-800'
-              : 'border border-red-200 bg-red-50 text-red-800'
+              ? 'border border-violet-500/20 bg-violet-500/5 text-violet-300'
+              : 'border border-red-500/20 bg-red-500/5 text-red-300'
           }`}
         >
           {status.message}

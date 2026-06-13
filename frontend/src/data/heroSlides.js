@@ -2,6 +2,7 @@ import evLoansImg from '@/assets/images/hero/ev-loans.svg';
 import dreamCarImg from '@/assets/images/hero/dream-car.svg';
 import propertyLoanImg from '@/assets/images/hero/property-loan.svg';
 import evFinancingImg from '@/assets/images/hero/ev-financing.svg';
+import electricBikeImg from '@/assets/images/hero/electric-bike.svg';
 
 /**
  * Hero slider slides — aligned with bundelafinance.com homepage carousel.
@@ -40,7 +41,7 @@ export const heroSlides = [
     id: 'electric-bike',
     tagline: 'Welcome to Bundela',
     heading: 'Get Your Dream Electric Bike Today',
-    image: evFinancingImg,
+    image: electricBikeImg,
     imageAlt: 'Get Your Dream Electric Bike Today',
   },
 ];
