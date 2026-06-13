@@ -237,26 +237,50 @@ function FloatingWidget({ widget }) {
     }
   };
 
-  const widgetStyles = "absolute z-20 transition-all duration-300 hover:scale-[1.03] " + widget.position;
+  const widgetStyles = "absolute z-20 transition-all duration-300 " + widget.position;
 
   if (widget.type === 'approval') {
     return (
       <motion.div
         className={`${widgetStyles} bg-white/90 backdrop-blur-xl border border-white/80 p-3.5 rounded-[20px] shadow-[0_12px_36px_rgba(15,23,42,0.08)] flex items-center gap-3 w-56 sm:w-64`}
-        animate={{ y: [0, -6, 0] }}
-        transition={floatTransition}
+        initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -8, 0] }}
+        transition={{ 
+          opacity: { duration: 0.5, delay: widget.delay || 0 },
+          scale: { duration: 0.5, delay: widget.delay || 0 },
+          rotate: { duration: 0.5, delay: widget.delay || 0 },
+          y: { duration: 4.5 + (widget.delay || 0) * 0.5, repeat: Infinity, repeatType: "reverse" }
+        }}
+        whileHover={{ scale: 1.08, rotate: 2, boxShadow: "0 16px 48px rgba(15,23,42,0.12)" }}
       >
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#4C1D95]/10 text-[#4C1D95] shrink-0">
+        <motion.div 
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-[#4C1D95]/10 text-[#4C1D95] shrink-0"
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        >
           <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
-        </div>
+        </motion.div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1.5">
             <p className="text-[9px] font-bold uppercase tracking-wider text-[#4C1D95] leading-none">{widget.title}</p>
-            <span className="inline-block px-1.5 py-0.5 text-[8px] font-bold bg-[#4C1D95]/10 text-[#4C1D95] rounded-full leading-none">{widget.status}</span>
+            <motion.span 
+              className="inline-block px-1.5 py-0.5 text-[8px] font-bold bg-[#4C1D95]/10 text-[#4C1D95] rounded-full leading-none"
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              {widget.status}
+            </motion.span>
           </div>
-          <p className="text-[14px] sm:text-base font-extrabold text-gray-900 leading-tight mt-0.5">{widget.amount}</p>
+          <motion.p 
+            className="text-[14px] sm:text-base font-extrabold text-gray-900 leading-tight mt-0.5"
+            animate={{ backgroundPosition: ['0%', '100%'] }}
+            style={{ background: 'linear-gradient(90deg, #1f2937, #4b5563, #1f2937)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >
+            {widget.amount}
+          </motion.p>
           <p className="text-[10px] text-gray-500 truncate leading-none mt-1">{widget.detail}</p>
         </div>
       </motion.div>
@@ -267,17 +291,34 @@ function FloatingWidget({ widget }) {
     return (
       <motion.div
         className={`${widgetStyles} bg-white/85 backdrop-blur-xl border border-white/60 p-3 rounded-[18px] shadow-[0_10px_28px_rgba(15,23,42,0.06)] flex items-center gap-3 w-48 sm:w-56`}
-        animate={{ y: [0, 6, 0] }}
-        transition={floatTransition}
+        initial={{ opacity: 0, scale: 0.5, rotate: 10 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, 8, 0] }}
+        transition={{ 
+          opacity: { duration: 0.5, delay: widget.delay || 0 },
+          scale: { duration: 0.5, delay: widget.delay || 0 },
+          rotate: { duration: 0.5, delay: widget.delay || 0 },
+          y: { duration: 5 + (widget.delay || 0) * 0.5, repeat: Infinity, repeatType: "reverse" }
+        }}
+        whileHover={{ scale: 1.08, rotate: -2, boxShadow: "0 14px 40px rgba(15,23,42,0.1)" }}
       >
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10 text-secondary shrink-0">
+        <motion.div 
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10 text-secondary shrink-0"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
-        </div>
+        </motion.div>
         <div className="flex-1 min-w-0">
           <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wide leading-none">{widget.title}</p>
-          <p className="text-[13px] sm:text-[14px] font-black text-gray-900 mt-1 leading-tight">{widget.amount}</p>
+          <motion.p 
+            className="text-[13px] sm:text-[14px] font-black text-gray-900 mt-1 leading-tight"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >
+            {widget.amount}
+          </motion.p>
           <p className="text-[9px] text-gray-400 truncate leading-none mt-0.5">{widget.detail}</p>
         </div>
       </motion.div>
@@ -287,10 +328,23 @@ function FloatingWidget({ widget }) {
   return (
     <motion.div
       className={`${widgetStyles} bg-white/95 backdrop-blur-md border border-white/80 p-3.5 rounded-[16px] shadow-[0_8px_24px_rgba(15,23,42,0.05)] w-32 sm:w-40`}
-      animate={{ y: [0, -5, 0] }}
-      transition={floatTransition}
+      initial={{ opacity: 0, scale: 0.6 }}
+      animate={{ opacity: 1, scale: 1, y: [0, -6, 0], rotate: [0, 3, -3, 0] }}
+      transition={{ 
+        opacity: { duration: 0.5, delay: widget.delay || 0 },
+        scale: { duration: 0.5, delay: widget.delay || 0 },
+        y: { duration: 4, repeat: Infinity, repeatType: "reverse" },
+        rotate: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+      }}
+      whileHover={{ scale: 1.1, boxShadow: "0 12px 32px rgba(15,23,42,0.08)" }}
     >
-      <p className="text-lg sm:text-2xl font-black text-gray-900 tracking-tight leading-none">{widget.value}</p>
+      <motion.p 
+        className="text-lg sm:text-2xl font-black text-gray-900 tracking-tight leading-none"
+        animate={{ color: ['#1f2937', '#4b5563', '#1f2937'] }}
+        transition={{ duration: 4, repeat: Infinity }}
+      >
+        {widget.value}
+      </motion.p>
       <p className="text-[9px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-wide leading-tight mt-1.5">{widget.title}</p>
       <p className="text-[8px] sm:text-[9px] text-gray-400 mt-0.5 leading-tight">{widget.detail}</p>
     </motion.div>
@@ -319,19 +373,44 @@ function HeroSection({ slides = heroSlides }) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.55,
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
+      }
+    }
+  };
+
+  const slideInVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+      }
+    }
+  };
+
+  const scaleInVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.6,
         ease: [0.16, 1, 0.3, 1],
       }
     }
@@ -339,9 +418,23 @@ function HeroSection({ slides = heroSlides }) {
 
   return (
     <section id="hero" className="relative w-full overflow-hidden border-b border-gray-100 bg-gradient-to-b from-slate-50 via-white to-slate-50">
-      {/* Background elegant radial blur */}
-      <div className="absolute top-0 right-0 -z-10 h-[600px] w-[600px] rounded-full bg-gradient-to-tr from-violet-100/20 to-purple-50/10 blur-3xl opacity-70" />
-      <div className="absolute bottom-0 left-10 -z-10 h-[400px] w-[400px] rounded-full bg-gradient-to-tr from-amber-50/10 to-violet-50/5 blur-3xl opacity-50" />
+      {/* Grid Dots Background with Wavy Animation */}
+      <motion.div 
+        className="absolute inset-0 opacity-40"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #ec4899 1.5px, #a855f7 1px, #4C1D95 0.5px, transparent 3px)',
+          backgroundSize: '35px 35px'
+        }}
+        animate={{
+          backgroundPosition: ['0px 0px', '0px 20px', '0px 0px'],
+          scale: [1, 1.02, 1]
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
 
       <Swiper
         ref={swiperRef}
@@ -387,10 +480,15 @@ function HeroSection({ slides = heroSlides }) {
                   <div className="lg:col-span-7 flex flex-col items-start text-left">
                     {/* Trust Badge */}
                     <motion.div
-                      variants={itemVariants}
+                      variants={slideInVariants}
+                      whileHover={{ scale: 1.05, rotate: 1 }}
                       className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-white/70 border border-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-[#4C1D95] backdrop-blur-md mb-6"
                     >
-                      <span className="flex h-1.5 w-1.5 rounded-full bg-[#4C1D95] animate-pulse" />
+                      <motion.span 
+                        className="flex h-1.5 w-1.5 rounded-full bg-[#4C1D95]"
+                        animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
                       {details.badge}
                     </motion.div>
 
@@ -404,7 +502,7 @@ function HeroSection({ slides = heroSlides }) {
 
                     {/* Supporting Description */}
                     <motion.p
-                      variants={itemVariants}
+                      variants={slideInVariants}
                       className="text-base sm:text-[17px] text-gray-500 font-medium leading-relaxed max-w-xl mb-8"
                     >
                       {details.description}
@@ -415,47 +513,72 @@ function HeroSection({ slides = heroSlides }) {
                       variants={itemVariants}
                       className="flex flex-wrap items-center gap-4 mb-12"
                     >
-                      <Link
-                        to={slide.primaryBtnLink ?? ROUTES.APPLY_NOW}
-                        className="h-12 px-7 rounded-full flex items-center justify-center gap-2 group bg-gradient-to-r from-[#3B0764] to-[#6D28D9] text-white font-semibold text-sm shadow-[0_8px_24px_rgba(76,29,149,0.18)] hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(76,29,149,0.28)] transition-all duration-200"
-                      >
-                        <span>{slide.primaryBtnText ?? 'Apply Now'}</span>
-                        <FiArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                      </Link>
+                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                        <Link
+                          to={slide.primaryBtnLink ?? ROUTES.APPLY_NOW}
+                          className="h-12 px-7 rounded-full flex items-center justify-center gap-2 group bg-gradient-to-r from-[#3B0764] to-[#6D28D9] text-white font-semibold text-sm shadow-[0_8px_24px_rgba(76,29,149,0.18)] hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(76,29,149,0.28)] transition-all duration-200"
+                        >
+                          <span>{slide.primaryBtnText ?? 'Apply Now'}</span>
+                          <motion.div
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                          >
+                            <FiArrowRight className="h-4 w-4" />
+                          </motion.div>
+                        </Link>
+                      </motion.div>
 
-                      <Link
-                        to={ROUTES.EMI_CALCULATOR}
-                        className="h-12 px-7 rounded-full flex items-center justify-center font-semibold text-gray-700 text-sm bg-white/60 hover:bg-white/80 border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-200"
-                      >
-                        EMI Calculator
-                      </Link>
+                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                        <Link
+                          to={ROUTES.EMI_CALCULATOR}
+                          className="h-12 px-7 rounded-full flex items-center justify-center font-semibold text-gray-700 text-sm bg-white/60 hover:bg-white/80 border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-200"
+                        >
+                          EMI Calculator
+                        </Link>
+                      </motion.div>
                     </motion.div>
 
                     {/* Social Proof & Trust Signals */}
                     <motion.div
-                      variants={itemVariants}
+                      variants={scaleInVariants}
                       className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-6 border-t border-gray-200/60 w-full"
                     >
-                      <div className="flex items-center gap-3">
+                      <motion.div 
+                        className="flex items-center gap-3"
+                        whileHover={{ scale: 1.05 }}
+                      >
                         <div className="flex -space-x-2.5">
-                          <img className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="customer" />
-                          <img className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="customer" />
-                          <img className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="customer" />
+                          {[...Array(3)].map((_, i) => (
+                            <motion.img
+                              key={i}
+                              className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-sm"
+                              src={["https://images.unsplash.com/photo-1534528741775-53994a69daeb", "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d", "https://images.unsplash.com/photo-1494790108377-be9c29b29330"][i]}
+                              alt="customer"
+                              initial={{ scale: 0, rotate: -180 }}
+                              animate={{ scale: 1, rotate: 0 }}
+                              transition={{ delay: i * 0.1, duration: 0.5 }}
+                            />
+                          ))}
                         </div>
                         <div className="text-left">
                           <p className="text-xs font-bold text-gray-900 leading-tight">10,000+ Customers</p>
                           <p className="text-[10px] text-gray-400 font-semibold leading-none">Financed across India</p>
                         </div>
-                      </div>
+                      </motion.div>
 
                       <div className="h-8 w-px bg-gray-200 hidden sm:block" />
 
                       <div className="flex gap-6 sm:gap-8">
                         {details.stats.map((stat, i) => (
-                          <div key={i} className="text-left">
+                          <motion.div 
+                            key={i} 
+                            className="text-left"
+                            variants={scaleInVariants}
+                            whileHover={{ scale: 1.1 }}
+                          >
                             <p className="text-xs font-extrabold text-gray-900 leading-tight">{stat.value}</p>
                             <p className="text-[10px] text-gray-400 font-semibold leading-none mt-0.5 text-nowrap">{stat.label}</p>
-                          </div>
+                          </motion.div>
                         ))}
                       </div>
                     </motion.div>
@@ -464,23 +587,59 @@ function HeroSection({ slides = heroSlides }) {
                   {/* Right visual storytelling panel (42% width on desktop) */}
                   <div className="lg:col-span-5 flex justify-center py-8 lg:py-0">
                     <div className="relative w-full max-w-[340px] sm:max-w-[420px] aspect-[4/3] flex items-center justify-center p-4">
-                      {/* Glow effects behind composition */}
-                      <div className="absolute inset-0 bg-gradient-to-tr from-[#3B0764]/10 via-[#4C1D95]/5 to-transparent blur-2xl rounded-full" />
+                      {/* Enhanced Glow effects behind composition */}
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-tr from-[#3B0764]/10 via-[#4C1D95]/5 to-transparent blur-2xl rounded-full"
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          opacity: [0.5, 0.8, 0.5]
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-bl from-purple-200/10 via-transparent to-cyan-200/5 blur-xl rounded-full"
+                        animate={{
+                          rotate: [0, 360]
+                        }}
+                        transition={{
+                          duration: 20,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                      />
 
                       {/* Center Card */}
                       <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                        initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        whileHover={{ scale: 1.05, rotate: 2 }}
                         className="relative bg-white/40 p-6 sm:p-8 rounded-[24px] border border-white/60 shadow-[0_16px_48px_rgba(15,23,42,0.06)] backdrop-blur-md overflow-hidden w-full h-full flex items-center justify-center z-10"
                       >
-                        <img
+                        <motion.img
                           src={slide.image}
                           alt={slide.imageAlt ?? slide.heading}
-                          className="max-h-36 sm:max-h-44 w-auto object-contain z-10 transition-transform duration-300 hover:scale-105"
+                          className="max-h-36 sm:max-h-44 w-auto object-contain z-10"
+                          animate={{ y: [0, -5, 0] }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                          whileHover={{ scale: 1.1 }}
                         />
                         {/* Interactive gloss overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none" />
+                        <motion.div 
+                          className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none"
+                          animate={{
+                            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%']
+                          }}
+                          transition={{
+                            duration: 5,
+                            repeat: Infinity,
+                            ease: "linear"
+                          }}
+                        />
                       </motion.div>
 
                       {/* Floating overlay widgets */}

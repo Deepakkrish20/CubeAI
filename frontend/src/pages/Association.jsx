@@ -5,21 +5,21 @@ const ASSOCIATIONS = [
     name: 'EMFAI, Electric Mobility Financiers Association of India',
     description:
       'EMFAI (Electric Mobility Financiers Association of India) is a premier industry association committed to advancing the growth of electric mobility in India. It serves as a collaborative platform for financial institutions, manufacturers, service providers, and other stakeholders involved in the electric vehicle ecosystem. The association works towards strengthening the EV financing landscape by encouraging innovation, industry collaboration, and the adoption of sustainable transportation solutions. Bundela Fin Corp is a proud member of EMFAI and actively supports its vision of promoting green mobility, sustainable transportation, and accessible financing solutions for the electric vehicle sector.',
-    logo: '/img/c9.png',
+    logo: 'https://i.pravatar.cc/300?img=1',
     initials: 'EMFAI',
   },
   {
     name: 'FACE, Fintech Association for Consumer Empowerment',
     description:
       "The Fintech Association for Consumer Empowerment (FACE) is a leading industry body representing India's digital lending and fintech ecosystem. Recognised by the Reserve Bank of India (RBI) as the Self-Regulatory Organisation for the FinTech sector (SRO-FT), FACE plays a vital role in promoting responsible innovation, consumer protection, and ethical business practices within the industry. The association works closely with regulators, policymakers, and industry participants to establish standards that foster transparency, accountability, and trust in digital financial services. Bundela Fin Corp is a proud member of FACE and actively supports its vision of responsible financial innovation, consumer empowerment, and the development of a transparent and inclusive digital financial ecosystem.",
-    logo: '/img/c8.png',
+    logo: 'https://i.pravatar.cc/300?img=2',
     initials: 'FACE',
   },
   {
     name: 'SA-DHAN (Sa-Dhan, Fostering Inclusive Impact Finance)',
     description:
       "Sa-Dhan is India's first and largest association of Impact Finance Institutions and serves as an RBI-appointed Self-Regulatory Organization (SRO) for the microfinance sector. Established to promote inclusive finance and sustainable development, Sa-Dhan brings together a diverse network of financial institutions, microfinance organizations, banks, and development agencies working towards financial inclusion across the country. Bundela Fin Corp is a proud member of Sa-Dhan and actively supports its mission of promoting financial inclusion, responsible lending practices, and sustainable socio-economic development across India.",
-    logo: '/img/SA-DHAN.png',
+    logo: 'https://i.pravatar.cc/300?img=3',
     initials: 'Sa-Dhan',
   },
 ];
