@@ -422,7 +422,7 @@ function HeroSection({ slides = heroSlides }) {
       <motion.div 
         className="absolute inset-0 opacity-40"
         style={{
-          backgroundImage: 'radial-gradient(circle, #ec4899 1.5px, #a855f7 1px, #4C1D95 0.5px, transparent 3px)',
+          backgroundImage: 'radial-gradient(circle, #ec4899 0.8px, #a855f7 0.5px, #4C1D95 0.3px, transparent 2px)',
           backgroundSize: '35px 35px'
         }}
         animate={{

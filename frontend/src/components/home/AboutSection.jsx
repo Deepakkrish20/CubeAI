@@ -85,7 +85,7 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
       <div className="absolute top-1/2 left-0 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-tr from-violet-100/10 to-purple-50/5 blur-3xl opacity-60" />
       
       {/* Sleek background editorial grid lines */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(76,29,149,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,29,149,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-70" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(76,29,149,0.008)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,29,149,0.008)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-12">

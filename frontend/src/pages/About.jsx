@@ -1,4 +1,5 @@
 import PageHeader from '@/components/common/PageHeader';
+import AboutSection from '@/components/home/AboutSection';
 
 function About() {
   return (
@@ -8,9 +9,7 @@ function About() {
         subtitle="We Help Our Clients To Grow Their Business"
         breadcrumb="Home / About"
       />
-      <div className="section-padding container">
-        <p className="text-text-muted">About page content — to be implemented.</p>
-      </div>
+      <AboutSection />
     </>
   );
 }

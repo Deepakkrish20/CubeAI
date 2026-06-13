@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FiChevronDown, FiPhone, FiArrowRight } from 'react-icons/fi';
+import { FiChevronDown, FiPhone, FiArrowRight, FiMoon, FiSun } from 'react-icons/fi';
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { APP_CONFIG, CONTACT_INFO } from '@/constants/config';
 import { ROUTES } from '@/constants/routes';
 import ApplicationForm from '@/components/forms/ApplicationForm';
 import DealershipForm from '@/components/forms/DealershipForm';
+import { useApp } from '@/context/AppContext';
 
 // Simple Modal wrapper for form overlays - Redesigned to be premium
 function FormModal({ title, isOpen, onClose, children }) {
@@ -30,6 +31,7 @@ function FormModal({ title, isOpen, onClose, children }) {
 }
 
 function Navbar() {
+  const { isDarkMode, toggleDarkMode } = useApp();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScroll, setHasScroll] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -70,10 +72,10 @@ function Navbar() {
       >
         <nav
           id="navbar"
-          className={`duration-350 mx-auto w-[94%] max-w-7xl rounded-[20px] border border-white/45 transition-all md:rounded-[24px] ${
+          className={`duration-350 mx-auto w-[94%] max-w-7xl rounded-[20px] border transition-all md:rounded-[24px] ${
             hasScroll
-              ? 'bg-white/85 px-6 py-2.5 shadow-[0_12px_48px_rgba(15,23,42,0.12)] backdrop-blur-[24px]'
-              : 'bg-white/72 px-8 py-4 shadow-[0_8px_40px_rgba(15,23,42,0.08)] backdrop-blur-[20px]'
+              ? 'border-white/45 bg-white/85 px-6 py-2.5 shadow-[0_12px_48px_rgba(15,23,42,0.12)] backdrop-blur-[24px] dark:border-wakanda-purple/30 dark:bg-dark-bg/85 dark:shadow-[0_4px_30px_rgba(124,58,237,0.15)]'
+              : 'border-white/45 bg-white/72 px-8 py-4 shadow-[0_8px_40px_rgba(15,23,42,0.08)] backdrop-blur-[20px] dark:border-wakanda-purple/20 dark:bg-dark-bg/60 dark:shadow-[0_4px_30px_rgba(124,58,237,0.1)]'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -94,7 +96,7 @@ function Navbar() {
                 }}
               />
               <span
-                className={`duration-350 font-sans font-extrabold tracking-tight text-gray-900 transition-all ${
+                className={`duration-350 font-sans font-extrabold tracking-tight text-gray-900 transition-all dark:text-white ${
                   hasScroll ? 'text-base' : 'text-lg'
                 }`}
               >
@@ -206,13 +208,27 @@ function Navbar() {
               {/* Optional Phone Call CTA */}
               <a
                 href={`tel:${CONTACT_INFO.phone}`}
-                className="group flex items-center gap-2.5 text-xs font-semibold text-gray-600 transition-colors duration-200 hover:text-secondary"
+                className="group flex items-center gap-2.5 text-xs font-semibold text-gray-600 transition-colors duration-200 hover:text-secondary dark:text-gray-300 dark:hover:text-wakanda-purple"
               >
-                <div className="w-8.5 h-8.5 flex items-center justify-center rounded-full border border-gray-200/80 bg-white/50 shadow-sm transition-colors duration-200 group-hover:bg-white">
-                  <FiPhone className="h-3.5 w-3.5 text-secondary" />
+                <div className="w-8.5 h-8.5 flex items-center justify-center rounded-full border border-gray-200/80 bg-white/50 shadow-sm transition-colors duration-200 group-hover:bg-white dark:border-wakanda-purple/40 dark:bg-dark-bg/50 dark:group-hover:bg-wakanda-purple/20">
+                  <FiPhone className="h-3.5 w-3.5 text-secondary dark:text-wakanda-purple-light" />
                 </div>
                 <span>{CONTACT_INFO.phone}</span>
               </a>
+
+              {/* Theme Toggle Button */}
+              <button
+                onClick={toggleDarkMode}
+                type="button"
+                className="group flex h-11 w-11 items-center justify-center rounded-full border border-gray-200/80 bg-white/50 shadow-sm transition-all duration-300 hover:bg-white dark:border-wakanda-purple/40 dark:bg-dark-bg/50 dark:hover:bg-wakanda-purple/20 dark:shadow-[0_0_15px_rgba(124,58,237,0.3)]"
+                aria-label="Toggle dark mode"
+              >
+                {isDarkMode ? (
+                  <FiSun className="h-5 w-5 text-accent-400 transition-transform duration-300 group-hover:rotate-90" />
+                ) : (
+                  <FiMoon className="h-5 w-5 text-gray-600 transition-transform duration-300 group-hover:-rotate-12" />
+                )}
+              </button>
 
               {/* Apply Now Pill Button */}
               <button
@@ -226,37 +242,52 @@ function Navbar() {
             </div>
 
             {/* Mobile Animated Hamburger Menu Toggle */}
-            <button
-              onClick={toggleMenu}
-              className="p-2 text-gray-600 transition-colors duration-200 hover:text-secondary focus:outline-none lg:hidden"
-              aria-label="Toggle menu"
-              aria-expanded={isMenuOpen}
-              type="button"
-            >
-              <div className="relative flex h-6 w-6 items-center justify-center">
-                <span
-                  className={`absolute block h-0.5 w-5 bg-current transition-all duration-300 ${
-                    isMenuOpen ? 'rotate-45' : '-translate-y-1.5'
-                  }`}
-                />
-                <span
-                  className={`absolute block h-0.5 w-5 bg-current transition-all duration-300 ${
-                    isMenuOpen ? 'opacity-0' : ''
-                  }`}
-                />
-                <span
-                  className={`absolute block h-0.5 w-5 bg-current transition-all duration-300 ${
-                    isMenuOpen ? '-rotate-45' : 'translate-y-1.5'
-                  }`}
-                />
-              </div>
-            </button>
+            <div className="flex items-center gap-3 lg:hidden">
+              <button
+                onClick={toggleDarkMode}
+                type="button"
+                className="group flex h-9 w-9 items-center justify-center rounded-full border border-gray-200/80 bg-white/50 shadow-sm transition-all duration-300 hover:bg-white dark:border-wakanda-purple/40 dark:bg-dark-bg/50 dark:hover:bg-wakanda-purple/20 dark:shadow-[0_0_10px_rgba(124,58,237,0.3)]"
+                aria-label="Toggle dark mode"
+              >
+                {isDarkMode ? (
+                  <FiSun className="h-4 w-4 text-accent-400 transition-transform duration-300 group-hover:rotate-90" />
+                ) : (
+                  <FiMoon className="h-4 w-4 text-gray-600 transition-transform duration-300 group-hover:-rotate-12" />
+                )}
+              </button>
+              
+              <button
+                onClick={toggleMenu}
+                className="p-2 text-gray-600 transition-colors duration-200 hover:text-secondary dark:text-vibranium dark:hover:text-wakanda-purple focus:outline-none"
+                aria-label="Toggle menu"
+                aria-expanded={isMenuOpen}
+                type="button"
+              >
+                <div className="relative flex h-6 w-6 items-center justify-center">
+                  <span
+                    className={`absolute block h-0.5 w-5 bg-current transition-all duration-300 ${
+                      isMenuOpen ? 'rotate-45' : '-translate-y-1.5'
+                    }`}
+                  />
+                  <span
+                    className={`absolute block h-0.5 w-5 bg-current transition-all duration-300 ${
+                      isMenuOpen ? 'opacity-0' : ''
+                    }`}
+                  />
+                  <span
+                    className={`absolute block h-0.5 w-5 bg-current transition-all duration-300 ${
+                      isMenuOpen ? '-rotate-45' : 'translate-y-1.5'
+                    }`}
+                  />
+                </div>
+              </button>
+            </div>
           </div>
 
           {/* Mobile Navigation Panel - Frosted absolute card layout */}
           {isMenuOpen && (
             <div className="animate-mobile-menu-in absolute left-0 right-0 top-full z-50 mt-2 w-full origin-top px-4 lg:hidden">
-              <div className="bg-white/92 flex flex-col gap-4 rounded-[20px] border border-white/50 p-5 shadow-[0_16px_48px_rgba(15,23,42,0.16)] backdrop-blur-[20px]">
+              <div className="bg-white/92 flex flex-col gap-4 rounded-[20px] border border-white/50 p-5 shadow-[0_16px_48px_rgba(15,23,42,0.16)] backdrop-blur-[20px] dark:bg-dark-bg/95 dark:border-wakanda-purple/40 dark:shadow-[0_16px_48px_rgba(124,58,237,0.16)]">
                 <div className="flex flex-col gap-1">
                   <NavLink
                     to={ROUTES.HOME}

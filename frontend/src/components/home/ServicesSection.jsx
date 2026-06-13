@@ -35,7 +35,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
     <section id={meta?.id ?? 'services'} className="relative w-full border-t border-gray-150 bg-gradient-to-b from-white via-slate-50/20 to-white py-16 lg:py-24 overflow-hidden">
       {/* Visual background details */}
       <div className="absolute top-0 left-1/4 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-violet-100/10 to-purple-50/5 blur-3xl opacity-60" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(76,29,149,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,29,149,0.015)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-70" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(76,29,149,0.006)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,29,149,0.006)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
 
       <div ref={containerRef} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         

@@ -8,7 +8,11 @@
   }
 
   body {
-    @apply bg-background font-sans text-text antialiased;
+    background-color: #F8FAFC;
+    color: #1E293B;
+    font-family: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1,
@@ -17,7 +21,7 @@
   h4,
   h5,
   h6 {
-    @apply font-heading text-primary;
+    @apply font-heading text-primary dark:text-white;
   }
 }
 
@@ -51,10 +55,22 @@
     @apply relative text-sm font-medium text-primary-600 transition-all duration-300 hover:text-secondary;
   }
 
+  .dark .nav-link-premium {
+    color: #D1D5DB;
+  }
+
+  .dark .nav-link-premium:hover {
+    color: #9333EA;
+  }
+
   .nav-link-premium::after {
     content: '';
     @apply absolute -bottom-1.5 left-1/2 h-[2px] w-0 bg-secondary transition-all duration-[220ms] ease-out;
     transform: translateX(-50%);
+  }
+
+  .dark .nav-link-premium::after {
+    background-color: #7C3AED;
   }
 
   .nav-link-premium:hover {
@@ -67,6 +83,10 @@
 
   .nav-link-premium-active {
     @apply font-semibold text-secondary !important;
+  }
+
+  .dark .nav-link-premium-active {
+    color: #9333EA !important;
   }
 
   .nav-link-premium-active::after {
@@ -122,4 +142,274 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* ==========================================
+   WAKANDA & TESSERACT HYBRID DARK THEME OVERRIDES
+   ========================================== */
+
+/* Core section backgrounds - make them transparent so the comet background shows through */
+.dark body, 
+.dark section,
+.dark .bg-background,
+.dark .bg-white,
+.dark .bg-gray-50,
+.dark .bg-slate-50,
+.dark .bg-slate-100,
+.dark .bg-gray-100 {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Glassmorphic Obsidian Cards and Containers (Professional, clean hairline border) */
+.dark .card,
+.dark .card-premium,
+.dark .bg-white\/40,
+.dark .bg-white\/60,
+.dark .bg-white\/70,
+.dark .bg-white\/80,
+.dark .bg-white\/85,
+.dark .bg-white\/90,
+.dark .bg-white\/92,
+.dark .bg-white\/95,
+.dark .bg-white\/98,
+.dark [class*="bg-white/"] {
+  background-color: rgba(6, 4, 15, 0.82) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Premium hairline border */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important; /* Clean shadows, no glowing color drop shadows */
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Hover effect on glassmorphic cards */
+.dark .card:hover,
+.dark .bg-white\/60:hover,
+.dark .bg-white\/80:hover,
+.dark .bg-white\/90:hover,
+.dark [class*="bg-white/"]:hover {
+  border-color: rgba(6, 182, 212, 0.4) !important; /* Subtle Tesseract Cyan highlight border */
+  background-color: rgba(10, 6, 22, 0.88) !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Crisp & Clean Typography (No fuzzy shining shadows) */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+.dark .text-gray-900,
+.dark .text-slate-900,
+.dark .text-primary,
+.dark .section-title {
+  color: #ffffff !important;
+  text-shadow: none !important; /* Removed text glowing shadows */
+  letter-spacing: -0.025em !important;
+}
+
+/* Specific text hover overrides for title elements inside cards */
+.dark .group-hover\:text-\[\#3B0764\]:hover,
+.dark .group-hover\:text-\[\#3B0764\],
+.dark .group:hover .group-hover\:text-\[\#3B0764\] {
+  color: #06b6d4 !important; /* Clean Cyan */
+}
+
+/* Sleek Silver/Vibranium description texts */
+.dark .text-gray-800,
+.dark .text-slate-800,
+.dark .text-gray-700,
+.dark .text-gray-650,
+.dark .text-gray-600,
+.dark .text-slate-700,
+.dark .text-slate-600,
+.dark .text-text,
+.dark .text-text-muted,
+.dark .section-subtitle {
+  color: #cbd5e1 !important; /* Brighter, very clear Slate-300 */
+}
+
+.dark .text-gray-400,
+.dark .text-gray-500,
+.dark .text-slate-400,
+.dark .text-slate-500 {
+  color: #94a3b8 !important; /* Brighter Slate-400 for secondary text */
+}
+
+/* Cyan accents for details and icons */
+.dark .text-secondary,
+.dark .text-\[\#4C1D95\],
+.dark .text-\[\#3B0764\],
+.dark [class*="text-[#3B0764]"] {
+  color: #06b6d4 !important; 
+  text-shadow: none !important;
+}
+
+/* CTA Buttons (Professional solid rich colors) */
+.dark .bg-secondary,
+.dark .bg-\[\#4C1D95\],
+.dark button.bg-gradient-to-r,
+.dark a.bg-gradient-to-r,
+.dark .btn-primary {
+  background-color: #7C3AED !important; /* Solid Rich Wakanda Purple */
+  background-image: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .bg-secondary-600:hover,
+.dark .bg-\[\#4C1D95\]:hover,
+.dark button.bg-gradient-to-r:hover,
+.dark a.bg-gradient-to-r:hover,
+.dark .btn-primary:hover {
+  background-color: #9333EA !important; /* Brighter Purple hover */
+  background-image: none !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Solid borders and dividers (High-end thin borders) */
+.dark .border,
+.dark .border-t,
+.dark .border-b,
+.dark .border-l,
+.dark .border-r,
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-200\/80,
+.dark .border-gray-200\/50,
+.dark .border-gray-200\/60,
+.dark .border-slate-100,
+.dark .border-slate-200,
+.dark .border-violet-100,
+.dark .border-violet-100\/80 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Grid layout line overrides */
+.dark .bg-slate-200\/70 {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Icon Frame background overrides */
+.dark .bg-\[\#4C1D95\]\/5,
+.dark .bg-\[\#4C1D95\]\/10,
+.dark .bg-\[\#4C1D95\]\/15,
+.dark .group-hover\:bg-\[\#4C1D95\]\/10 {
+  background-color: rgba(6, 182, 212, 0.12) !important;
+  color: #06b6d4 !important;
+}
+
+/* Proposition hover overlays */
+.dark .from-transparent.to-violet-50\/10 {
+  background-image: none !important;
+  background-color: rgba(6, 182, 212, 0.04) !important;
+}
+
+/* Inputs, Textareas, and Dropdowns */
+.dark input,
+.dark textarea,
+.dark select,
+.dark .bg-white\/90 {
+  background-color: rgba(14, 8, 28, 0.92) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: #06b6d4 !important;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.25) !important;
+}
+
+/* Badges & Pills */
+.dark .bg-secondary\/10 {
+  background-color: rgba(6, 182, 212, 0.1) !important;
+  color: #06b6d4 !important;
+  border: 1px solid rgba(6, 182, 212, 0.2) !important;
+}
+
+/* Buttons & CTA Overrides */
+.dark .btn-outline {
+  border-color: #06b6d4 !important;
+  color: #ffffff !important;
+}
+.dark .btn-outline:hover {
+  background-color: rgba(6, 182, 212, 0.1) !important;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.2) !important;
+}
+
+/* Swiper Pagination */
+.dark .swiper-pagination-bullet-active {
+  background-color: #06b6d4 !important;
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.5) !important;
+}
+
+/* Specific Widget Overrides (e.g. stats, details) */
+.dark .border-dashed {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Remove Wavy Dot Grid and Editorial Grid Lines in Dark Mode */
+.dark #hero > div.absolute,
+.dark [class*="bg-\[linear-gradient"] {
+  display: none !important;
+  background-image: none !important;
+}
+
+/* Remove Text Gradients in Dark Mode - fallback to clean solid Cyan */
+.dark .bg-clip-text,
+.dark [class*="bg-clip-text"] {
+  background-image: none !important;
+  background-color: transparent !important; /* Fix solid box overlays */
+  background-clip: unset !important;
+  -webkit-background-clip: unset !important;
+  color: #06b6d4 !important; /* Solid Cyan */
+  -webkit-text-fill-color: #06b6d4 !important;
+  text-shadow: none !important;
+  font-weight: 800 !important;
+}
+
+/* Remove Hero Section ambient gradient shining glow overlays completely */
+.dark #hero [class*="bg-gradient-to-tr"],
+.dark #hero [class*="bg-gradient-to-bl"] {
+  display: none !important;
+  background-image: none !important;
+}
+
+/* Segmented controls tabs in AboutSection */
+.dark .bg-slate-100 {
+  background-color: rgba(14, 8, 28, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.dark .bg-slate-100 button {
+  color: #94a3b8 !important;
+}
+.dark .bg-slate-100 button.bg-\[\#4C1D95\] {
+  background-color: #7C3AED !important; /* Solid Purple active state */
+  background-image: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Footer adjustments */
+.dark footer {
+  background-color: rgba(3, 1, 8, 0.95) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Page Header background grid animation */
+.page-header-grid {
+  background-image: linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridScroll 20s linear infinite;
+}
+
+.dark .page-header-grid {
+  background-image: linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px) !important;
+}
+
+/* Floating cards in AboutSection in dark mode */
+.dark .absolute.bg-white {
+  background-color: rgba(6, 4, 15, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
 }

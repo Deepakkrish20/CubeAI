@@ -4,16 +4,9 @@
  */
 function PageHeader({ title, subtitle, breadcrumb }) {
   return (
-    <section className="relative overflow-hidden bg-white py-16 text-gray-900">
+    <section className="relative overflow-hidden bg-white py-16 text-gray-900 border-b border-gray-100">
       {/* Animated Grid Background */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: 'linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-          animation: 'gridScroll 20s linear infinite'
-        }}
-      />
+      <div className="page-header-grid absolute inset-0 z-0" />
       <style>{`
         @keyframes gridScroll {
           0% {

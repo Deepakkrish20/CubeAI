@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -49,6 +50,11 @@ export default {
           muted: '#64748B',
           light: '#94A3B8',
         },
+        // Wakanda Dark Mode Colors
+        'dark-bg': '#050505',
+        'wakanda-purple': '#7C3AED',
+        'wakanda-purple-light': '#9333EA',
+        vibranium: '#D1D5DB',
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
@@ -86,12 +92,17 @@ export default {
           '0 10px 40px -10px rgba(15, 23, 42, 0.15), 0 4px 15px -5px rgba(15, 23, 42, 0.08)',
         glow: '0 0 20px rgba(76, 29, 149, 0.25)',
         'glow-accent': '0 0 20px rgba(245, 158, 11, 0.25)',
+        'wakanda-glow': '0 0 25px rgba(147, 51, 234, 0.4)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out forwards',
         'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
         'slide-in-right': 'slideInRight 0.5s ease-out forwards',
         'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+        stardust: 'stardustStreak linear infinite',
+        twinkle: 'starTwinkle ease-in-out infinite',
+        'spin-slow': 'spinSlow 25s linear infinite',
+        'float-slow': 'floatSlow 10s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -110,6 +121,30 @@ export default {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.7' },
         },
+        starTwinkle: {
+          '0%, 100%': { opacity: '0.2' },
+          '50%': { opacity: '1' },
+        },
+        spinSlow: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        floatSlow: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-15px)' },
+        },
+        stardustStreak: {
+          '0%': {
+            transform: 'translateY(-100px)',
+            opacity: '0',
+          },
+          '10%': { opacity: '0.8' },
+          '90%': { opacity: '0.8' },
+          '100%': {
+            transform: 'translateY(105vh)',
+            opacity: '0',
+          },
+        },
       },
       screens: {
         xs: '475px',
@@ -121,3 +156,4 @@ export default {
   },
   plugins: [],
 };
+
