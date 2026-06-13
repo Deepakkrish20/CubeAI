@@ -18,17 +18,17 @@ export default {
           900: '#0F172A',
         },
         secondary: {
-          DEFAULT: '#6D28D9',
+          DEFAULT: '#4C1D95',
           50: '#F5F3FF',
           100: '#EDE9FE',
           200: '#DDD6FE',
           300: '#C4B5FD',
           400: '#A78BFA',
-          500: '#8B5CF6',
-          600: '#7C3AED',
-          700: '#6D28D9',
-          800: '#5B21B6',
-          900: '#4C1D95',
+          500: '#7C3AED',
+          600: '#6D28D9',
+          700: '#5B21B6',
+          800: '#4C1D95',
+          900: '#2E1065',
         },
         accent: {
           DEFAULT: '#F59E0B',
@@ -84,7 +84,7 @@ export default {
         card: '0 4px 25px -5px rgba(15, 23, 42, 0.1), 0 2px 10px -6px rgba(15, 23, 42, 0.08)',
         elevated:
           '0 10px 40px -10px rgba(15, 23, 42, 0.15), 0 4px 15px -5px rgba(15, 23, 42, 0.08)',
-        glow: '0 0 20px rgba(109, 40, 217, 0.25)',
+        glow: '0 0 20px rgba(76, 29, 149, 0.25)',
         'glow-accent': '0 0 20px rgba(245, 158, 11, 0.25)',
       },
       animation: {
