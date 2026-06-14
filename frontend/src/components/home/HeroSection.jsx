@@ -273,14 +273,11 @@ function FloatingWidget({ widget }) {
               {widget.status}
             </motion.span>
           </div>
-          <motion.p 
-            className="text-[14px] sm:text-base font-extrabold text-gray-900 leading-tight mt-0.5"
-            animate={{ backgroundPosition: ['0%', '100%'] }}
-            style={{ background: 'linear-gradient(90deg, #1f2937, #4b5563, #1f2937)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
-            transition={{ duration: 3, repeat: Infinity }}
+          <p 
+            className="text-[14px] sm:text-base font-extrabold text-gray-900 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent leading-tight mt-0.5"
           >
             {widget.amount}
-          </motion.p>
+          </p>
           <p className="text-[10px] text-gray-500 truncate leading-none mt-1">{widget.detail}</p>
         </div>
       </motion.div>
@@ -312,13 +309,9 @@ function FloatingWidget({ widget }) {
         </motion.div>
         <div className="flex-1 min-w-0">
           <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wide leading-none">{widget.title}</p>
-          <motion.p 
-            className="text-[13px] sm:text-[14px] font-black text-gray-900 mt-1 leading-tight"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          >
+          <p className="text-[13px] sm:text-[14px] font-black text-gray-900 mt-1 leading-tight">
             {widget.amount}
-          </motion.p>
+          </p>
           <p className="text-[9px] text-gray-400 truncate leading-none mt-0.5">{widget.detail}</p>
         </div>
       </motion.div>
@@ -338,13 +331,9 @@ function FloatingWidget({ widget }) {
       }}
       whileHover={{ scale: 1.1, boxShadow: "0 12px 32px rgba(15,23,42,0.08)" }}
     >
-      <motion.p 
-        className="text-lg sm:text-2xl font-black text-gray-900 tracking-tight leading-none"
-        animate={{ color: ['#1f2937', '#4b5563', '#1f2937'] }}
-        transition={{ duration: 4, repeat: Infinity }}
-      >
+      <p className="text-lg sm:text-2xl font-black text-gray-900 tracking-tight leading-none">
         {widget.value}
-      </motion.p>
+      </p>
       <p className="text-[9px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-wide leading-tight mt-1.5">{widget.title}</p>
       <p className="text-[8px] sm:text-[9px] text-gray-400 mt-0.5 leading-tight">{widget.detail}</p>
     </motion.div>
@@ -419,20 +408,12 @@ function HeroSection({ slides = heroSlides }) {
   return (
     <section id="hero" className="relative w-full overflow-hidden border-b border-gray-100 bg-gradient-to-b from-slate-50 via-white to-slate-50">
       {/* Grid Dots Background with Wavy Animation */}
-      <motion.div 
-        className="absolute inset-0 opacity-40"
+      <div 
+        className="absolute inset-[-40px] opacity-40 pointer-events-none hero-wavy-grid"
         style={{
           backgroundImage: 'radial-gradient(circle, #ec4899 0.8px, #a855f7 0.5px, #4C1D95 0.3px, transparent 2px)',
-          backgroundSize: '35px 35px'
-        }}
-        animate={{
-          backgroundPosition: ['0px 0px', '0px 20px', '0px 0px'],
-          scale: [1, 1.02, 1]
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
+          backgroundSize: '35px 35px',
+          willChange: 'transform'
         }}
       />
 

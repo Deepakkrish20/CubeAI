@@ -311,6 +311,35 @@
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
+/* Ensure dropdown options are visible in dark mode */
+.dark select option,
+.dark option {
+  background-color: #0e081c !important;
+  color: #ffffff !important;
+}
+
+/* Ensure gender and custom radio box options are highly visible in dark theme */
+.dark label.cursor-pointer:has(input[type="radio"]),
+.dark label.cursor-pointer:has(input[type="checkbox"]) {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  color: #cbd5e1 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark label.cursor-pointer:has(input[type="radio"]):hover,
+.dark label.cursor-pointer:has(input[type="checkbox"]):hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-color: #06b6d4 !important;
+}
+
+.dark label.cursor-pointer:has(input[type="radio"]:checked),
+.dark label.cursor-pointer:has(input[type="checkbox"]:checked) {
+  background-color: rgba(6, 182, 212, 0.12) !important;
+  color: #06b6d4 !important;
+  border-color: #06b6d4 !important;
+}
+
 .dark input:focus,
 .dark textarea:focus,
 .dark select:focus {
@@ -413,3 +442,19 @@
   border-color: rgba(255, 255, 255, 0.08) !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
 }
+
+/* Hero Wavy Grid Background Animation (GPU-Accelerated) */
+@keyframes heroWavyGrid {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, 20px, 0) scale(1.02);
+  }
+}
+
+.hero-wavy-grid {
+  animation: heroWavyGrid 4s ease-in-out infinite;
+  will-change: transform;
+}
+
