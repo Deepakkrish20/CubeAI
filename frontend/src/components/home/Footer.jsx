@@ -5,6 +5,7 @@ import NewsletterForm from '@/components/forms/NewsletterForm';
 import { footerData } from '@/data/footerData';
 import { FiMapPin, FiPhone, FiMail, FiX } from 'react-icons/fi';
 import { FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import Logo from '@/components/common/Logo';
 
 const UNAVAILABLE_MESSAGE = 'Footer information is currently unavailable.';
 
@@ -121,7 +122,8 @@ function Footer({ data = footerData }) {
           
           {/* Office Info */}
           <section className="flex flex-col gap-5">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Our Office</h4>
+            <Logo showText={true} className="h-12 w-12" textColor="text-white" />
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-white mt-2">Our Office</h4>
             {contactDetails.officeName && (
               <p className="text-sm font-black text-white">{contactDetails.officeName}</p>
             )}

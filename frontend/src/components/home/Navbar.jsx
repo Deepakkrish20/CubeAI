@@ -7,6 +7,7 @@ import { ROUTES } from '@/constants/routes';
 import ApplicationForm from '@/components/forms/ApplicationForm';
 import DealershipForm from '@/components/forms/DealershipForm';
 import { useApp } from '@/context/AppContext';
+import Logo from '@/components/common/Logo';
 
 // Simple Modal wrapper for form overlays - Redesigned to be premium
 function FormModal({ title, isOpen, onClose, children }) {
@@ -82,26 +83,15 @@ function Navbar() {
             {/* Brand Logo */}
             <NavLink
               to={ROUTES.HOME}
-              className="group flex items-center gap-2.5"
+              className="group flex items-center"
               onClick={closeMenu}
             >
-              <img
-                src="/img/logo1.png"
-                alt="logo"
-                className={`duration-350 w-auto object-contain transition-all ${
-                  hasScroll ? 'h-8' : 'h-10'
+              <Logo
+                className={`duration-350 transition-all ${
+                  hasScroll ? 'h-9 w-9' : 'h-11 w-11'
                 }`}
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
+                showText={true}
               />
-              <span
-                className={`duration-350 font-sans font-extrabold tracking-tight text-gray-900 transition-all dark:text-white ${
-                  hasScroll ? 'text-base' : 'text-lg'
-                }`}
-              >
-                {APP_CONFIG.name}
-              </span>
             </NavLink>
 
             {/* Desktop Navigation Links */}

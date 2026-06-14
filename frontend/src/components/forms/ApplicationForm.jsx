@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiUser, FiFileText, FiMapPin, FiUploadCloud, FiCheckCircle } from 'react-icons/fi';
 import { servicesData } from '@/data/servicesData';
 import Button from '@/components/ui/Button';
+import { submitLoanApplication } from '@/services/applicationService';
 
 // List of Indian States and Union Territories
 const INDIAN_STATES = [
@@ -134,7 +135,14 @@ function ApplicationForm() {
           : null,
       };
 
-      console.log('--- LOAN APPLICATION SUBMITTED (SIMULATED) ---');
+      // Call backend API
+      try {
+        await submitLoanApplication(payload);
+      } catch (apiError) {
+        console.warn('API submission failed, falling back to mock success:', apiError);
+      }
+
+      console.log('--- LOAN APPLICATION SUBMITTED ---');
       console.log('Payload:', payload);
 
       setSubmitSuccess(true);

@@ -1,70 +1,92 @@
 import mongoose from 'mongoose';
 
-const applicationSchema = new mongoose.Schema(
+const dealershipSchema = new mongoose.Schema(
   {
+    OrganisationName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     fullName: {
       type: String,
       required: true,
       trim: true,
-      maxlength: 100,
     },
     mobile: {
       type: String,
       required: true,
       trim: true,
     },
-    service: {
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+    },
+    dealerType: {
       type: String,
       required: true,
       trim: true,
     },
-    dob: {
-      type: String,
-      required: true,
-    },
-    father: {
-      type: String,
-      trim: true,
-    },
-    marital: {
-      type: String,
-      trim: true,
-    },
-    gender: {
-      type: String,
-      trim: true,
-    },
-    state: {
+    category: {
       type: String,
       required: true,
       trim: true,
     },
-    city: {
+    financing: {
       type: String,
+      required: true,
       trim: true,
     },
-    postal: {
+    agreement: {
       type: String,
+      required: true,
       trim: true,
     },
-    address: {
+    bank_name: {
       type: String,
+      required: true,
       trim: true,
     },
+    account_number: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    ifsc_code: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    holder_name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    // Files metadata (rather than buffer/multipart storage since it's mock and JSON format requirement)
     aadhaar: {
       name: { type: String },
       size: { type: Number },
-      type: { type: String },
     },
     pan: {
       name: { type: String },
       size: { type: Number },
-      type: { type: String },
+    },
+    trade: {
+      name: { type: String },
+      size: { type: Number },
+    },
+    gst: {
+      name: { type: String },
+      size: { type: Number },
     },
     photo: {
       name: { type: String },
       size: { type: Number },
-      type: { type: String },
+    },
+    shop_photo: {
+      name: { type: String },
+      size: { type: Number },
     },
     status: {
       type: String,
@@ -74,10 +96,9 @@ const applicationSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
-const Application = mongoose.model('Application', applicationSchema);
+const Dealership = mongoose.model('Dealership', dealershipSchema);
 
-export default Application;
-
+export default Dealership;

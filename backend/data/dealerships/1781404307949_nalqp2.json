@@ -1,0 +1,15 @@
+{
+  "_savedAt": "2026-06-14T02:31:47.949Z",
+  "OrganisationName": "Tesla Corp",
+  "fullName": "Elon Musk",
+  "mobile": "9876543210",
+  "email": "elon@tesla.com",
+  "dealerType": "Vehicle",
+  "category": "Distributor",
+  "financing": "Financing_TA",
+  "agreement": "Agreement_Signed",
+  "bank_name": "Chase Bank",
+  "account_number": "1234567890",
+  "ifsc_code": "CHAS0123456",
+  "holder_name": "Elon Musk"
+}

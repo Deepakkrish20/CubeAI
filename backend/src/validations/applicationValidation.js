@@ -19,26 +19,23 @@ export const applicationValidation = [
     .withMessage('Full name is required')
     .isLength({ max: 100 })
     .withMessage('Name must not exceed 100 characters'),
-  body('email')
+  body('mobile')
     .trim()
     .notEmpty()
-    .withMessage('Email is required')
-    .isEmail()
-    .withMessage('Please provide a valid email'),
-  body('phone')
-    .trim()
-    .notEmpty()
-    .withMessage('Phone is required')
+    .withMessage('Mobile number is required')
     .matches(/^[6-9]\d{9}$/)
-    .withMessage('Please provide a valid 10-digit Indian phone number'),
-  body('loanType')
+    .withMessage('Please provide a valid 10-digit Indian mobile number'),
+  body('service')
     .notEmpty()
-    .withMessage('Loan type is required')
+    .withMessage('Service (loan type) is required')
     .isIn(LOAN_TYPES)
-    .withMessage('Invalid loan type'),
-  body('amount')
+    .withMessage('Invalid service selected'),
+  body('dob')
     .notEmpty()
-    .withMessage('Amount is required')
-    .isInt({ min: 10000 })
-    .withMessage('Minimum loan amount is INR 10,000'),
+    .withMessage('Date of birth is required'),
+  body('state')
+    .trim()
+    .notEmpty()
+    .withMessage('State is required'),
 ];
+

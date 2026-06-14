@@ -1,6 +1,9 @@
 import Newsletter from '../models/Newsletter.js';
+import { saveJsonSubmission } from '../utils/jsonStorage.js';
 
 export const subscribeEmail = async (email) => {
+  await saveJsonSubmission('newsletters', { email });
+
   const existing = await Newsletter.findOne({ email });
 
   if (existing) {
@@ -18,3 +21,4 @@ export const subscribeEmail = async (email) => {
   const subscription = await Newsletter.create({ email });
   return subscription;
 };
+

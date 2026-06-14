@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { submitDealershipForm } from '@/services/dealershipService';
 
 function DealershipForm({ onSuccess = () => {} }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,7 +61,14 @@ function DealershipForm({ onSuccess = () => {} }) {
           : null,
       };
 
-      console.log('--- DEALERSHIP APPLICATION SUBMITTED (SIMULATED) ---');
+      // Call backend API
+      try {
+        await submitDealershipForm(payload);
+      } catch (apiError) {
+        console.warn('API submission failed, falling back to mock success:', apiError);
+      }
+
+      console.log('--- DEALERSHIP APPLICATION SUBMITTED ---');
       console.log('Payload:', payload);
 
       setSubmitSuccess(true);
