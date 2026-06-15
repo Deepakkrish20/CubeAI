@@ -399,14 +399,18 @@ function HeroSection({ slides = heroSlides }) {
   };
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden border-b border-gray-100 bg-gradient-to-b from-slate-50 via-white to-slate-50" style={{ height: '680px' }}>
-      {/* Grid Dots Background — LEFT HALF ONLY, behind text */}
-      <div 
-        className="absolute top-0 left-0 bottom-0 w-1/2 opacity-40 pointer-events-none hero-wavy-grid"
+    <section
+      id="hero"
+      className="hero-section relative w-full overflow-hidden border-b border-gray-100 bg-gradient-to-b from-slate-50 via-white to-slate-50"
+    >
+      {/* Grid Dots Background — desktop left half only */}
+      <div
+        className="hero-wavy-grid pointer-events-none absolute bottom-0 left-0 top-0 hidden w-1/2 opacity-40 lg:block"
         style={{
-          backgroundImage: 'radial-gradient(circle, #ec4899 0.8px, #a855f7 0.5px, #00D09C 0.3px, transparent 2px)',
+          backgroundImage:
+            'radial-gradient(circle, #ec4899 0.8px, #a855f7 0.5px, #00D09C 0.3px, transparent 2px)',
           backgroundSize: '35px 35px',
-          willChange: 'transform'
+          willChange: 'transform',
         }}
       />
 
@@ -416,6 +420,7 @@ function HeroSection({ slides = heroSlides }) {
         autoplay={{ delay: 6000, disableOnInteraction: false }}
         loop
         speed={700}
+        autoHeight
         navigation={{
           prevEl: '.hero-swiper-button-prev',
           nextEl: '.hero-swiper-button-next',
@@ -424,7 +429,7 @@ function HeroSection({ slides = heroSlides }) {
           el: '.hero-swiper-pagination',
           clickable: true,
         }}
-        className="w-full h-full"
+        className="hero-swiper w-full"
       >
         {validSlides.map((slide) => {
           const details = slideDetails[slide.id] || {
@@ -440,17 +445,15 @@ function HeroSection({ slides = heroSlides }) {
           };
 
           return (
-            <SwiperSlide key={slide.id}>
-              {/* Full-bleed flex row — no max-w container */}
-              <div className="flex h-full w-full">
-
-                {/* LEFT 50% — text content with grid dot bg behind it */}
+            <SwiperSlide key={slide.id} className="hero-swiper-slide">
+              <div className="flex w-full flex-col lg:h-[680px] lg:flex-row">
+                {/* Text content — full width on mobile */}
                 <motion.div
                   key={slide.id}
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
-                  className="relative z-10 w-1/2 flex flex-col justify-center pl-8 sm:pl-12 lg:pl-20 pr-8 lg:pr-12 py-12 md:py-16"
+                  className="relative z-10 flex w-full flex-col justify-center px-4 py-8 sm:px-8 sm:py-10 lg:w-1/2 lg:px-12 lg:py-16 lg:pl-20 lg:pr-12"
                 >
                   {/* Trust Badge */}
                   <motion.div
@@ -469,7 +472,7 @@ function HeroSection({ slides = heroSlides }) {
                   {/* Headline */}
                   <motion.h1
                     variants={itemVariants}
-                    className="font-heading text-[34px] sm:text-[44px] md:text-[52px] lg:text-[58px] font-black tracking-tight leading-[1.08] text-gray-900 text-balance mb-6"
+                    className="font-heading mb-4 text-balance text-[28px] font-black leading-[1.1] tracking-tight text-gray-900 sm:mb-6 sm:text-[36px] md:text-[44px] lg:text-[58px]"
                   >
                     {renderHighlightedHeading(slide.heading, details.highlightWords)}
                   </motion.h1>
@@ -477,20 +480,36 @@ function HeroSection({ slides = heroSlides }) {
                   {/* Supporting Description */}
                   <motion.p
                     variants={slideInVariants}
-                    className="text-base sm:text-[17px] text-gray-500 font-medium leading-relaxed max-w-lg mb-8"
+                    className="mb-6 max-w-lg text-sm font-medium leading-relaxed text-gray-500 sm:mb-8 sm:text-base sm:text-[17px]"
                   >
                     {details.description}
                   </motion.p>
 
+                  {/* Hero image — shown early on mobile, hidden here on desktop */}
+                  <motion.div
+                    key={`${slide.id}-img-mobile`}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative mb-6 aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_16px_40px_rgba(15,23,42,0.12)] sm:mb-8 sm:aspect-[16/10] lg:hidden"
+                  >
+                    <img
+                      src={slide.image}
+                      alt={slide.imageAlt ?? slide.heading}
+                      className="h-full w-full object-cover object-center"
+                      loading="eager"
+                    />
+                  </motion.div>
+
                   {/* CTA Buttons */}
                   <motion.div
                     variants={itemVariants}
-                    className="flex flex-wrap items-center gap-4 mb-10"
+                    className="mb-6 flex flex-wrap items-center gap-3 sm:mb-10 sm:gap-4"
                   >
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Link
                         to={slide.primaryBtnLink ?? ROUTES.APPLY_NOW}
-                        className="h-12 px-7 rounded-full flex items-center justify-center gap-2 group bg-gradient-to-r from-[#006B50] to-[#00B386] text-white font-semibold text-sm shadow-[0_8px_24px_rgba(0,208,156,0.18)] hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,208,156,0.28)] transition-all duration-200"
+                        className="group flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#006B50] to-[#00B386] px-6 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(0,208,156,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_12px_30px_rgba(0,208,156,0.28)] sm:h-12 sm:px-7"
                       >
                         <span>{slide.primaryBtnText ?? 'Apply Now'}</span>
                         <motion.div
@@ -505,7 +524,7 @@ function HeroSection({ slides = heroSlides }) {
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Link
                         to={ROUTES.EMI_CALCULATOR}
-                        className="h-12 px-7 rounded-full flex items-center justify-center font-semibold text-gray-700 text-sm bg-white/60 hover:bg-white/80 border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-200"
+                        className="flex h-11 items-center justify-center rounded-full border border-gray-200/80 bg-white/60 px-6 text-sm font-semibold text-gray-700 shadow-[0_2px_12px_rgba(0,0,0,0.02)] transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-white/80 sm:h-12 sm:px-7"
                       >
                         EMI Calculator
                       </Link>
@@ -515,7 +534,7 @@ function HeroSection({ slides = heroSlides }) {
                   {/* Social Proof */}
                   <motion.div
                     variants={scaleInVariants}
-                    className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-6 border-t border-gray-200/60 w-full"
+                    className="flex w-full flex-wrap items-center gap-x-6 gap-y-4 border-t border-gray-200/60 pt-5 sm:gap-x-8 sm:pt-6"
                   >
                     <motion.div 
                       className="flex items-center gap-3"
@@ -542,40 +561,43 @@ function HeroSection({ slides = heroSlides }) {
 
                     <div className="h-8 w-px bg-gray-200 hidden sm:block" />
 
-                    <div className="flex gap-6 sm:gap-8">
+                    <div className="grid w-full grid-cols-3 gap-3 sm:flex sm:w-auto sm:gap-6 md:gap-8">
                       {details.stats.map((stat, i) => (
-                        <motion.div 
-                          key={i} 
+                        <motion.div
+                          key={i}
                           className="text-left"
                           variants={scaleInVariants}
                           whileHover={{ scale: 1.1 }}
                         >
-                          <p className="text-xs font-extrabold text-gray-900 leading-tight">{stat.value}</p>
-                          <p className="text-[10px] text-gray-400 font-semibold leading-none mt-0.5 text-nowrap">{stat.label}</p>
+                          <p className="text-[11px] font-extrabold leading-tight text-gray-900 sm:text-xs">
+                            {stat.value}
+                          </p>
+                          <p className="mt-0.5 text-[9px] font-semibold leading-snug text-gray-400 sm:text-[10px]">
+                            {stat.label}
+                          </p>
                         </motion.div>
                       ))}
                     </div>
                   </motion.div>
                 </motion.div>
 
-                {/* RIGHT 50% — image with proper spacing, contained */}
-                <div className="w-1/2 overflow-hidden flex items-center py-8 pr-10 pl-4">
+                {/* Hero image — desktop side panel only */}
+                <div className="hidden w-full shrink-0 items-center lg:flex lg:h-full lg:w-1/2 lg:py-8 lg:pl-4 lg:pr-10">
                   <motion.div
-                    key={slide.id + '-img-wrap'}
+                    key={`${slide.id}-img-wrap`}
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full h-full relative rounded-2xl overflow-hidden"
+                    className="relative h-full w-full overflow-hidden rounded-2xl"
                   >
                     <img
                       src={slide.image}
                       alt={slide.imageAlt ?? slide.heading}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="h-full w-full object-cover object-center"
                       loading="eager"
                     />
                   </motion.div>
                 </div>
-
               </div>
             </SwiperSlide>
           );
@@ -600,7 +622,7 @@ function HeroSection({ slides = heroSlides }) {
       </button>
 
       {/* Apple-style pill pagination bar */}
-      <div className="hero-swiper-pagination pb-8" />
+      <div className="hero-swiper-pagination pb-6 pt-2 sm:pb-8 sm:pt-0" />
     </section>
   );
 }

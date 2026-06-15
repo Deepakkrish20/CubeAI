@@ -489,3 +489,18 @@
   will-change: transform;
 }
 
+/* Hero swiper — auto height on mobile, fixed height on desktop */
+.hero-section .hero-swiper,
+.hero-section .hero-swiper .swiper-wrapper,
+.hero-section .hero-swiper-slide {
+  height: auto;
+}
+
+@media (min-width: 1024px) {
+  .hero-section .hero-swiper,
+  .hero-section .hero-swiper .swiper-wrapper,
+  .hero-section .hero-swiper-slide {
+    height: 680px;
+  }
+}
+
