@@ -44,20 +44,20 @@ function PartnersSection({ data = partnersData, meta = PARTNERS_SECTION_META }) 
         </motion.header>
 
         {/* Partners Grid */}
-        <div className="grid gap-6 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 items-center justify-items-center">
           {partners.map((partner, idx) => (
-            <motion.article
+            <motion.div
               key={partner.id}
-              initial={{ opacity: 0, y: 16, scale: 0.96 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 16, scale: 0.96 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
               transition={{ duration: 0.55, ease: 'easeOut', delay: idx * 0.1 }}
-              className="flex flex-col items-center justify-center border border-gray-200/50 rounded-2xl bg-white px-6 py-8 text-center cursor-default hover:border-violet-200 hover:bg-violet-50/10 hover:shadow-[0_12px_32px_rgba(0, 208, 156,0.06)] transition-all duration-300 group gap-4 min-h-[160px]"
+              className="flex items-center justify-center overflow-hidden w-[160px] h-[160px]"
             >
               {partner.logo ? (
                 <img
                   src={partner.logo}
                   alt={partner.name}
-                  className="h-16 w-auto max-w-[200px] object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-400"
+                  className="h-full w-full object-contain scale-[1.15]"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.nextElementSibling.style.display = 'flex';
@@ -69,10 +69,7 @@ function PartnersSection({ data = partnersData, meta = PARTNERS_SECTION_META }) 
               >
                 <p className="text-sm font-black text-white uppercase tracking-wide px-3">{partner.name}</p>
               </div>
-              <p className="text-sm font-bold text-gray-600 group-hover:text-[#00D09C] transition-colors duration-200 text-center leading-snug">
-                {partner.name}
-              </p>
-            </motion.article>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -12,25 +12,25 @@ export const partnersData = [
   {
     id: 'nonghyup-bank',
     name: 'NongHyup Bank',
-    logo: '/img/partner-nonghyup.png',
+    logo: 'https://www.bundelafinance.com/img/service-1.jpg',
     order: 1,
   },
   {
     id: 'phf-leasing',
     name: 'PHF Leasing Ltd',
-    logo: 'https://placehold.co/200x80/006B50/ffffff?text=PHF+Leasing',
+    logo: 'https://www.bundelafinance.com/img/service-2.jpg',
     order: 2,
   },
   {
     id: 'arthmate',
     name: 'Arthmate',
-    logo: '/img/partner-arthmate.png',
+    logo: 'https://www.bundelafinance.com/img/service-3.jpg',
     order: 3,
   },
   {
     id: 'rtf',
     name: 'RTF',
-    logo: 'https://placehold.co/200x80/00D09C/ffffff?text=RTF',
+    logo: 'https://www.bundelafinance.com/img/service-4.jpg',
     order: 4,
   },
 ];
