@@ -449,9 +449,9 @@ function HeroSection({ slides = heroSlides }) {
                 animate="visible"
                 className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24"
               >
-                <div className="grid items-center gap-12 lg:grid-cols-12">
+                <div className="grid items-center gap-16 lg:gap-24 lg:grid-cols-12">
                   {/* Left content panel (58% width on desktop) */}
-                  <div className="lg:col-span-7 flex flex-col items-start text-left">
+                  <div className="lg:col-span-6 flex flex-col items-start text-left">
                     {/* Trust Badge */}
                     <motion.div
                       variants={slideInVariants}
@@ -558,69 +558,18 @@ function HeroSection({ slides = heroSlides }) {
                     </motion.div>
                   </div>
 
-                  {/* Right visual storytelling panel (42% width on desktop) */}
-                  <div className="lg:col-span-5 flex justify-center py-8 lg:py-0">
-                    <div className="relative w-full max-w-[340px] sm:max-w-[420px] aspect-[4/3] flex items-center justify-center p-4">
-                      {/* Enhanced Glow effects behind composition */}
-                      <motion.div 
-                        className="absolute inset-0 bg-gradient-to-tr from-[#006B50]/10 via-[#00D09C]/5 to-transparent blur-2xl rounded-full"
-                        animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0.5, 0.8, 0.5]
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      />
-                      <motion.div 
-                        className="absolute inset-0 bg-gradient-to-bl from-purple-200/10 via-transparent to-cyan-200/5 blur-xl rounded-full"
-                        animate={{
-                          rotate: [0, 360]
-                        }}
-                        transition={{
-                          duration: 20,
-                          repeat: Infinity,
-                          ease: "linear"
-                        }}
-                      />
-
-                      {/* Center Card */}
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                        whileHover={{ scale: 1.05, rotate: 2 }}
-                        className="relative bg-white/40 p-6 sm:p-8 rounded-[24px] border border-white/60 shadow-[0_16px_48px_rgba(15,23,42,0.06)] backdrop-blur-md overflow-hidden w-full h-full flex items-center justify-center z-10"
-                      >
-                        <motion.img
-                          src={slide.image}
-                          alt={slide.imageAlt ?? slide.heading}
-                          className="max-h-36 sm:max-h-44 w-auto object-contain z-10"
-                          animate={{ y: [0, -5, 0] }}
-                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                          whileHover={{ scale: 1.1 }}
-                        />
-                        {/* Interactive gloss overlay */}
-                        <motion.div 
-                          className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none"
-                          animate={{
-                            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%']
-                          }}
-                          transition={{
-                            duration: 5,
-                            repeat: Infinity,
-                            ease: "linear"
-                          }}
-                        />
-                      </motion.div>
-
-                      {/* Floating overlay widgets */}
-                      {details.widgets.map((widget, idx) => (
-                        <FloatingWidget key={idx} widget={widget} />
-                      ))}
-                    </div>
+                  {/* Right panel — bare full-size real photo, no card */}
+                  <div className="lg:col-span-6 relative py-4 lg:py-0">
+                    <motion.img
+                      key={slide.id + '-img'}
+                      src={slide.image}
+                      alt={slide.imageAlt ?? slide.heading}
+                      initial={{ opacity: 0, x: 60 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.85, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                      className="w-full h-auto max-h-[520px] object-cover"
+                      loading="eager"
+                    />
                   </div>
                 </div>
               </motion.div>
