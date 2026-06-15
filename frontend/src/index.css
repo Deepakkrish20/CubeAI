@@ -125,6 +125,37 @@
     animation: mobileMenuIn 280ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
+  /* Solid mobile nav panel — must stay opaque in light and dark mode */
+  .mobile-nav-panel {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 16px 48px rgba(15, 23, 42, 0.18);
+  }
+
+  .dark .mobile-nav-panel {
+    background-color: #0a0616 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.65) !important;
+  }
+
+  .mobile-nav-link {
+    @apply rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors;
+  }
+
+  .mobile-nav-link-default {
+    @apply text-gray-900 hover:bg-gray-100;
+  }
+
+  .dark .mobile-nav-link-default {
+    color: #f8fafc !important;
+  }
+
+  .dark .mobile-nav-link-default:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+  }
+
   /* Custom Premium Swiper Styles */
   .hero-swiper-pagination {
     @apply flex justify-center items-center gap-2 w-full !important;
