@@ -1,120 +1,203 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { clientsData, CLIENTS_SECTION_META } from '@/data/clientsData';
 
+/* ─── 3D Circular Carousel Component ───────────────────────────────── */
+function Circular3DCarousel({ items }) {
+  const containerRef = useRef(null);
+  const [angle, setAngle] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
-/* ─── single client logo wrapper ──────────────────────────────────── */
-function ClientLogo({ client }) {
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const startAngle = useRef(0);
+  const velocity = useRef(0);
+  const lastX = useRef(0);
+  const lastTime = useRef(0);
+  const animationFrameId = useRef(null);
+  const isHovered = useRef(false);
+
+  // Responsive width tracking
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Main animation physics loop
+  useEffect(() => {
+    let lastFrameTime = performance.now();
+
+    const updatePhysics = (now) => {
+      const delta = now - lastFrameTime;
+      lastFrameTime = now;
+
+      if (!isDragging.current) {
+        // Apply friction to velocity
+        velocity.current *= Math.pow(0.95, delta / 16);
+
+        // Standard auto-rotation speed if not hovered, slower if hovered
+        const autoSpeed = isHovered.current ? 0.00003 : 0.00012; // rad per ms
+        
+        // Add auto-rotation and velocity to current angle
+        setAngle((prev) => (prev + autoSpeed * delta + velocity.current * (delta / 16)) % (2 * Math.PI));
+      }
+
+      animationFrameId.current = requestAnimationFrame(updatePhysics);
+    };
+
+    animationFrameId.current = requestAnimationFrame(updatePhysics);
+    return () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+    };
+  }, []);
+
+  // Drag handlers
+  const handleStart = (clientX) => {
+    isDragging.current = true;
+    startX.current = clientX;
+    startAngle.current = angle;
+    velocity.current = 0;
+    lastX.current = clientX;
+    lastTime.current = performance.now();
+  };
+
+  const handleMove = (clientX) => {
+    if (!isDragging.current) return;
+    const now = performance.now();
+    const dt = now - lastTime.current;
+    const dx = clientX - startX.current;
+    const dragDx = clientX - lastX.current;
+
+    // Calculate drag velocity
+    if (dt > 0) {
+      velocity.current = (dragDx * 0.0035) / (dt / 16);
+    }
+
+    setAngle(startAngle.current + dx * 0.004);
+    lastX.current = clientX;
+    lastTime.current = now;
+  };
+
+  const handleEnd = () => {
+    isDragging.current = false;
+    // Limit max velocity to prevent crazy spinning
+    velocity.current = Math.max(-0.1, Math.min(0.1, velocity.current));
+  };
+
+  const clientCount = items.length;
+  const angleStep = (2 * Math.PI) / clientCount;
+
+  // Responsive scaling of layout values
+  const isMobile = windowWidth < 768;
+  const radiusX = isMobile ? Math.min(240, windowWidth * 0.42) : Math.min(560, windowWidth * 0.38);
+  const radiusY = isMobile ? 24 : 48; // drop at the sides
+  const radiusZ = isMobile ? 120 : 260; // depth offset
+  const logoWidth = isMobile ? 170 : 250;
+  const logoHeight = isMobile ? 85 : 125;
+
   return (
     <div
+      ref={containerRef}
+      onMouseEnter={() => { isHovered.current = true; }}
+      onMouseLeave={() => { isHovered.current = false; handleEnd(); }}
+      onMouseDown={(e) => handleStart(e.clientX)}
+      onMouseMove={(e) => handleMove(e.clientX)}
+      onMouseUp={handleEnd}
+      onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+      onTouchEnd={handleEnd}
       style={{
+        position: 'relative',
+        width: '100%',
+        height: isMobile ? '260px' : '380px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '280px',
-        height: '120px',
-        padding: '10px 24px',
-        flexShrink: 0,
+        perspective: isMobile ? '800px' : '1500px',
+        overflow: 'hidden',
+        cursor: isDragging.current ? 'grabbing' : 'grab',
         userSelect: 'none',
       }}
     >
-      <img
-        src={client.logo}
-        alt={client.name}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'contain',
-        }}
-        onError={(e) => {
-          e.target.style.display = 'none';
-          e.target.nextElementSibling.style.display = 'flex';
-        }}
-      />
+      {items.map((client, i) => {
+        const itemAngle = angle + i * angleStep;
+        const cosA = Math.cos(itemAngle);
+        const sinA = Math.sin(itemAngle);
 
-      {/* Fallback label if image fails to load */}
-      <div
-        style={{
-          display: 'none',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-          height: '100%',
-        }}
-      >
-        <span style={{ color: '#00D09C', fontWeight: 800, fontSize: 16, textTransform: 'uppercase', padding: '0 10px', textAlign: 'center' }}>
-          {client.name}
-        </span>
-      </div>
+        const tx = sinA * radiusX;
+        const ty = (1 - cosA) * radiusY; // Dome shape
+        const tz = (cosA - 1) * radiusZ; // Depth push back
+        const rotY = -itemAngle * (180 / Math.PI);
+
+        // Opacity math: items at the front (cosA > -0.15) are visible.
+        // Fades out to 0 at the sides.
+        const opacity = Math.pow(Math.max(0, (cosA + 0.15) / 1.15), 1.6);
+        const zIndex = Math.round((cosA + 1) * 100);
+
+        if (opacity <= 0) return null;
+
+        return (
+          <div
+            key={client.id}
+            style={{
+              position: 'absolute',
+              width: `${logoWidth}px`,
+              height: `${logoHeight}px`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transform: `translateX(${tx}px) translateY(${ty}px) translateZ(${tz}px) rotateY(${rotY}deg)`,
+              opacity: opacity,
+              zIndex: zIndex,
+              transition: isDragging.current ? 'none' : 'transform 0.1s linear',
+              pointerEvents: opacity > 0.35 ? 'auto' : 'none', // Prevent clicking on faded elements
+            }}
+          >
+            <img
+              src={client.logo}
+              alt={client.name}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                pointerEvents: 'none', // Prevent browser default image dragging
+              }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextElementSibling.style.display = 'flex';
+              }}
+            />
+            {/* Fallback label if image fails to load */}
+            <div
+              style={{
+                display: 'none',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <span style={{ color: '#00D09C', fontWeight: 800, fontSize: isMobile ? 12 : 14, textTransform: 'uppercase', textAlign: 'center' }}>
+                {client.name}
+              </span>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-/* ─── infinite scroll row ─────────────────────────────────────────── */
-function MarqueeRow({ items, speed = 30, reverse = false }) {
-  // Duplicate 3× to make loop seamless
-  const tripled = [...items, ...items, ...items];
-  const duration = (items.length * 320 * 3) / speed; // px per sec (280px width + 40px gap)
-
-  return (
-    <div style={{ overflow: 'hidden', width: '100%', position: 'relative' }}>
-      {/* Left fade */}
-      <div style={{
-        position: 'absolute', left: 0, top: 0, bottom: 0, width: 120,
-        background: 'linear-gradient(to right, white, transparent)',
-        zIndex: 10, pointerEvents: 'none',
-      }} />
-      {/* Right fade */}
-      <div style={{
-        position: 'absolute', right: 0, top: 0, bottom: 0, width: 120,
-        background: 'linear-gradient(to left, white, transparent)',
-        zIndex: 10, pointerEvents: 'none',
-      }} />
-
-      <div
-        className="marquee-track"
-        style={{
-          display: 'flex',
-          gap: '40px',
-          width: 'max-content',
-          animation: `${reverse ? 'marquee-reverse' : 'marquee'} ${duration}s linear infinite`,
-          willChange: 'transform',
-        }}
-      >
-        {tripled.map((client, idx) => (
-          <ClientLogo key={`${client.id}-${idx}`} client={client} />
-        ))}
-      </div>
-
-      <style>{`
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(calc(-100% / 3)); }
-        }
-        @keyframes marquee-reverse {
-          from { transform: translateX(calc(-100% / 3)); }
-          to   { transform: translateX(0); }
-        }
-        .marquee-track:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
-    </div>
-  );
-}
-
-/* ─── main section ────────────────────────────────────────────────── */
+/* ─── Main Section Component ───────────────────────────────────────── */
 function ClientsSection({ data = clientsData, meta = CLIENTS_SECTION_META }) {
   const clients = Array.isArray(data) ? data : [];
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: '-60px' });
 
   if (clients.length === 0) return null;
-
-  // Split into two rows
-  const half = Math.ceil(clients.length / 2);
-  const row1 = clients.slice(0, half);
-  const row2 = clients.slice(half);
 
   return (
     <section
@@ -135,7 +218,7 @@ function ClientsSection({ data = clientsData, meta = CLIENTS_SECTION_META }) {
       <div style={{ position: 'absolute', bottom: -60, right: '10%', width: 280, height: 280, borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.05), transparent 70%)', filter: 'blur(30px)', zIndex: 0 }} />
 
       <div ref={containerRef} style={{ position: 'relative', zIndex: 1 }}>
-        {/* ── header ── */}
+        {/* Header section */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
@@ -165,23 +248,13 @@ function ClientsSection({ data = clientsData, meta = CLIENTS_SECTION_META }) {
           </p>
         </motion.div>
 
-        {/* ── row 1 — scrolls left ── */}
+        {/* 3D Circular Carousel */}
         <motion.div
-          initial={{ opacity: 0, x: -24 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -24 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          style={{ marginBottom: 24 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
-          <MarqueeRow items={row1} speed={28} reverse={false} />
-        </motion.div>
-
-        {/* ── row 2 — scrolls right ── */}
-        <motion.div
-          initial={{ opacity: 0, x: 24 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 24 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.18 }}
-        >
-          <MarqueeRow items={row2} speed={22} reverse={true} />
+          <Circular3DCarousel items={clients} />
         </motion.div>
       </div>
     </section>

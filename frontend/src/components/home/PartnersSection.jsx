@@ -51,7 +51,7 @@ function PartnersSection({ data = partnersData, meta = PARTNERS_SECTION_META }) 
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
               transition={{ duration: 0.55, ease: 'easeOut', delay: idx * 0.1 }}
-              className="flex items-center justify-center overflow-hidden w-[160px] h-[160px]"
+              className="flex items-center justify-center overflow-hidden w-[160px] h-[160px] md:w-[220px] md:h-[220px]"
             >
               {partner.logo ? (
                 <img
