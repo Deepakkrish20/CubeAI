@@ -50,8 +50,8 @@ function Circular3DCarousel({ items }) {
   const radiusX = isMobile ? Math.min(240, windowWidth * 0.42) : Math.min(560, windowWidth * 0.38);
   const radiusY = isMobile ? 24 : 48; // drop at the sides
   const radiusZ = isMobile ? 120 : 260; // depth offset
-  const logoWidth = isMobile ? 170 : 250;
-  const logoHeight = isMobile ? 85 : 125;
+  const logoWidth = isMobile ? 190 : 290;
+  const logoHeight = isMobile ? 95 : 145;
 
   return (
     <div
