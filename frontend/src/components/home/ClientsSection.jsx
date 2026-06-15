@@ -1,94 +1,30 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { clientsData, CLIENTS_SECTION_META } from '@/data/clientsData';
 
-/* ─── unique accent colour per card ─────────────────────────────── */
-const CARD_COLORS = [
-  { from: '#00B386', to: '#33DCB0', glow: 'rgba(0, 208, 156,0.35)' },
-  { from: '#0F3460', to: '#3B82F6', glow: 'rgba(59,130,246,0.35)' },
-  { from: '#B91C1C', to: '#F87171', glow: 'rgba(239,68,68,0.35)'  },
-  { from: '#065F46', to: '#34D399', glow: 'rgba(52,211,153,0.35)' },
-  { from: '#92400E', to: '#FCD34D', glow: 'rgba(251,191,36,0.35)' },
-  { from: '#1E3A5F', to: '#60A5FA', glow: 'rgba(96,165,250,0.35)' },
-  { from: '#4A044E', to: '#E879F9', glow: 'rgba(232,121,249,0.35)' },
-  { from: '#134E4A', to: '#2DD4BF', glow: 'rgba(45,212,191,0.35)' },
-  { from: '#7F1D1D', to: '#FB923C', glow: 'rgba(251,146,60,0.35)'  },
-  { from: '#1E1B4B', to: '#818CF8', glow: 'rgba(129,140,248,0.35)' },
-  { from: '#14532D', to: '#86EFAC', glow: 'rgba(134,239,172,0.35)' },
-  { from: '#831843', to: '#F9A8D4', glow: 'rgba(249,168,212,0.35)' },
-  { from: '#27272A', to: '#A1A1AA', glow: 'rgba(161,161,170,0.35)' },
-];
 
-
-
-/* ─── single client logo card ────────────────────────────────────── */
-function ClientCard({ client, colorIdx }) {
-  const [hovered, setHovered] = useState(false);
-  const color = CARD_COLORS[colorIdx % CARD_COLORS.length];
-
+/* ─── single client logo wrapper ──────────────────────────────────── */
+function ClientLogo({ client }) {
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
-        position: 'relative',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minWidth: '160px',
+        width: '280px',
         height: '120px',
-        padding: '18px 20px',
-        borderRadius: '20px',
-        border: hovered
-          ? `1.5px solid ${color.from}55`
-          : '1.5px solid rgba(148,163,184,0.2)',
-        background: hovered
-          ? `linear-gradient(135deg, ${color.from}18, ${color.to}10)`
-          : 'rgba(248,250,252,0.5)',
-        boxShadow: hovered
-          ? `0 0 0 1px ${color.from}33, 0 8px 32px ${color.glow}, inset 0 0 40px ${color.from}0A`
-          : '0 2px 12px rgba(0,0,0,0.04)',
-        cursor: 'default',
-        overflow: 'visible',
-        transition: 'all 0.4s cubic-bezier(0.16,1,0.3,1)',
+        padding: '10px 24px',
         flexShrink: 0,
         userSelect: 'none',
       }}
     >
-
-
-      {/* ── shimmer ring ── */}
-      {hovered && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
-          animate={{ opacity: [0, 0.5, 0], scale: [0.7, 1.5] }}
-          transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.4 }}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: '20px',
-            border: `2px solid ${color.to}`,
-            pointerEvents: 'none',
-            zIndex: 10,
-          }}
-        />
-      )}
-
-      {/* ── logo image ── */}
       <img
         src={client.logo}
         alt={client.name}
         style={{
           width: '100%',
-          height: '52px',
+          height: '100%',
           objectFit: 'contain',
-          filter: hovered ? 'none' : 'grayscale(60%)',
-          opacity: hovered ? 1 : 0.72,
-          transform: hovered ? 'scale(1.07)' : 'scale(1)',
-          transition: 'all 0.4s cubic-bezier(0.16,1,0.3,1)',
-          position: 'relative',
-          zIndex: 5,
         }}
         onError={(e) => {
           e.target.style.display = 'none';
@@ -96,42 +32,20 @@ function ClientCard({ client, colorIdx }) {
         }}
       />
 
-      {/* ── fallback name tile ── */}
+      {/* Fallback label if image fails to load */}
       <div
         style={{
           display: 'none',
           alignItems: 'center',
           justifyContent: 'center',
           width: '100%',
-          height: '44px',
-          borderRadius: '10px',
-          background: `linear-gradient(135deg, ${color.from}, ${color.to})`,
-          zIndex: 5,
-          position: 'relative',
+          height: '100%',
         }}
       >
-        <span style={{ color: 'white', fontWeight: 900, fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', padding: '0 10px', textAlign: 'center' }}>
+        <span style={{ color: '#00D09C', fontWeight: 800, fontSize: 16, textTransform: 'uppercase', padding: '0 10px', textAlign: 'center' }}>
           {client.name}
         </span>
       </div>
-
-      {/* ── name label ── */}
-      <p
-        style={{
-          marginTop: 8,
-          fontSize: 10,
-          fontWeight: 700,
-          textTransform: 'uppercase',
-          letterSpacing: 1,
-          color: hovered ? color.from : '#94A3B8',
-          transition: 'color 0.3s ease',
-          whiteSpace: 'nowrap',
-          zIndex: 5,
-          position: 'relative',
-        }}
-      >
-        {client.name}
-      </p>
     </div>
   );
 }
@@ -140,7 +54,7 @@ function ClientCard({ client, colorIdx }) {
 function MarqueeRow({ items, speed = 30, reverse = false }) {
   // Duplicate 3× to make loop seamless
   const tripled = [...items, ...items, ...items];
-  const duration = (items.length * 160 * 3) / speed; // px per sec
+  const duration = (items.length * 320 * 3) / speed; // px per sec (280px width + 40px gap)
 
   return (
     <div style={{ overflow: 'hidden', width: '100%', position: 'relative' }}>
@@ -161,14 +75,14 @@ function MarqueeRow({ items, speed = 30, reverse = false }) {
         className="marquee-track"
         style={{
           display: 'flex',
-          gap: '16px',
+          gap: '40px',
           width: 'max-content',
           animation: `${reverse ? 'marquee-reverse' : 'marquee'} ${duration}s linear infinite`,
           willChange: 'transform',
         }}
       >
         {tripled.map((client, idx) => (
-          <ClientCard key={`${client.id}-${idx}`} client={client} colorIdx={idx % CARD_COLORS.length} />
+          <ClientLogo key={`${client.id}-${idx}`} client={client} />
         ))}
       </div>
 
@@ -256,7 +170,7 @@ function ClientsSection({ data = clientsData, meta = CLIENTS_SECTION_META }) {
           initial={{ opacity: 0, x: -24 }}
           animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -24 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          style={{ marginBottom: 16 }}
+          style={{ marginBottom: 24 }}
         >
           <MarqueeRow items={row1} speed={28} reverse={false} />
         </motion.div>
@@ -269,20 +183,6 @@ function ClientsSection({ data = clientsData, meta = CLIENTS_SECTION_META }) {
         >
           <MarqueeRow items={row2} speed={22} reverse={true} />
         </motion.div>
-
-        {/* ── bottom tag ── */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          style={{
-            marginTop: 36, textAlign: 'center',
-            fontSize: 11, fontWeight: 700, letterSpacing: 2,
-            textTransform: 'uppercase', color: '#CBD5E1',
-          }}
-        >
-          Hover a logo to see the magic ✦
-        </motion.p>
       </div>
     </section>
   );

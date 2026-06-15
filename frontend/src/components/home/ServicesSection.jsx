@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { FiChevronRight, FiCheck } from 'react-icons/fi';
@@ -11,9 +11,110 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
   const services = resolveServices(data);
   const [activeTabId, setActiveTabId] = useState(services[0]?.id || '');
   const containerRef = useRef(null);
+  const lastSwitchTime = useRef(0);
+
+  const [isDesktop, setIsDesktop] = useState(false);
   const isInView = useInView(containerRef, { once: true, margin: '-60px' });
 
-  // Fallback check if services array is empty
+  useEffect(() => {
+    const checkSize = () => setIsDesktop(window.innerWidth >= 1024);
+    checkSize();
+    window.addEventListener('resize', checkSize);
+    return () => window.removeEventListener('resize', checkSize);
+  }, []);
+
+  const activeIndex = services.findIndex((s) => s.id === activeTabId);
+
+  useEffect(() => {
+    if (!isDesktop) return;
+
+    const section = containerRef.current;
+    if (!section) return;
+
+    const handleWheel = (e) => {
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const sectionHeight = rect.height;
+      const usableHeight = viewportHeight - 80; // subtracting sticky header offset
+
+      const targetScrollY = sectionHeight < usableHeight
+        ? window.scrollY + rect.top - 80 - (usableHeight - sectionHeight) / 2
+        : window.scrollY + rect.top - 80;
+
+      const diff = window.scrollY - targetScrollY;
+      const isCentered = Math.abs(diff) <= 20;
+
+      const sectionCenter = rect.top + sectionHeight / 2;
+      const viewportCenter = viewportHeight / 2;
+      const isNearCenter = Math.abs(sectionCenter - viewportCenter) < 250;
+
+      if (isNearCenter) {
+        const isScrollingDown = e.deltaY > 0;
+        const isScrollingUp = e.deltaY < 0;
+
+        // If the section is not centered, scroll to center it first
+        if (!isCentered) {
+          e.preventDefault();
+          const now = Date.now();
+          if (now - lastSwitchTime.current >= 400) {
+            window.scrollTo({
+              top: targetScrollY,
+              behavior: 'smooth'
+            });
+            lastSwitchTime.current = now;
+          }
+          return;
+        }
+
+        // Section is centered perfectly, now cycle tabs
+        const hasMoreTabsDown = activeIndex < services.length - 1;
+        const hasMoreTabsUp = activeIndex > 0;
+
+        if ((isScrollingDown && hasMoreTabsDown) || (isScrollingUp && hasMoreTabsUp)) {
+          e.preventDefault();
+          const now = Date.now();
+          const throttleDelay = 700;
+
+          if (now - lastSwitchTime.current >= throttleDelay) {
+            if (isScrollingDown) {
+              const nextIndex = activeIndex + 1;
+              setActiveTabId(services[nextIndex].id);
+            } else {
+              const prevIndex = activeIndex - 1;
+              setActiveTabId(services[prevIndex].id);
+            }
+            lastSwitchTime.current = now;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, [isDesktop, activeIndex, services]);
+
+  const handleTabClick = (serviceId) => {
+    setActiveTabId(serviceId);
+    
+    if (isDesktop && containerRef.current) {
+      const element = containerRef.current;
+      const rect = element.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const sectionHeight = rect.height;
+      const usableHeight = viewportHeight - 80;
+
+      const targetScrollY = sectionHeight < usableHeight
+        ? window.scrollY + rect.top - 80 - (usableHeight - sectionHeight) / 2
+        : window.scrollY + rect.top - 80;
+      
+      window.scrollTo({
+        top: targetScrollY,
+        behavior: 'smooth'
+      });
+      lastSwitchTime.current = Date.now();
+    }
+  };
+
   if (services.length === 0) {
     return (
       <section
@@ -27,26 +128,53 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
     );
   }
 
-  // Retrieve details of the currently active service
   const activeService = services.find((s) => s.id === activeTabId) || services[0];
-  const features = Array.isArray(activeService.features) ? activeService.features : [];
+  const features = Array.isArray(activeService?.features) ? activeService.features : [];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
+  };
 
   return (
-    <section id={meta?.id ?? 'services'} className="relative w-full border-t border-gray-150 bg-gradient-to-b from-white via-slate-50/20 to-white py-16 lg:py-24 overflow-hidden">
-      {/* Visual background details */}
-      <div className="absolute top-0 left-1/4 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-violet-100/10 to-purple-50/5 blur-3xl opacity-60" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0, 208, 156,0.006)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0, 208, 156,0.006)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
+    <section
+      id={meta?.id ?? 'services'}
+      ref={containerRef}
+      className={`relative w-full border-t border-gray-150 bg-gradient-to-b from-white via-slate-50/20 to-white py-6 lg:py-10 overflow-hidden ${
+        isDesktop ? 'cursor-ns-resize' : ''
+      }`}
+    >
+      <div className="absolute top-0 left-1/4 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-[#00D09C]/10 to-emerald-50/5 blur-3xl opacity-60" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0,208,156,0.006)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,208,156,0.006)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
 
-      <div ref={containerRef} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full"
+      >
         <motion.header 
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-12 text-center lg:text-left flex flex-col items-center lg:items-start"
+          variants={itemVariants}
+          className="mb-6 text-center lg:text-left flex flex-col items-center lg:items-start"
         >
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-6">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-3">
             Our Offerings
           </span>
           {meta?.title && (
@@ -56,48 +184,70 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
           )}
         </motion.header>
 
-        {/* Tab Layout Grid */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-center">
           
-          {/* Left Sidebar: Tab buttons */}
+          {/* Left Column: Active Service Name */}
           <motion.div 
-            initial={{ opacity: 0, x: -16 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="flex flex-col gap-3 lg:col-span-4"
+            variants={itemVariants}
+            className="flex flex-col text-center lg:text-left items-center lg:items-start lg:col-span-4 min-h-[140px] select-none"
           >
-            {services.map((service) => {
-              const isActive = service.id === activeService.id;
-              return (
-                <button
-                  key={service.id}
-                  onClick={() => setActiveTabId(service.id)}
-                  className={`group flex w-full items-center justify-between rounded-2xl border p-5 text-left text-sm font-bold transition-all duration-300 ${
-                    isActive
-                      ? 'border-violet-100 bg-white text-[#00D09C] shadow-[0_12px_32px_rgba(0, 208, 156,0.06)]'
-                      : 'border-gray-200/50 bg-white/40 text-gray-500 hover:text-gray-900 hover:bg-white hover:border-gray-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.02)]'
-                  }`}
-                  type="button"
+            <div className="min-h-[80px] flex items-center justify-center lg:justify-start w-full">
+              <AnimatePresence mode="wait">
+                <motion.h3
+                  key={activeService.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  className="font-heading text-3xl sm:text-4xl lg:text-[40px] font-black tracking-[-0.02em] leading-[1.2] bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: 'linear-gradient(to right, #111827 20%, #00D09C 60%)'
+                  }}
                 >
-                  <span className="tracking-tight">{service.title || service.categoryTitle || 'Unnamed Service'}</span>
-                  <div className={`flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300 ${
-                    isActive 
-                      ? 'bg-[#00D09C]/10 text-[#00D09C]' 
-                      : 'bg-transparent text-gray-300 group-hover:text-gray-500 group-hover:bg-gray-100'
-                  }`}>
-                    <FiChevronRight className="h-4 w-4" />
-                  </div>
-                </button>
-              );
-            })}
+                  {activeService.title || activeService.categoryTitle || 'Service Name'}
+                </motion.h3>
+              </AnimatePresence>
+            </div>
+
+            {/* Navigation Chevron buttons */}
+            <div className="flex items-center gap-3 mt-4">
+              <button
+                onClick={() => {
+                  if (activeIndex > 0) handleTabClick(services[activeIndex - 1].id);
+                }}
+                disabled={activeIndex === 0}
+                className={`p-3 rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 cursor-pointer ${
+                  activeIndex === 0 
+                    ? 'opacity-30 cursor-not-allowed' 
+                    : 'hover:text-[#00D09C] hover:border-[#00D09C]/30 hover:shadow-[0_4px_12px_rgba(0,208,156,0.08)] active:scale-95'
+                }`}
+                aria-label="Previous service"
+                type="button"
+              >
+                <FiChevronRight className="h-5 w-5 rotate-180" />
+              </button>
+              <button
+                onClick={() => {
+                  if (activeIndex < services.length - 1) handleTabClick(services[activeIndex + 1].id);
+                }}
+                disabled={activeIndex === services.length - 1}
+                className={`p-3 rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 cursor-pointer ${
+                  activeIndex === services.length - 1 
+                    ? 'opacity-30 cursor-not-allowed' 
+                    : 'hover:text-[#00D09C] hover:border-[#00D09C]/30 hover:shadow-[0_4px_12px_rgba(0,208,156,0.08)] active:scale-95'
+                }`}
+                aria-label="Next service"
+                type="button"
+              >
+                <FiChevronRight className="h-5 w-5" />
+              </button>
+            </div>
           </motion.div>
 
-          {/* Right Content Pane: Active Service Details */}
+          {/* Right Column: Active Card content */}
           <motion.div 
-            initial={{ opacity: 0, x: 16 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 16 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="lg:col-span-8"
+            variants={itemVariants}
+            className="lg:col-span-8 w-full"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -105,31 +255,29 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="flex flex-col gap-8 rounded-[32px] border border-gray-200/60 bg-white/80 backdrop-blur-md p-6 sm:p-8 md:p-10 md:flex-row shadow-[0_16px_48px_rgba(15,23,42,0.03)]"
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+                className="flex flex-col gap-6 rounded-[24px] border border-gray-200/60 bg-white/80 backdrop-blur-md p-5 sm:p-6 md:p-8 md:flex-row shadow-[0_16px_48px_rgba(15,23,42,0.03)] w-full"
               >
-                {/* Service details column */}
                 <div className="flex flex-1 flex-col justify-between">
                   <div>
-                    <h3 className="mb-4 font-heading text-2xl font-black tracking-tight text-gray-900">
+                    <h3 className="mb-3 font-heading text-2xl font-black tracking-tight text-gray-900">
                       {activeService.detailTitle || activeService.title || 'Service Details'}
                     </h3>
 
                     {activeService.shortDescription || activeService.description ? (
-                      <p className="mb-8 text-sm leading-relaxed text-gray-500 font-medium">
+                      <p className="mb-5 text-sm leading-relaxed text-gray-500 font-medium">
                         {activeService.shortDescription || activeService.description}
                       </p>
                     ) : (
-                      <p className="mb-8 text-sm italic text-gray-400">No description available.</p>
+                      <p className="mb-5 text-sm italic text-gray-400">No description available.</p>
                     )}
 
-                    {/* Features List */}
                     {features.length > 0 && (
-                      <div className="mb-8">
-                        <h4 className="mb-4 text-[10px] font-black uppercase tracking-widest text-[#00D09C]/60">
+                      <div className="mb-5">
+                        <h4 className="mb-2.5 text-[10px] font-black uppercase tracking-widest text-[#00D09C]/60">
                           Key Highlights
                         </h4>
-                        <ul className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                        <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                           {features.map((feature, idx) => (
                             <li
                               key={`${feature}-${idx}`}
@@ -146,22 +294,20 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                     )}
                   </div>
 
-                  {/* Action Button */}
-                  <div className="mt-4">
+                  <div className="mt-2">
                     <Link
                       to={activeService.route || '/apply-now'}
                       state={{ preselectedService: activeService.id }}
-                      className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#006B50] to-[#00B386] px-7 py-3.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-[0_8px_24px_rgba(0, 208, 156,0.18)] hover:shadow-[0_12px_30px_rgba(0, 208, 156,0.28)] hover:scale-[1.01] transition-all duration-300"
+                      className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#006B50] to-[#00B386] px-7 py-3.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-[0_8px_24px_rgba(0, 208, 156,0.18)] hover:shadow-[0_12px_30px_rgba(0, 208, 156,0.28)] hover:scale-[1.01] transition-all duration-300 cursor-pointer"
                     >
                       {activeService.ctaText || 'Apply Now'}
                     </Link>
                   </div>
                 </div>
 
-                {/* Service Image column */}
-                <div className="flex w-full flex-shrink-0 items-center justify-center md:w-72 mt-6 md:mt-0">
+                <div className="flex w-full flex-shrink-0 items-center justify-center md:w-64 mt-6 md:mt-0">
                   {activeService.image ? (
-                    <div className="relative h-56 w-full overflow-hidden rounded-[24px] border border-white bg-slate-50 shadow-[0_12px_36px_rgba(15,23,42,0.06)] md:h-72 group">
+                    <div className="relative h-48 w-full overflow-hidden rounded-[20px] border border-white bg-slate-50 shadow-[0_12px_36px_rgba(15,23,42,0.06)] md:h-60 group">
                       <img
                         src={activeService.image}
                         alt={activeService.title || 'Service image'}
@@ -175,7 +321,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                       <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
                     </div>
                   ) : (
-                    <div className="flex h-56 w-full items-center justify-center rounded-[24px] border border-dashed border-gray-300 bg-white text-xs text-gray-400 md:h-72">
+                    <div className="flex h-48 w-full items-center justify-center rounded-[20px] border border-dashed border-gray-300 bg-white text-xs text-gray-400 md:h-60">
                       Placeholder Image
                     </div>
                   )}
@@ -185,9 +331,10 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
           </motion.div>
           
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
 
 export default ServicesSection;
+
