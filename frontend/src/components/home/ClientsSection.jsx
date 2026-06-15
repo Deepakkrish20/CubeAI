@@ -47,11 +47,11 @@ function Circular3DCarousel({ items }) {
 
   // Responsive scaling of layout values
   const isMobile = windowWidth < 768;
-  const radiusX = isMobile ? windowWidth * 0.38 : Math.min(560, windowWidth * 0.38);
+  const radiusX = isMobile ? Math.min(220, windowWidth * 0.4) : Math.min(560, windowWidth * 0.38);
   const radiusY = isMobile ? 36 : 48; // drop at the sides
   const radiusZ = isMobile ? 160 : 260; // depth offset
-  const logoWidth = isMobile ? Math.min(190, windowWidth * 0.45) : 290;
-  const logoHeight = isMobile ? logoWidth * 0.5 : 145;
+  const logoWidth = isMobile ? 130 : 290;
+  const logoHeight = isMobile ? 65 : 145;
 
   return (
     <div
