@@ -64,7 +64,7 @@ function ScrollPullerCharacter() {
             y1={handY}
             x2={0}
             y2={ropeY2}
-            stroke="#7c3aed"
+            stroke="#00D09C"
             strokeWidth="3.5"
             strokeLinecap="round"
           />
@@ -82,7 +82,7 @@ function ScrollPullerCharacter() {
 
         {/* 2. Vertical Guide Wire */}
         <div 
-          className="absolute left-[50px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#7c3aed] via-[#a855f7] to-[#06b6d4] opacity-25"
+          className="absolute left-[50px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#00D09C] via-[#a855f7] to-[#06b6d4] opacity-25"
         />
 
         {/* 3. Floating Mascot Capsule */}
@@ -92,7 +92,7 @@ function ScrollPullerCharacter() {
             rotate: mascotRotate,
             scale: mascotScale,
           }}
-          className="absolute left-[22px] w-14 h-14 rounded-full bg-white border-2 border-[#7c3aed]/80 shadow-[0_8px_24px_rgba(124,58,237,0.25)] flex items-center justify-center"
+          className="absolute left-[22px] w-14 h-14 rounded-full bg-white border-2 border-[#00D09C]/80 shadow-[0_8px_24px_rgba(0, 208, 156,0.25)] flex items-center justify-center"
         >
           <img
             src={mascotImg}

@@ -32,7 +32,7 @@ function PartnersSection({ data = partnersData, meta = PARTNERS_SECTION_META }) 
           className="mb-10 text-center"
         >
           {meta?.eyebrow && (
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#4C1D95]/60 mb-2 block">
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#00D09C]/60 mb-2 block">
               {meta.eyebrow}
             </span>
           )}
@@ -51,7 +51,7 @@ function PartnersSection({ data = partnersData, meta = PARTNERS_SECTION_META }) 
               initial={{ opacity: 0, y: 16, scale: 0.96 }}
               animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 16, scale: 0.96 }}
               transition={{ duration: 0.55, ease: 'easeOut', delay: idx * 0.1 }}
-              className="flex flex-col items-center justify-center border border-gray-200/50 rounded-2xl bg-white px-6 py-8 text-center cursor-default hover:border-violet-200 hover:bg-violet-50/10 hover:shadow-[0_12px_32px_rgba(76,29,149,0.06)] transition-all duration-300 group gap-4 min-h-[160px]"
+              className="flex flex-col items-center justify-center border border-gray-200/50 rounded-2xl bg-white px-6 py-8 text-center cursor-default hover:border-violet-200 hover:bg-violet-50/10 hover:shadow-[0_12px_32px_rgba(0, 208, 156,0.06)] transition-all duration-300 group gap-4 min-h-[160px]"
             >
               {partner.logo ? (
                 <img
@@ -65,11 +65,11 @@ function PartnersSection({ data = partnersData, meta = PARTNERS_SECTION_META }) 
                 />
               ) : null}
               <div
-                className={`h-14 w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#3B0764] to-[#6D28D9] ${partner.logo ? 'hidden' : 'flex'}`}
+                className={`h-14 w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#006B50] to-[#00B386] ${partner.logo ? 'hidden' : 'flex'}`}
               >
                 <p className="text-sm font-black text-white uppercase tracking-wide px-3">{partner.name}</p>
               </div>
-              <p className="text-sm font-bold text-gray-600 group-hover:text-[#4C1D95] transition-colors duration-200 text-center leading-snug">
+              <p className="text-sm font-bold text-gray-600 group-hover:text-[#00D09C] transition-colors duration-200 text-center leading-snug">
                 {partner.name}
               </p>
             </motion.article>

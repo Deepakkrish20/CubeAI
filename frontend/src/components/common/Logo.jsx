@@ -1,4 +1,3 @@
-import React from 'react';
 
 /**
  * Premium Logo component for Bundela Fin Corp (BF).

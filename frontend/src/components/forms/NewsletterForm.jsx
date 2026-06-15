@@ -60,7 +60,7 @@ function NewsletterForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-2xl bg-gradient-to-r from-[#3B0764] to-[#6D28D9] px-6 py-3 text-xs font-black uppercase tracking-wider text-white transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_6px_20px_rgba(76,29,149,0.3)] disabled:opacity-50"
+            className="rounded-2xl bg-gradient-to-r from-[#006B50] to-[#00B386] px-6 py-3 text-xs font-black uppercase tracking-wider text-white transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_6px_20px_rgba(0, 208, 156,0.3)] disabled:opacity-50"
           >
             {isSubmitting ? 'Signing Up...' : 'SignUp'}
           </button>

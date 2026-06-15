@@ -65,7 +65,7 @@ function EmiCalculatorSection() {
       <div className="absolute top-0 right-0 w-64 h-64 bg-violet-100/10 rounded-full blur-3xl -z-10" />
 
       <header className="mb-10 text-center">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#4C1D95] mb-4">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-4">
           Financial Tools
         </span>
         <h2 className="font-heading text-3xl font-black tracking-tight text-gray-900 leading-none">
@@ -97,7 +97,7 @@ function EmiCalculatorSection() {
                 className={`w-full rounded-2xl border bg-white pl-8 pr-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                   errors.loanAmount
                     ? 'border-red-500 focus:ring-red-500/10'
-                    : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                    : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
                 }`}
               />
             </div>
@@ -125,7 +125,7 @@ function EmiCalculatorSection() {
                 className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                   errors.interestRate
                     ? 'border-red-500 focus:ring-red-500/10'
-                    : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                    : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
                 }`}
               />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">%</span>
@@ -153,7 +153,7 @@ function EmiCalculatorSection() {
                 className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                   errors.loanTenure
                     ? 'border-red-500 focus:ring-red-500/10'
-                    : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                    : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
                 }`}
               />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">mo</span>
@@ -168,7 +168,7 @@ function EmiCalculatorSection() {
         <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:justify-center">
           <button
             type="submit"
-            className="flex-1 max-w-[240px] inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#3B0764] to-[#6D28D9] py-4 text-xs font-extrabold uppercase tracking-wider text-white shadow-[0_8px_24px_rgba(76,29,149,0.18)] hover:shadow-[0_12px_30px_rgba(76,29,149,0.28)] hover:scale-[1.01] transition-all duration-300"
+            className="flex-1 max-w-[240px] inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#006B50] to-[#00B386] py-4 text-xs font-extrabold uppercase tracking-wider text-white shadow-[0_8px_24px_rgba(0, 208, 156,0.18)] hover:shadow-[0_12px_30px_rgba(0, 208, 156,0.28)] hover:scale-[1.01] transition-all duration-300"
           >
             Calculate
           </button>
@@ -198,11 +198,11 @@ function EmiCalculatorSection() {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Flat Rate Results (Light Premium Theme) */}
-              <div className="rounded-3xl border border-violet-100/80 bg-white p-6 sm:p-8 shadow-[0_8px_32px_rgba(76,29,149,0.03)] flex flex-col justify-between relative overflow-hidden group">
-                <div className="absolute -right-8 -top-8 w-24 h-24 bg-violet-50/50 rounded-full blur-xl group-hover:bg-[#4C1D95]/5 transition-all duration-500" />
+              <div className="rounded-3xl border border-violet-100/80 bg-white p-6 sm:p-8 shadow-[0_8px_32px_rgba(0, 208, 156,0.03)] flex flex-col justify-between relative overflow-hidden group">
+                <div className="absolute -right-8 -top-8 w-24 h-24 bg-violet-50/50 rounded-full blur-xl group-hover:bg-[#00D09C]/5 transition-all duration-500" />
                 
                 <div>
-                  <h4 className="mb-5 border-b border-gray-100 pb-3 text-sm font-black uppercase text-[#4C1D95] tracking-wider">
+                  <h4 className="mb-5 border-b border-gray-100 pb-3 text-sm font-black uppercase text-[#00D09C] tracking-wider">
                     Flat Interest Rate
                   </h4>
                   <div className="space-y-4">
@@ -222,17 +222,17 @@ function EmiCalculatorSection() {
                 </div>
 
                 <div className="flex items-center justify-between border-t border-gray-100 pt-4 mt-6 text-xs font-bold">
-                  <span className="text-[#4C1D95] uppercase">Total Payable</span>
-                  <span className="text-xl font-black text-[#3B0764]">
+                  <span className="text-[#00D09C] uppercase">Total Payable</span>
+                  <span className="text-xl font-black text-[#006B50]">
                     {formatCurrency(results.flat.totalAmount)}
                   </span>
                 </div>
               </div>
 
               {/* Reducing Rate Results (Dark Premium Theme) */}
-              <div className="rounded-3xl border border-[#3B0764]/20 bg-[#120C24] p-6 sm:p-8 shadow-[0_12px_36px_rgba(15,23,42,0.15)] flex flex-col justify-between relative overflow-hidden group">
+              <div className="rounded-3xl border border-[#006B50]/20 bg-[#120C24] p-6 sm:p-8 shadow-[0_12px_36px_rgba(15,23,42,0.15)] flex flex-col justify-between relative overflow-hidden group">
                 {/* Decorative neon ambient glow inside dark card */}
-                <div className="absolute -right-12 -top-12 w-32 h-32 bg-[#7C3AED]/10 rounded-full blur-2xl group-hover:bg-[#7C3AED]/15 transition-all duration-500" />
+                <div className="absolute -right-12 -top-12 w-32 h-32 bg-[#00D09C]/10 rounded-full blur-2xl group-hover:bg-[#00D09C]/15 transition-all duration-500" />
                 
                 <div>
                   <h4 className="mb-5 border-b border-white/5 pb-3 text-sm font-black uppercase text-violet-300 tracking-wider">

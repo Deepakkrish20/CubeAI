@@ -7,9 +7,9 @@ const UNAVAILABLE_MESSAGE = 'Company information is currently unavailable.';
 
 // Map icons to trust pillars
 const PILLAR_ICONS = {
-  'no-hidden-cost': <FiShield className="h-5 w-5 text-[#4C1D95]" />,
-  'dedicated-team': <FiUsers className="h-5 w-5 text-[#4C1D95]" />,
-  'available-247': <FiClock className="h-5 w-5 text-[#4C1D95]" />,
+  'no-hidden-cost': <FiShield className="h-5 w-5 text-[#00D09C]" />,
+  'dedicated-team': <FiUsers className="h-5 w-5 text-[#00D09C]" />,
+  'available-247': <FiClock className="h-5 w-5 text-[#00D09C]" />,
 };
 
 function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
@@ -85,7 +85,7 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
       <div className="absolute top-1/2 left-0 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-tr from-violet-100/10 to-purple-50/5 blur-3xl opacity-60" />
       
       {/* Sleek background editorial grid lines */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(76,29,149,0.008)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,29,149,0.008)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0, 208, 156,0.008)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0, 208, 156,0.008)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-12">
@@ -100,7 +100,7 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
               className="relative w-full max-w-[380px] aspect-[4/5] p-2"
             >
               {/* Offset background luxury card */}
-              <div className="absolute inset-0 border border-violet-100 bg-gradient-to-br from-violet-50/40 to-fuchsia-50/20 rounded-tl-[80px] rounded-br-[80px] rounded-tr-[24px] rounded-bl-[24px] -rotate-3 -z-10 shadow-[0_12px_40px_rgba(76,29,149,0.03)]" />
+              <div className="absolute inset-0 border border-violet-100 bg-gradient-to-br from-violet-50/40 to-teal-50/20 rounded-tl-[80px] rounded-br-[80px] rounded-tr-[24px] rounded-bl-[24px] -rotate-3 -z-10 shadow-[0_12px_40px_rgba(0, 208, 156,0.03)]" />
               
               {/* Large dedicated image container with asymmetrical crop */}
               <div className="w-full h-full rounded-tl-[80px] rounded-br-[80px] rounded-tr-[24px] rounded-bl-[24px] overflow-hidden border border-white bg-slate-100 shadow-[0_16px_48px_rgba(15,23,42,0.06)] relative group">
@@ -114,27 +114,27 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
                 />
                 
                 {/* Fallback elegant silhouette if image fails */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-gradient-to-br from-violet-900 to-[#3B0764] text-white select-none text-center -z-10">
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-gradient-to-br from-violet-900 to-[#006B50] text-white select-none text-center -z-10">
                   <FiUsers className="h-12 w-12 text-violet-200/80 mb-3 animate-pulse" />
                   <p className="font-heading text-lg font-bold">Bundela Finance</p>
                   <p className="text-xs text-violet-200/70 mt-1">Trust & Transparency</p>
                 </div>
                 
                 {/* Interactive premium overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2E1065]/10 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#004D3A]/10 via-transparent to-transparent pointer-events-none" />
               </div>
 
               {/* Floating glass info card A */}
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
-                className="absolute top-[15%] left-[-10%] z-20 bg-white border border-violet-100/80 p-3 rounded-[16px] shadow-[0_12px_40px_rgba(76,29,149,0.12)] flex items-center gap-2.5 w-44"
+                className="absolute top-[15%] left-[-10%] z-20 bg-white border border-violet-100/80 p-3 rounded-[16px] shadow-[0_12px_40px_rgba(0, 208, 156,0.12)] flex items-center gap-2.5 w-44"
               >
-                <div className="h-7 w-7 rounded-full bg-[#4C1D95]/10 flex items-center justify-center text-[#4C1D95] shrink-0 font-extrabold text-xs">
+                <div className="h-7 w-7 rounded-full bg-[#00D09C]/10 flex items-center justify-center text-[#00D09C] shrink-0 font-extrabold text-xs">
                   ✓
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[10px] font-black text-[#3B0764] uppercase tracking-wider">RBI REGISTERED</p>
+                  <p className="text-[10px] font-black text-[#006B50] uppercase tracking-wider">RBI REGISTERED</p>
                   <p className="text-[9px] text-gray-700 font-bold leading-none mt-1">Compliant Partner</p>
                 </div>
               </motion.div>
@@ -143,9 +143,9 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
               <motion.div
                 animate={{ y: [0, 6, 0] }}
                 transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut', delay: 1 }}
-                className="absolute bottom-[20%] right-[-10%] z-20 bg-white border border-violet-100/80 p-3.5 rounded-[16px] shadow-[0_12px_40px_rgba(76,29,149,0.12)] flex flex-col w-40"
+                className="absolute bottom-[20%] right-[-10%] z-20 bg-white border border-violet-100/80 p-3.5 rounded-[16px] shadow-[0_12px_40px_rgba(0, 208, 156,0.12)] flex flex-col w-40"
               >
-                <p className="text-2xl font-black text-[#3B0764] leading-none">98%</p>
+                <p className="text-2xl font-black text-[#006B50] leading-none">98%</p>
                 <p className="text-[10px] font-black text-gray-900 uppercase tracking-wide leading-tight mt-1.5">Satisfaction Rate</p>
                 <p className="text-[8px] text-gray-600 font-semibold mt-1 leading-tight">Verified customer ratings</p>
               </motion.div>
@@ -166,7 +166,7 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
               {meta?.eyebrow && (
                 <motion.div
                   variants={itemVariants}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#4C1D95] mb-6"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-6"
                 >
                   {meta.eyebrow}
                 </motion.div>
@@ -203,7 +203,7 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
                       onClick={() => setActiveTab(tabKey)}
                       className={`flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-300 ${
                         isActive
-                          ? 'bg-[#4C1D95] text-white shadow-sm'
+                          ? 'bg-[#00D09C] text-white shadow-sm'
                           : 'text-gray-500 hover:text-gray-900 hover:bg-slate-50/50'
                       }`}
                       type="button"
@@ -228,7 +228,7 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.25 }}
                     >
-                      <h4 className="text-xs font-black uppercase text-[#4C1D95] tracking-wider mb-2">
+                      <h4 className="text-xs font-black uppercase text-[#00D09C] tracking-wider mb-2">
                         {tabContent[activeTab].subtitle}
                       </h4>
                       <p className="text-sm text-gray-600 leading-relaxed">
@@ -251,10 +251,10 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
                       className="group flex flex-col justify-start bg-white/95 p-6 hover:bg-gradient-to-br hover:from-white hover:to-violet-50/20 transition-all duration-300 cursor-default relative overflow-hidden"
                     >
                       {/* Subtle hover background highlight spot */}
-                      <div className="absolute -right-8 -top-8 w-24 h-24 bg-violet-100/10 rounded-full blur-xl group-hover:bg-[#4C1D95]/5 transition-all duration-500" />
+                      <div className="absolute -right-8 -top-8 w-24 h-24 bg-violet-100/10 rounded-full blur-xl group-hover:bg-[#00D09C]/5 transition-all duration-500" />
                       
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#4C1D95]/10 mb-4 group-hover:scale-110 group-hover:bg-[#4C1D95]/15 transition-all duration-300 relative z-10">
-                        {PILLAR_ICONS[pillar.id] || <FiShield className="h-5 w-5 text-[#4C1D95]" />}
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#00D09C]/10 mb-4 group-hover:scale-110 group-hover:bg-[#00D09C]/15 transition-all duration-300 relative z-10">
+                        {PILLAR_ICONS[pillar.id] || <FiShield className="h-5 w-5 text-[#00D09C]" />}
                       </div>
                       <h3 className="text-sm font-bold text-gray-900 leading-tight mb-2 relative z-10">
                         {pillar.title}

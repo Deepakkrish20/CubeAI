@@ -51,7 +51,7 @@ function PolicyModal({ title, isOpen, onClose, children }) {
               <button
                 onClick={onClose}
                 type="button"
-                className="rounded-xl bg-gradient-to-r from-[#3B0764] to-[#6D28D9] px-6 py-2.5 text-xs font-black uppercase tracking-wider text-white hover:shadow-[0_4px_16px_rgba(76,29,149,0.2)] transition-all duration-300"
+                className="rounded-xl bg-gradient-to-r from-[#006B50] to-[#00B386] px-6 py-2.5 text-xs font-black uppercase tracking-wider text-white hover:shadow-[0_4px_16px_rgba(0, 208, 156,0.2)] transition-all duration-300"
               >
                 Close
               </button>
@@ -114,7 +114,7 @@ function Footer({ data = footerData }) {
       className="relative w-full border-t border-white/5 bg-[#09070F] pb-8 pt-16 text-slate-400 overflow-hidden"
     >
       {/* Background glow highlights */}
-      <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-gradient-to-tr from-[#3B0764]/20 to-[#4C1D95]/5 blur-3xl -z-10 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-gradient-to-tr from-[#006B50]/20 to-[#00D09C]/5 blur-3xl -z-10 pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main Grid */}
@@ -129,13 +129,13 @@ function Footer({ data = footerData }) {
             )}
             {contactDetails.address && (
               <div className="flex items-start gap-2.5 text-xs font-semibold leading-relaxed text-slate-400">
-                <FiMapPin className="mt-0.5 h-4.5 w-4.5 shrink-0 text-[#7C3AED]" />
+                <FiMapPin className="mt-0.5 h-4.5 w-4.5 shrink-0 text-[#00D09C]" />
                 <span>{contactDetails.address}</span>
               </div>
             )}
             {contactDetails.phone && (
               <div className="flex items-center gap-2.5 text-xs font-bold text-slate-400">
-                <FiPhone className="h-4 w-4 shrink-0 text-[#7C3AED]" />
+                <FiPhone className="h-4 w-4 shrink-0 text-[#00D09C]" />
                 <a
                   href={`tel:${contactDetails.phone}`}
                   className="transition-colors hover:text-white"
@@ -146,7 +146,7 @@ function Footer({ data = footerData }) {
             )}
             {contactDetails.email && (
               <div className="flex items-center gap-2.5 text-xs font-bold text-slate-400">
-                <FiMail className="h-4 w-4 shrink-0 text-[#7C3AED]" />
+                <FiMail className="h-4 w-4 shrink-0 text-[#00D09C]" />
                 <a
                   href={`mailto:${contactDetails.email}`}
                   className="transition-colors hover:text-white"
@@ -166,7 +166,7 @@ function Footer({ data = footerData }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-white/5 text-gray-400 transition-all duration-300 hover:border-white hover:bg-white hover:text-[#3B0764] hover:scale-105 active:scale-95"
+                    className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-white/5 text-gray-400 transition-all duration-300 hover:border-white hover:bg-white hover:text-[#006B50] hover:scale-105 active:scale-95"
                   >
                     {getSocialIcon(social.platform)}
                   </a>

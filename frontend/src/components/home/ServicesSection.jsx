@@ -35,7 +35,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
     <section id={meta?.id ?? 'services'} className="relative w-full border-t border-gray-150 bg-gradient-to-b from-white via-slate-50/20 to-white py-16 lg:py-24 overflow-hidden">
       {/* Visual background details */}
       <div className="absolute top-0 left-1/4 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-violet-100/10 to-purple-50/5 blur-3xl opacity-60" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(76,29,149,0.006)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,29,149,0.006)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0, 208, 156,0.006)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0, 208, 156,0.006)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
 
       <div ref={containerRef} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
@@ -46,7 +46,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 text-center lg:text-left flex flex-col items-center lg:items-start"
         >
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#4C1D95] mb-6">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-6">
             Our Offerings
           </span>
           {meta?.title && (
@@ -74,7 +74,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                   onClick={() => setActiveTabId(service.id)}
                   className={`group flex w-full items-center justify-between rounded-2xl border p-5 text-left text-sm font-bold transition-all duration-300 ${
                     isActive
-                      ? 'border-violet-100 bg-white text-[#4C1D95] shadow-[0_12px_32px_rgba(76,29,149,0.06)]'
+                      ? 'border-violet-100 bg-white text-[#00D09C] shadow-[0_12px_32px_rgba(0, 208, 156,0.06)]'
                       : 'border-gray-200/50 bg-white/40 text-gray-500 hover:text-gray-900 hover:bg-white hover:border-gray-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.02)]'
                   }`}
                   type="button"
@@ -82,7 +82,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                   <span className="tracking-tight">{service.title || service.categoryTitle || 'Unnamed Service'}</span>
                   <div className={`flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300 ${
                     isActive 
-                      ? 'bg-[#4C1D95]/10 text-[#4C1D95]' 
+                      ? 'bg-[#00D09C]/10 text-[#00D09C]' 
                       : 'bg-transparent text-gray-300 group-hover:text-gray-500 group-hover:bg-gray-100'
                   }`}>
                     <FiChevronRight className="h-4 w-4" />
@@ -126,7 +126,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                     {/* Features List */}
                     {features.length > 0 && (
                       <div className="mb-8">
-                        <h4 className="mb-4 text-[10px] font-black uppercase tracking-widest text-[#4C1D95]/60">
+                        <h4 className="mb-4 text-[10px] font-black uppercase tracking-widest text-[#00D09C]/60">
                           Key Highlights
                         </h4>
                         <ul className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
@@ -135,7 +135,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                               key={`${feature}-${idx}`}
                               className="flex items-start text-xs font-bold text-gray-700"
                             >
-                              <div className="mr-2.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#4C1D95]/10 text-[#4C1D95] mt-0.5">
+                              <div className="mr-2.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#00D09C]/10 text-[#00D09C] mt-0.5">
                                 <FiCheck className="h-3 w-3" />
                               </div>
                               <span className="leading-tight">{feature}</span>
@@ -151,7 +151,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                     <Link
                       to={activeService.route || '/apply-now'}
                       state={{ preselectedService: activeService.id }}
-                      className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#3B0764] to-[#6D28D9] px-7 py-3.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-[0_8px_24px_rgba(76,29,149,0.18)] hover:shadow-[0_12px_30px_rgba(76,29,149,0.28)] hover:scale-[1.01] transition-all duration-300"
+                      className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#006B50] to-[#00B386] px-7 py-3.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-[0_8px_24px_rgba(0, 208, 156,0.18)] hover:shadow-[0_12px_30px_rgba(0, 208, 156,0.28)] hover:scale-[1.01] transition-all duration-300"
                     >
                       {activeService.ctaText || 'Apply Now'}
                     </Link>

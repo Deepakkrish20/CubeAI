@@ -209,7 +209,7 @@ const slideDetails = {
 const renderHighlightedHeading = (heading, highlightWords) => {
   if (!highlightWords || highlightWords.length === 0) return heading;
   const sortedWords = [...highlightWords].sort((a, b) => b.length - a.length);
-  const pattern = new RegExp(`(${sortedWords.map(w => w.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')).join('|')})`, 'gi');
+  const pattern = new RegExp(`(${sortedWords.map(w => w.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&')).join('|')})`, 'gi');
   const parts = heading.split(pattern);
   return parts.map((part, index) => {
     const isMatch = sortedWords.some(w => w.toLowerCase() === part.toLowerCase());
@@ -217,7 +217,7 @@ const renderHighlightedHeading = (heading, highlightWords) => {
       return (
         <span
           key={index}
-          className="bg-gradient-to-r from-[#3B0764] via-[#4C1D95] to-[#7C3AED] bg-clip-text text-transparent font-black tracking-tight"
+          className="bg-gradient-to-r from-[#006B50] via-[#00D09C] to-[#00D09C] bg-clip-text text-transparent font-black tracking-tight"
         >
           {part}
         </span>
@@ -228,14 +228,7 @@ const renderHighlightedHeading = (heading, highlightWords) => {
 };
 
 function FloatingWidget({ widget }) {
-  const floatTransition = {
-    y: {
-      duration: 4.5 + (widget.delay || 0) * 0.5,
-      repeat: Infinity,
-      repeatType: "reverse",
-      ease: "easeInOut",
-    }
-  };
+
 
   const widgetStyles = "absolute z-20 transition-all duration-300 " + widget.position;
 
@@ -254,7 +247,7 @@ function FloatingWidget({ widget }) {
         whileHover={{ scale: 1.08, rotate: 2, boxShadow: "0 16px 48px rgba(15,23,42,0.12)" }}
       >
         <motion.div 
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-[#4C1D95]/10 text-[#4C1D95] shrink-0"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-[#00D09C]/10 text-[#00D09C] shrink-0"
           animate={{ rotate: [0, 360] }}
           transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
         >
@@ -264,9 +257,9 @@ function FloatingWidget({ widget }) {
         </motion.div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1.5">
-            <p className="text-[9px] font-bold uppercase tracking-wider text-[#4C1D95] leading-none">{widget.title}</p>
+            <p className="text-[9px] font-bold uppercase tracking-wider text-[#00D09C] leading-none">{widget.title}</p>
             <motion.span 
-              className="inline-block px-1.5 py-0.5 text-[8px] font-bold bg-[#4C1D95]/10 text-[#4C1D95] rounded-full leading-none"
+              className="inline-block px-1.5 py-0.5 text-[8px] font-bold bg-[#00D09C]/10 text-[#00D09C] rounded-full leading-none"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -411,7 +404,7 @@ function HeroSection({ slides = heroSlides }) {
       <div 
         className="absolute inset-[-40px] opacity-40 pointer-events-none hero-wavy-grid"
         style={{
-          backgroundImage: 'radial-gradient(circle, #ec4899 0.8px, #a855f7 0.5px, #4C1D95 0.3px, transparent 2px)',
+          backgroundImage: 'radial-gradient(circle, #ec4899 0.8px, #a855f7 0.5px, #00D09C 0.3px, transparent 2px)',
           backgroundSize: '35px 35px',
           willChange: 'transform'
         }}
@@ -463,10 +456,10 @@ function HeroSection({ slides = heroSlides }) {
                     <motion.div
                       variants={slideInVariants}
                       whileHover={{ scale: 1.05, rotate: 1 }}
-                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-white/70 border border-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-[#4C1D95] backdrop-blur-md mb-6"
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-white/70 border border-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-[#00D09C] backdrop-blur-md mb-6"
                     >
                       <motion.span 
-                        className="flex h-1.5 w-1.5 rounded-full bg-[#4C1D95]"
+                        className="flex h-1.5 w-1.5 rounded-full bg-[#00D09C]"
                         animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
                       />
@@ -497,7 +490,7 @@ function HeroSection({ slides = heroSlides }) {
                       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                         <Link
                           to={slide.primaryBtnLink ?? ROUTES.APPLY_NOW}
-                          className="h-12 px-7 rounded-full flex items-center justify-center gap-2 group bg-gradient-to-r from-[#3B0764] to-[#6D28D9] text-white font-semibold text-sm shadow-[0_8px_24px_rgba(76,29,149,0.18)] hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(76,29,149,0.28)] transition-all duration-200"
+                          className="h-12 px-7 rounded-full flex items-center justify-center gap-2 group bg-gradient-to-r from-[#006B50] to-[#00B386] text-white font-semibold text-sm shadow-[0_8px_24px_rgba(0, 208, 156,0.18)] hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0, 208, 156,0.28)] transition-all duration-200"
                         >
                           <span>{slide.primaryBtnText ?? 'Apply Now'}</span>
                           <motion.div
@@ -570,7 +563,7 @@ function HeroSection({ slides = heroSlides }) {
                     <div className="relative w-full max-w-[340px] sm:max-w-[420px] aspect-[4/3] flex items-center justify-center p-4">
                       {/* Enhanced Glow effects behind composition */}
                       <motion.div 
-                        className="absolute inset-0 bg-gradient-to-tr from-[#3B0764]/10 via-[#4C1D95]/5 to-transparent blur-2xl rounded-full"
+                        className="absolute inset-0 bg-gradient-to-tr from-[#006B50]/10 via-[#00D09C]/5 to-transparent blur-2xl rounded-full"
                         animate={{
                           scale: [1, 1.2, 1],
                           opacity: [0.5, 0.8, 0.5]

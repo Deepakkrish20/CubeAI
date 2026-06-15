@@ -72,25 +72,25 @@ function StatisticItem({ stat, index }) {
       variants={itemVariants}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
-      className="group relative flex flex-col justify-between bg-white/60 backdrop-blur-md p-6 sm:p-8 rounded-[20px] border border-gray-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_16px_36px_rgba(76,29,149,0.04)] hover:border-violet-200/60 transition-all duration-300 overflow-hidden cursor-default"
+      className="group relative flex flex-col justify-between bg-white/60 backdrop-blur-md p-6 sm:p-8 rounded-[20px] border border-gray-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_16px_36px_rgba(0, 208, 156,0.04)] hover:border-violet-200/60 transition-all duration-300 overflow-hidden cursor-default"
       aria-labelledby={`stat-label-${stat.id}`}
       data-stat-id={stat.id}
     >
       {/* Decorative inner ambient glow on card hover */}
-      <div className="absolute -right-8 -top-8 w-28 h-28 bg-violet-100/10 rounded-full blur-xl group-hover:bg-[#4C1D95]/5 transition-all duration-500" />
+      <div className="absolute -right-8 -top-8 w-28 h-28 bg-violet-100/10 rounded-full blur-xl group-hover:bg-[#00D09C]/5 transition-all duration-500" />
 
       <div>
         <div className="flex items-center justify-between mb-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#4C1D95]/5 text-[#4C1D95] group-hover:scale-110 group-hover:bg-[#4C1D95]/10 transition-all duration-300">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00D09C]/5 text-[#00D09C] group-hover:scale-110 group-hover:bg-[#00D09C]/10 transition-all duration-300">
             {Icon && <Icon className="h-5 w-5" aria-hidden="true" />}
           </div>
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#4C1D95]/40 group-hover:text-[#4C1D95]/60 transition-colors duration-300">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#00D09C]/40 group-hover:text-[#00D09C]/60 transition-colors duration-300">
             0{index + 1}
           </span>
         </div>
 
         <p className="font-heading text-4xl sm:text-5xl font-black tracking-tight text-gray-900 leading-none mb-3">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3B0764] via-[#4C1D95] to-[#7C3AED]">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#006B50] via-[#00D09C] to-[#00D09C]">
             {prefix}
             <AnimatedNumber 
               value={animationConfig.endValue} 
@@ -99,7 +99,7 @@ function StatisticItem({ stat, index }) {
             />
             {suffix}
           </span>
-          <span className="text-[#7C3AED] ml-0.5 group-hover:animate-pulse">+</span>
+          <span className="text-[#00D09C] ml-0.5 group-hover:animate-pulse">+</span>
         </p>
       </div>
 
@@ -126,7 +126,7 @@ function StatisticsSection({ data = statisticsData, meta = STATISTICS_SECTION_ME
   return (
     <section id={meta?.id ?? 'statistics'} className="relative w-full border-t border-gray-150 py-16 bg-gradient-to-b from-white via-slate-50/30 to-white overflow-hidden">
       {/* Background visual detail */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(76,29,149,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,29,149,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-70" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0, 208, 156,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0, 208, 156,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-70" />
       
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

@@ -4,7 +4,7 @@ import { clientsData, CLIENTS_SECTION_META } from '@/data/clientsData';
 
 /* ─── unique accent colour per card ─────────────────────────────── */
 const CARD_COLORS = [
-  { from: '#6D28D9', to: '#A78BFA', glow: 'rgba(109,40,217,0.35)' },
+  { from: '#00B386', to: '#33DCB0', glow: 'rgba(0, 208, 156,0.35)' },
   { from: '#0F3460', to: '#3B82F6', glow: 'rgba(59,130,246,0.35)' },
   { from: '#B91C1C', to: '#F87171', glow: 'rgba(239,68,68,0.35)'  },
   { from: '#065F46', to: '#34D399', glow: 'rgba(52,211,153,0.35)' },
@@ -210,14 +210,14 @@ function ClientsSection({ data = clientsData, meta = CLIENTS_SECTION_META }) {
       {/* Subtle grid texture */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 0,
-        backgroundImage: 'linear-gradient(rgba(76,29,149,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(76,29,149,0.018) 1px, transparent 1px)',
+        backgroundImage: 'linear-gradient(rgba(0, 208, 156,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 208, 156,0.018) 1px, transparent 1px)',
         backgroundSize: '48px 48px',
         maskImage: 'radial-gradient(ellipse 80% 70% at 50% 50%, #000 60%, transparent 100%)',
         WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 50%, #000 60%, transparent 100%)',
       }} />
 
       {/* Ambient blobs */}
-      <div style={{ position: 'absolute', top: -60, left: '10%', width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(109,40,217,0.06), transparent 70%)', filter: 'blur(30px)', zIndex: 0 }} />
+      <div style={{ position: 'absolute', top: -60, left: '10%', width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0, 208, 156,0.06), transparent 70%)', filter: 'blur(30px)', zIndex: 0 }} />
       <div style={{ position: 'absolute', bottom: -60, right: '10%', width: 280, height: 280, borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.05), transparent 70%)', filter: 'blur(30px)', zIndex: 0 }} />
 
       <div ref={containerRef} style={{ position: 'relative', zIndex: 1 }}>
@@ -234,7 +234,7 @@ function ClientsSection({ data = clientsData, meta = CLIENTS_SECTION_META }) {
             background: 'white', border: '1px solid rgba(226,232,240,0.8)',
             boxShadow: '0 2px 12px rgba(0,0,0,0.03)',
             fontSize: 10, fontWeight: 800, letterSpacing: 2,
-            textTransform: 'uppercase', color: '#4C1D95', marginBottom: 14,
+            textTransform: 'uppercase', color: '#00D09C', marginBottom: 14,
           }}>
             ✦ Trusted By
           </span>
@@ -247,7 +247,7 @@ function ClientsSection({ data = clientsData, meta = CLIENTS_SECTION_META }) {
             {meta?.title ?? 'Our Clients'}
           </h2>
           <p style={{ marginTop: 10, fontSize: 14, color: '#64748B', fontWeight: 500 }}>
-            Powering EV adoption across India's top mobility brands
+            Powering EV adoption across India&apos;s top mobility brands
           </p>
         </motion.div>
 

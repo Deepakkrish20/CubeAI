@@ -162,7 +162,7 @@ function ApplicationForm() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-violet-100/10 rounded-full blur-3xl -z-10" />
 
       <header className="mb-10 text-center">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#4C1D95] mb-4">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-4">
           Onboarding
         </span>
         <h2 className="font-heading text-3xl font-black tracking-tight text-gray-900 leading-none">
@@ -177,7 +177,6 @@ function ApplicationForm() {
       <div className="mb-10 flex items-center justify-between relative px-2">
         <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-100 -translate-y-1/2 -z-10" />
         {STEPS.map((step, idx) => {
-          const StepIcon = step.icon;
           const isCompleted = currentStep > idx;
           const isActive = currentStep === idx;
 
@@ -186,9 +185,9 @@ function ApplicationForm() {
               <div
                 className={`flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all duration-300 font-bold text-xs ${
                   isCompleted
-                    ? 'border-[#4C1D95] bg-[#4C1D95] text-white'
+                    ? 'border-[#00D09C] bg-[#00D09C] text-white'
                     : isActive
-                    ? 'border-[#4C1D95] bg-white text-[#4C1D95] shadow-[0_0_15px_rgba(76,29,149,0.15)]'
+                    ? 'border-[#00D09C] bg-white text-[#00D09C] shadow-[0_0_15px_rgba(0, 208, 156,0.15)]'
                     : 'border-slate-200 bg-white text-slate-400'
                 }`}
               >
@@ -210,7 +209,7 @@ function ApplicationForm() {
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 rounded-2xl border border-violet-100 bg-violet-50/50 p-5 text-xs font-bold text-[#4C1D95] leading-relaxed shadow-sm"
+          className="mb-8 rounded-2xl border border-violet-100 bg-violet-50/50 p-5 text-xs font-bold text-[#00D09C] leading-relaxed shadow-sm"
         >
           Your application has been submitted successfully! Our representative will contact you shortly.
         </motion.div>
@@ -248,7 +247,7 @@ function ApplicationForm() {
                   className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                     errors.service
                       ? 'border-red-500 focus:ring-red-500/10'
-                      : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                      : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
                   }`}
                   {...register('service', { required: 'Please select a service' })}
                 >
@@ -279,7 +278,7 @@ function ApplicationForm() {
                     className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                       errors.fullName
                         ? 'border-red-500 focus:ring-red-500/10'
-                        : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                        : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
                     }`}
                     {...register('fullName', { required: 'Full name is required' })}
                   />
@@ -300,7 +299,7 @@ function ApplicationForm() {
                     className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                       errors.mobile
                         ? 'border-red-500 focus:ring-red-500/10'
-                        : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                        : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
                     }`}
                     {...register('mobile', {
                       required: 'Mobile number is required',
@@ -324,7 +323,7 @@ function ApplicationForm() {
                     type="text"
                     id="father"
                     placeholder="Enter father's name"
-                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold focus:border-[#4C1D95] focus:outline-none focus:ring-4 focus:ring-[#4C1D95]/5 transition-all"
+                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold focus:border-[#00D09C] focus:outline-none focus:ring-4 focus:ring-[#00D09C]/5 transition-all"
                     {...register('father')}
                   />
                 </div>
@@ -340,7 +339,7 @@ function ApplicationForm() {
                     className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                       errors.dob
                         ? 'border-red-500 focus:ring-red-500/10'
-                        : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                        : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
                     }`}
                     {...register('dob', { required: 'Date of birth is required' })}
                   />
@@ -354,7 +353,7 @@ function ApplicationForm() {
                   </label>
                   <select
                     id="marital"
-                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold focus:border-[#4C1D95] focus:outline-none focus:ring-4 focus:ring-[#4C1D95]/5 transition-all"
+                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold focus:border-[#00D09C] focus:outline-none focus:ring-4 focus:ring-[#00D09C]/5 transition-all"
                     {...register('marital')}
                   >
                     <option value="">Select</option>
@@ -372,7 +371,7 @@ function ApplicationForm() {
                         <input
                           type="radio"
                           value={g}
-                          className="h-3 w-3 accent-[#4C1D95] mr-2"
+                          className="h-3 w-3 accent-[#00D09C] mr-2"
                           {...register('gender')}
                         />
                         <span>{g}</span>
@@ -400,7 +399,7 @@ function ApplicationForm() {
                   Upload Aadhaar Card (PDF/JPG/PNG) *
                 </label>
                 <div className={`relative border-2 border-dashed rounded-[20px] p-6 text-center cursor-pointer transition-all duration-300 ${
-                  errors.aadhaar ? 'border-red-300 bg-red-50/20' : 'border-gray-200 hover:border-[#4C1D95] bg-slate-50/30'
+                  errors.aadhaar ? 'border-red-300 bg-red-50/20' : 'border-gray-200 hover:border-[#00D09C] bg-slate-50/30'
                 }`}>
                   <input
                     type="file"
@@ -415,7 +414,7 @@ function ApplicationForm() {
                     })}
                   />
                   <div className="flex flex-col items-center justify-center">
-                    <FiUploadCloud className="h-8 w-8 text-[#4C1D95] mb-2" />
+                    <FiUploadCloud className="h-8 w-8 text-[#00D09C] mb-2" />
                     <span className="text-xs font-bold text-gray-700">Choose file or drag & drop</span>
                     <span className="text-[10px] text-gray-400 mt-1">PDF, JPG, PNG up to 10MB</span>
                   </div>
@@ -437,7 +436,7 @@ function ApplicationForm() {
                   Upload PAN Card (PDF/JPG/PNG) *
                 </label>
                 <div className={`relative border-2 border-dashed rounded-[20px] p-6 text-center cursor-pointer transition-all duration-300 ${
-                  errors.pan ? 'border-red-300 bg-red-50/20' : 'border-gray-200 hover:border-[#4C1D95] bg-slate-50/30'
+                  errors.pan ? 'border-red-300 bg-red-50/20' : 'border-gray-200 hover:border-[#00D09C] bg-slate-50/30'
                 }`}>
                   <input
                     type="file"
@@ -452,7 +451,7 @@ function ApplicationForm() {
                     })}
                   />
                   <div className="flex flex-col items-center justify-center">
-                    <FiUploadCloud className="h-8 w-8 text-[#4C1D95] mb-2" />
+                    <FiUploadCloud className="h-8 w-8 text-[#00D09C] mb-2" />
                     <span className="text-xs font-bold text-gray-700">Choose file or drag & drop</span>
                     <span className="text-[10px] text-gray-400 mt-1">PDF, JPG, PNG up to 10MB</span>
                   </div>
@@ -474,7 +473,7 @@ function ApplicationForm() {
                   Upload Photo (JPG/PNG) *
                 </label>
                 <div className={`relative border-2 border-dashed rounded-[20px] p-6 text-center cursor-pointer transition-all duration-300 ${
-                  errors.photo ? 'border-red-300 bg-red-50/20' : 'border-gray-200 hover:border-[#4C1D95] bg-slate-50/30'
+                  errors.photo ? 'border-red-300 bg-red-50/20' : 'border-gray-200 hover:border-[#00D09C] bg-slate-50/30'
                 }`}>
                   <input
                     type="file"
@@ -489,7 +488,7 @@ function ApplicationForm() {
                     })}
                   />
                   <div className="flex flex-col items-center justify-center">
-                    <FiUploadCloud className="h-8 w-8 text-[#4C1D95] mb-2" />
+                    <FiUploadCloud className="h-8 w-8 text-[#00D09C] mb-2" />
                     <span className="text-xs font-bold text-gray-700">Choose file or drag & drop</span>
                     <span className="text-[10px] text-gray-400 mt-1">JPG, PNG up to 10MB</span>
                   </div>
@@ -528,7 +527,7 @@ function ApplicationForm() {
                     className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                       errors.state
                         ? 'border-red-500 focus:ring-red-500/10'
-                        : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                        : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
                     }`}
                     {...register('state', { required: 'Please select your state' })}
                   >
@@ -553,7 +552,7 @@ function ApplicationForm() {
                     type="text"
                     id="city"
                     placeholder="Enter city"
-                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold focus:border-[#4C1D95] focus:outline-none focus:ring-4 focus:ring-[#4C1D95]/5 transition-all"
+                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold focus:border-[#00D09C] focus:outline-none focus:ring-4 focus:ring-[#00D09C]/5 transition-all"
                     {...register('city')}
                   />
                 </div>
@@ -570,7 +569,7 @@ function ApplicationForm() {
                     className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                       errors.postal
                         ? 'border-red-500 focus:ring-red-500/10'
-                        : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                        : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
                     }`}
                     {...register('postal', {
                       pattern: {
@@ -593,7 +592,7 @@ function ApplicationForm() {
                     id="address"
                     rows="3"
                     placeholder="Enter complete residential address"
-                    className="w-full resize-none rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold focus:border-[#4C1D95] focus:outline-none focus:ring-4 focus:ring-[#4C1D95]/5 transition-all"
+                    className="w-full resize-none rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold focus:border-[#00D09C] focus:outline-none focus:ring-4 focus:ring-[#00D09C]/5 transition-all"
                     {...register('address')}
                   />
                 </div>
@@ -617,7 +616,7 @@ function ApplicationForm() {
             <button
               type="button"
               onClick={handleNextStep}
-              className="px-6 py-3 rounded-2xl bg-[#4C1D95] text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:bg-[#3B0764]"
+              className="px-6 py-3 rounded-2xl bg-[#00D09C] text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:bg-[#006B50]"
             >
               Next
             </button>
@@ -625,7 +624,7 @@ function ApplicationForm() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="py-3 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#3B0764] to-[#6D28D9] shadow-[0_8px_24px_rgba(76,29,149,0.18)] hover:shadow-[0_12px_30px_rgba(76,29,149,0.28)]"
+              className="py-3 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#006B50] to-[#00B386] shadow-[0_8px_24px_rgba(0, 208, 156,0.18)] hover:shadow-[0_12px_30px_rgba(0, 208, 156,0.28)]"
             >
               {isSubmitting ? 'Submitting Application...' : 'Apply Now'}
             </Button>

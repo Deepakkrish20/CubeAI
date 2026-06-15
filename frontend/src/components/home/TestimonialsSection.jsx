@@ -83,7 +83,7 @@ function TestimonialsSection({ data = testimonialsData }) {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-10 text-center"
         >
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#4C1D95] mb-4">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-4">
             Testimonials
           </span>
           <h2 className="font-heading text-3xl font-black tracking-tight text-gray-900 leading-none">
@@ -99,8 +99,8 @@ function TestimonialsSection({ data = testimonialsData }) {
           className="relative flex flex-col items-center rounded-[32px] border border-gray-200/50 bg-white/80 backdrop-blur-md p-8 sm:p-12 shadow-[0_16px_48px_rgba(15,23,42,0.03)]"
         >
           {/* Quote mark icon */}
-          <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#4C1D95]/5 border border-violet-100/30">
-            <span className="font-serif text-3xl font-black text-[#4C1D95] select-none leading-none mt-2">&ldquo;</span>
+          <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#00D09C]/5 border border-violet-100/30">
+            <span className="font-serif text-3xl font-black text-[#00D09C] select-none leading-none mt-2">&ldquo;</span>
           </div>
 
           {/* Testimonial Text with slide-and-fade transition */}
@@ -133,14 +133,14 @@ function TestimonialsSection({ data = testimonialsData }) {
                 <img
                   src={current.image}
                   alt={current.customerName}
-                  className="mb-4 h-16 w-16 rounded-full border-2 border-white bg-slate-100 object-cover shadow-[0_4px_16px_rgba(76,29,149,0.1)]"
+                  className="mb-4 h-16 w-16 rounded-full border-2 border-white bg-slate-100 object-cover shadow-[0_4px_16px_rgba(0, 208, 156,0.1)]"
                   onError={(e) => {
                     e.target.style.display = 'none';
                   }}
                 />
               )}
               <h4 className="text-base font-black text-gray-900 leading-none">{current.customerName}</h4>
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#4C1D95] mt-1.5">{current.designation}</span>
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#00D09C] mt-1.5">{current.designation}</span>
             </motion.div>
           </AnimatePresence>
 
@@ -149,7 +149,7 @@ function TestimonialsSection({ data = testimonialsData }) {
             onClick={handlePrev}
             aria-label="Previous testimonial"
             type="button"
-            className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-all duration-200 hover:bg-gray-50 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#4C1D95]/20 hidden sm:flex"
+            className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-all duration-200 hover:bg-gray-50 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#00D09C]/20 hidden sm:flex"
           >
             <FiChevronLeft className="h-5 w-5" />
           </button>
@@ -157,7 +157,7 @@ function TestimonialsSection({ data = testimonialsData }) {
             onClick={handleNext}
             aria-label="Next testimonial"
             type="button"
-            className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-all duration-200 hover:bg-gray-50 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#4C1D95]/20 hidden sm:flex"
+            className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-all duration-200 hover:bg-gray-50 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#00D09C]/20 hidden sm:flex"
           >
             <FiChevronRight className="h-5 w-5" />
           </button>
@@ -171,7 +171,7 @@ function TestimonialsSection({ data = testimonialsData }) {
                 aria-label={`Go to testimonial ${index + 1}`}
                 type="button"
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  index === activeIndex ? 'w-5 bg-[#4C1D95]' : 'w-1.5 bg-gray-200 hover:bg-gray-300'
+                  index === activeIndex ? 'w-5 bg-[#00D09C]' : 'w-1.5 bg-gray-200 hover:bg-gray-300'
                 }`}
               />
             ))}

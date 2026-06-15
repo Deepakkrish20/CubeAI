@@ -20,7 +20,7 @@ function PageHeader({ title, subtitle, breadcrumb }) {
       
       <div className="container relative z-10">
         {breadcrumb && <p className="mb-2 text-sm text-gray-500">{breadcrumb}</p>}
-        <h1 className="text-3xl font-bold text-[#4C1D95] md:text-4xl">{title}</h1>
+        <h1 className="text-3xl font-bold text-[#00D09C] md:text-4xl">{title}</h1>
         {subtitle && <p className="mt-4 max-w-2xl text-gray-600">{subtitle}</p>}
       </div>
     </section>

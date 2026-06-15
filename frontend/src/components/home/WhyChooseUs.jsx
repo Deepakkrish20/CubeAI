@@ -17,19 +17,19 @@ function ValuePropositionItem({ item, index }) {
       initial={{ opacity: 0, x: 24 }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 24 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.12 }}
-      className="group relative flex flex-col sm:flex-row gap-5 p-6 sm:p-8 rounded-[24px] border border-gray-200/50 bg-white/70 backdrop-blur-sm shadow-[0_8px_30px_rgb(0,0,0,0.01)] hover:shadow-[0_16px_36px_rgba(76,29,149,0.03)] hover:border-violet-200/80 transition-all duration-300 cursor-default overflow-hidden"
+      className="group relative flex flex-col sm:flex-row gap-5 p-6 sm:p-8 rounded-[24px] border border-gray-200/50 bg-white/70 backdrop-blur-sm shadow-[0_8px_30px_rgb(0,0,0,0.01)] hover:shadow-[0_16px_36px_rgba(0, 208, 156,0.03)] hover:border-violet-200/80 transition-all duration-300 cursor-default overflow-hidden"
       aria-labelledby={`vp-title-${item.id}`}
     >
       {/* Dynamic hover overlay */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-transparent to-violet-50/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       {/* Icon Frame with glowing border */}
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#4C1D95]/5 text-[#4C1D95] border border-violet-100/10 group-hover:scale-110 group-hover:bg-[#4C1D95]/10 group-hover:shadow-[0_0_15px_rgba(76,29,149,0.15)] transition-all duration-300">
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#00D09C]/5 text-[#00D09C] border border-violet-100/10 group-hover:scale-110 group-hover:bg-[#00D09C]/10 group-hover:shadow-[0_0_15px_rgba(0, 208, 156,0.15)] transition-all duration-300">
         <Icon className="h-5 w-5" aria-hidden="true" />
       </div>
 
       <div className="flex-1">
-        <h3 id={`vp-title-${item.id}`} className="text-lg font-bold text-gray-900 group-hover:text-[#3B0764] transition-colors duration-250">
+        <h3 id={`vp-title-${item.id}`} className="text-lg font-bold text-gray-900 group-hover:text-[#006B50] transition-colors duration-250">
           {item.title}
         </h3>
         {item.description && (
@@ -74,7 +74,7 @@ function WhyChooseUs({ data = whyChooseUsData, meta = WHY_CHOOSE_US_SECTION_META
             className="lg:col-span-5 flex flex-col items-start pr-0 lg:pr-8"
           >
             {meta?.eyebrow && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#4C1D95] mb-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-6">
                 {meta.eyebrow}
               </span>
             )}

@@ -42,7 +42,7 @@ function ContactForm() {
               className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                 errors.name
                   ? 'border-red-500 focus:ring-red-500/10'
-                  : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                  : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
               }`}
               {...register('name', { required: 'Name is required' })}
             />
@@ -63,7 +63,7 @@ function ContactForm() {
               className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                 errors.email
                   ? 'border-red-500 focus:ring-red-500/10'
-                  : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                  : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
               }`}
               {...register('email', { required: 'Email is required' })}
             />
@@ -84,7 +84,7 @@ function ContactForm() {
               className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                 errors.phone
                   ? 'border-red-500 focus:ring-red-500/10'
-                  : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                  : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
               }`}
               {...register('phone', { required: 'Phone is required' })}
             />
@@ -105,7 +105,7 @@ function ContactForm() {
               className={`w-full rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                 errors.subject
                   ? 'border-red-500 focus:ring-red-500/10'
-                  : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                  : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
               }`}
               {...register('subject', { required: 'Subject is required' })}
             />
@@ -126,7 +126,7 @@ function ContactForm() {
               className={`w-full resize-none rounded-2xl border bg-white px-4 py-3.5 text-sm font-semibold transition-all focus:outline-none focus:ring-4 ${
                 errors.message
                   ? 'border-red-500 focus:ring-red-500/10'
-                  : 'border-gray-200 focus:border-[#4C1D95] focus:ring-[#4C1D95]/5'
+                  : 'border-gray-200 focus:border-[#00D09C] focus:ring-[#00D09C]/5'
               }`}
               {...register('message', { required: 'Message is required' })}
             />
@@ -141,7 +141,7 @@ function ContactForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3.5 text-xs font-extrabold uppercase tracking-wider bg-gradient-to-r from-[#3B0764] to-[#6D28D9] shadow-[0_8px_24px_rgba(76,29,149,0.18)] hover:shadow-[0_12px_30px_rgba(76,29,149,0.28)]"
+            className="w-full py-3.5 text-xs font-extrabold uppercase tracking-wider bg-gradient-to-r from-[#006B50] to-[#00B386] shadow-[0_8px_24px_rgba(0, 208, 156,0.18)] hover:shadow-[0_12px_30px_rgba(0, 208, 156,0.28)]"
           >
             {isSubmitting ? 'Sending...' : 'Send Message'}
           </Button>

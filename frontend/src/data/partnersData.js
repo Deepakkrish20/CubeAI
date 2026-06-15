@@ -18,7 +18,7 @@ export const partnersData = [
   {
     id: 'phf-leasing',
     name: 'PHF Leasing Ltd',
-    logo: 'https://placehold.co/200x80/3B0764/ffffff?text=PHF+Leasing',
+    logo: 'https://placehold.co/200x80/006B50/ffffff?text=PHF+Leasing',
     order: 2,
   },
   {
@@ -30,7 +30,7 @@ export const partnersData = [
   {
     id: 'rtf',
     name: 'RTF',
-    logo: 'https://placehold.co/200x80/4C1D95/ffffff?text=RTF',
+    logo: 'https://placehold.co/200x80/00D09C/ffffff?text=RTF',
     order: 4,
   },
 ];

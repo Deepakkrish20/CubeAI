@@ -19,7 +19,7 @@ export const clientsData = [
   { id: 9, name: 'Revolt Motors', logo: 'https://placehold.co/200x80/6c3483/ffffff?text=Revolt' },
   { id: 10, name: 'Okinawa', logo: 'https://placehold.co/200x80/1abc9c/ffffff?text=Okinawa' },
   { id: 11, name: 'River EV', logo: 'https://placehold.co/200x80/2e4057/ffffff?text=River+EV' },
-  { id: 12, name: 'Tork Motors', logo: 'https://placehold.co/200x80/4C1D95/ffffff?text=Tork' },
+  { id: 12, name: 'Tork Motors', logo: 'https://placehold.co/200x80/00D09C/ffffff?text=Tork' },
   { id: 13, name: 'BGauss', logo: 'https://placehold.co/200x80/34495e/ffffff?text=BGauss' },
   { id: 14, name: 'Eway', logo: 'https://placehold.co/200x80/8e44ad/ffffff?text=Eway' },
 ];

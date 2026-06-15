@@ -64,8 +64,8 @@ function Navbar() {
           id="navbar"
           className={`duration-350 mx-auto w-[94%] max-w-7xl rounded-[20px] border transition-all md:rounded-[24px] ${
             hasScroll
-              ? 'border-white/45 bg-white/85 px-6 py-2.5 shadow-[0_12px_48px_rgba(15,23,42,0.12)] backdrop-blur-[24px] dark:border-wakanda-purple/30 dark:bg-dark-bg/85 dark:shadow-[0_4px_30px_rgba(124,58,237,0.15)]'
-              : 'border-white/45 bg-white/72 px-8 py-4 shadow-[0_8px_40px_rgba(15,23,42,0.08)] backdrop-blur-[20px] dark:border-wakanda-purple/20 dark:bg-dark-bg/60 dark:shadow-[0_4px_30px_rgba(124,58,237,0.1)]'
+              ? 'border-white/45 bg-white/85 px-6 py-2.5 shadow-[0_12px_48px_rgba(15,23,42,0.12)] backdrop-blur-[24px] dark:border-secondary/30 dark:bg-dark-bg/85 dark:shadow-[0_4px_30px_rgba(0, 208, 156,0.15)]'
+              : 'border-white/45 bg-white/72 px-8 py-4 shadow-[0_8px_40px_rgba(15,23,42,0.08)] backdrop-blur-[20px] dark:border-secondary/20 dark:bg-dark-bg/60 dark:shadow-[0_4px_30px_rgba(0, 208, 156,0.1)]'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -125,7 +125,7 @@ function Navbar() {
               <button
                 onClick={() => setIsApplyOpen(true)}
                 type="button"
-                className="duration-250 group flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#4C1D95] to-[#7C3AED] px-6 text-sm font-bold text-white shadow-[0_4px_16px_rgba(76,29,149,0.18)] transition-all hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(76,29,149,0.28)] focus:outline-none"
+                className="duration-250 group flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00D09C] to-[#00D09C] px-6 text-sm font-bold text-white shadow-[0_4px_16px_rgba(0, 208, 156,0.18)] transition-all hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_8px_24px_rgba(0, 208, 156,0.28)] focus:outline-none"
               >
                 <span>Apply Now</span>
                 <FiArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -137,7 +137,7 @@ function Navbar() {
               
               <button
                 onClick={toggleMenu}
-                className="p-2 text-gray-600 transition-colors duration-200 hover:text-secondary dark:text-vibranium dark:hover:text-wakanda-purple focus:outline-none"
+                className="p-2 text-gray-600 transition-colors duration-200 hover:text-secondary dark:text-vibranium dark:hover:text-secondary focus:outline-none"
                 aria-label="Toggle menu"
                 aria-expanded={isMenuOpen}
                 type="button"
@@ -166,7 +166,7 @@ function Navbar() {
           {/* Mobile Navigation Panel - Frosted absolute card layout */}
           {isMenuOpen && (
             <div className="animate-mobile-menu-in absolute left-0 right-0 top-full z-50 mt-2 w-full origin-top px-4 lg:hidden">
-              <div className="bg-white/92 flex flex-col gap-4 rounded-[20px] border border-white/50 p-5 shadow-[0_16px_48px_rgba(15,23,42,0.16)] backdrop-blur-[20px] dark:bg-dark-bg/95 dark:border-wakanda-purple/40 dark:shadow-[0_16px_48px_rgba(124,58,237,0.16)]">
+              <div className="bg-white/92 flex flex-col gap-4 rounded-[20px] border border-white/50 p-5 shadow-[0_16px_48px_rgba(15,23,42,0.16)] backdrop-blur-[20px] dark:bg-dark-bg/95 dark:border-secondary/40 dark:shadow-[0_16px_48px_rgba(0, 208, 156,0.16)]">
                 <div className="flex flex-col gap-1">
                   <NavLink
                     to={ROUTES.HOME}
@@ -244,7 +244,7 @@ function Navbar() {
                       closeMenu();
                     }}
                     type="button"
-                    className="group flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#4C1D95] to-[#7C3AED] px-6 text-sm font-bold text-white shadow-[0_4px_16px_rgba(76,29,149,0.18)]"
+                    className="group flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00D09C] to-[#00D09C] px-6 text-sm font-bold text-white shadow-[0_4px_16px_rgba(0, 208, 156,0.18)]"
                   >
                     <span>Apply Now</span>
                     <FiArrowRight className="h-4 w-4" />
