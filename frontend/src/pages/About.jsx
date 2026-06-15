@@ -1,5 +1,8 @@
 import PageHeader from '@/components/common/PageHeader';
 import AboutSection from '@/components/home/AboutSection';
+import { TeamSection } from '@/pages/Team';
+import { AchievementsSection } from '@/pages/Achievements';
+import { AssociationSection } from '@/pages/Association';
 
 function About() {
   return (
@@ -10,6 +13,9 @@ function About() {
         breadcrumb="Home / About"
       />
       <AboutSection />
+      <TeamSection />
+      <AchievementsSection />
+      <AssociationSection />
     </>
   );
 }

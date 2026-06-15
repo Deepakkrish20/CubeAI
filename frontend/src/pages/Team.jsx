@@ -135,10 +135,90 @@ function TeamMemberCard({ member, index }) {
   );
 }
 
-function Team() {
+export function TeamSection() {
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true });
 
+  return (
+    <section className="relative w-full py-16 lg:py-24 bg-gradient-to-b from-white via-slate-50/20 to-white overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(76,29,149,0.012)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,29,149,0.012)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,#000_70%,transparent_100%)]" />
+      <div className="absolute top-0 left-1/3 -z-10 h-[400px] w-[400px] rounded-full bg-violet-100/20 blur-3xl" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        {/* Section Header */}
+        <motion.div
+          ref={headerRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-14 text-center"
+        >
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] text-[#4C1D95] mb-5">
+            Our People
+          </span>
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-black tracking-[-0.03em] text-gray-900 leading-[1.2] mb-4">
+            Meet Our Leadership Team
+          </h2>
+          <p className="text-base text-gray-500 font-medium max-w-lg mx-auto leading-relaxed">
+            The passionate professionals driving Bundela Fin Corp&apos;s mission to make EV
+            financing accessible across India.
+          </p>
+        </motion.div>
+
+        {/* Team Cards Grid */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-20">
+          {TEAM_MEMBERS.map((member, index) => (
+            <TeamMemberCard key={member.name} member={member} index={index} />
+          ))}
+        </div>
+
+        {/* Core Team Group Photo */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
+        >
+          <div className="mb-8 text-center">
+            <h2 className="font-heading text-2xl sm:text-3xl font-black tracking-tight text-gray-900">
+              Meet Our Core Team
+            </h2>
+            <p className="mt-2 text-sm text-gray-400 font-medium">
+              The backbone of Bundela Fin Corp — united in purpose, driven by excellence.
+            </p>
+          </div>
+
+          <div className="relative overflow-hidden rounded-[32px] border border-gray-200/50 shadow-[0_16px_48px_rgba(15,23,42,0.06)]">
+            <img
+              src="/img/team-group.jpeg"
+              alt="Bundela Fin Corp Core Team"
+              className="h-auto w-full object-cover"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200&auto=format&fit=crop&q=80';
+              }}
+            />
+            {/* Gradient overlay on group photo */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#09070F]/60 via-transparent to-transparent flex items-end p-8">
+              <div className="text-white">
+                <p className="text-xs font-extrabold uppercase tracking-widest text-violet-300 mb-1">
+                  Bundela Fin Corp
+                </p>
+                <h3 className="text-xl sm:text-2xl font-black">Our Core Team — 2025</h3>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
+
+function Team() {
   return (
     <>
       <PageHeader
@@ -146,82 +226,7 @@ function Team() {
         subtitle="Meet our Leadership Team"
         breadcrumb="Home / Team Member"
       />
-
-      <section className="relative w-full py-16 lg:py-24 bg-gradient-to-b from-white via-slate-50/20 to-white overflow-hidden">
-        {/* Background decorations */}
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(76,29,149,0.012)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,29,149,0.012)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,#000_70%,transparent_100%)]" />
-        <div className="absolute top-0 left-1/3 -z-10 h-[400px] w-[400px] rounded-full bg-violet-100/20 blur-3xl" />
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-          {/* Section Header */}
-          <motion.div
-            ref={headerRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-14 text-center"
-          >
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] text-[#4C1D95] mb-5">
-              Our People
-            </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-black tracking-[-0.03em] text-gray-900 leading-[1.2] mb-4">
-              Meet Our Leadership Team
-            </h2>
-            <p className="text-base text-gray-500 font-medium max-w-lg mx-auto leading-relaxed">
-              The passionate professionals driving Bundela Fin Corp&apos;s mission to make EV
-              financing accessible across India.
-            </p>
-          </motion.div>
-
-          {/* Team Cards Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-20">
-            {TEAM_MEMBERS.map((member, index) => (
-              <TeamMemberCard key={member.name} member={member} index={index} />
-            ))}
-          </div>
-
-          {/* Core Team Group Photo */}
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
-            <div className="mb-8 text-center">
-              <h2 className="font-heading text-2xl sm:text-3xl font-black tracking-tight text-gray-900">
-                Meet Our Core Team
-              </h2>
-              <p className="mt-2 text-sm text-gray-400 font-medium">
-                The backbone of Bundela Fin Corp — united in purpose, driven by excellence.
-              </p>
-            </div>
-
-            <div className="relative overflow-hidden rounded-[32px] border border-gray-200/50 shadow-[0_16px_48px_rgba(15,23,42,0.06)]">
-              <img
-                src="/img/team-group.jpeg"
-                alt="Bundela Fin Corp Core Team"
-                className="h-auto w-full object-cover"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200&auto=format&fit=crop&q=80';
-                }}
-              />
-              {/* Gradient overlay on group photo */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#09070F]/60 via-transparent to-transparent flex items-end p-8">
-                <div className="text-white">
-                  <p className="text-xs font-extrabold uppercase tracking-widest text-violet-300 mb-1">
-                    Bundela Fin Corp
-                  </p>
-                  <h3 className="text-xl sm:text-2xl font-black">Our Core Team — 2025</h3>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-        </div>
-      </section>
+      <TeamSection />
     </>
   );
 }

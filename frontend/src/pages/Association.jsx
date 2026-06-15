@@ -24,6 +24,56 @@ const ASSOCIATIONS = [
   },
 ];
 
+export function AssociationSection() {
+  return (
+    <div className="section-padding container space-y-12 py-12">
+      <div className="mb-10 text-center">
+        <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+          Associations
+        </span>
+        <h2 className="mt-2 text-3xl font-bold text-gray-900">Our Associations</h2>
+      </div>
+
+      <div className="space-y-12">
+        {ASSOCIATIONS.map((assoc, index) => (
+          <div
+            key={index}
+            className={`border-gray-150 flex flex-col items-center gap-8 border-b pb-8 last:border-0 lg:flex-row ${
+              index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+            }`}
+          >
+            {/* Logo Area */}
+            <div className="flex w-full flex-col items-center text-center lg:w-1/3">
+              <div className="relative flex h-48 w-48 items-center justify-center overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm">
+                <img
+                  src={assoc.logo}
+                  alt={assoc.name}
+                  className="max-h-full max-w-full object-contain"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextElementSibling.style.display = 'block';
+                  }}
+                />
+                <div className="hidden text-lg font-bold text-gray-400">{assoc.initials}</div>
+              </div>
+              <h3 className="mt-4 max-w-xs text-sm font-bold text-gray-800 md:text-base">
+                {assoc.name}
+              </h3>
+            </div>
+
+            {/* Text Area */}
+            <div className="w-full space-y-4 lg:w-2/3">
+              <p className="text-gray-650 text-sm font-medium leading-relaxed">
+                {assoc.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Association() {
   return (
     <>
@@ -32,51 +82,7 @@ function Association() {
         subtitle="Our Industry Associations"
         breadcrumb="Home / Association"
       />
-      <div className="section-padding container space-y-12 py-12">
-        <div className="mb-10 text-center">
-          <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
-            Associations
-          </span>
-          <h2 className="mt-2 text-3xl font-bold text-gray-900">Our Associations</h2>
-        </div>
-
-        <div className="space-y-12">
-          {ASSOCIATIONS.map((assoc, index) => (
-            <div
-              key={index}
-              className={`border-gray-150 flex flex-col items-center gap-8 border-b pb-8 last:border-0 lg:flex-row ${
-                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-              }`}
-            >
-              {/* Logo Area */}
-              <div className="flex w-full flex-col items-center text-center lg:w-1/3">
-                <div className="relative flex h-48 w-48 items-center justify-center overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm">
-                  <img
-                    src={assoc.logo}
-                    alt={assoc.name}
-                    className="max-h-full max-w-full object-contain"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextElementSibling.style.display = 'block';
-                    }}
-                  />
-                  <div className="hidden text-lg font-bold text-gray-400">{assoc.initials}</div>
-                </div>
-                <h3 className="mt-4 max-w-xs text-sm font-bold text-gray-800 md:text-base">
-                  {assoc.name}
-                </h3>
-              </div>
-
-              {/* Text Area */}
-              <div className="w-full space-y-4 lg:w-2/3">
-                <p className="text-gray-650 text-sm font-medium leading-relaxed">
-                  {assoc.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <AssociationSection />
     </>
   );
 }

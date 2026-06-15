@@ -1,6 +1,54 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { submitDealershipForm } from '@/services/dealershipService';
+import { FiUpload, FiCheck } from 'react-icons/fi';
+
+function FileUploadInput({ label, name, register, watch, error, required, validate }) {
+  const fileValue = watch(name);
+  const selectedFile = fileValue?.[0];
+
+  return (
+    <div className="flex flex-col">
+      <div className="relative">
+        <input
+          type="file"
+          id={`file-input-${name}`}
+          accept=".pdf,.jpg,.jpeg,.png"
+          className="sr-only"
+          {...register(name, {
+            required: required ? `${label.replace(' *', '')} is required` : false,
+            validate: validate,
+          })}
+        />
+        <label
+          htmlFor={`file-input-${name}`}
+          className={`flex items-center gap-3 cursor-pointer rounded-lg border-2 border-dashed px-4 py-3 text-sm transition-all duration-200 ${
+            selectedFile
+              ? 'border-violet-400 bg-violet-50/50 hover:bg-violet-50'
+              : error
+              ? 'border-red-300 bg-red-50/30 hover:bg-red-50/50'
+              : 'border-gray-300 bg-gray-50/30 hover:border-violet-300 hover:bg-gray-50'
+          }`}
+        >
+          <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+            selectedFile ? 'bg-violet-100 text-violet-600 font-bold' : 'bg-gray-100 text-gray-400'
+          }`}>
+            {selectedFile ? <FiCheck className="h-4 w-4" /> : <FiUpload className="h-4 w-4" />}
+          </div>
+          <div className="flex-1 min-w-0">
+            <span className="block text-xs font-bold text-gray-750 mb-0.5">{label}</span>
+            <p className={`font-semibold truncate text-[11px] ${selectedFile ? 'text-violet-750' : 'text-gray-400'}`}>
+              {selectedFile ? selectedFile.name : 'Choose file...'}
+            </p>
+          </div>
+        </label>
+      </div>
+      {error && (
+        <span className="mt-1 text-xs text-red-500">{error.message}</span>
+      )}
+    </div>
+  );
+}
 
 function DealershipForm({ onSuccess = () => {} }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -11,6 +59,7 @@ function DealershipForm({ onSuccess = () => {} }) {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -257,116 +306,70 @@ function DealershipForm({ onSuccess = () => {} }) {
           </div>
 
           {/* Aadhaar Upload */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-semibold">
-              Upload Aadhaar Card (PDF/JPG/PNG) *
-            </label>
-            <input
-              type="file"
-              accept=".pdf,.jpg,.jpeg,.png"
-              className={`rounded border bg-gray-50 p-1 text-xs focus:outline-none ${
-                errors.aadhaar ? 'border-red-500' : 'border-gray-300'
-              }`}
-              {...register('aadhaar', {
-                required: 'Aadhaar copy is required',
-                validate: validateFileSize,
-              })}
-            />
-            <small className="mt-0.5 text-gray-400">Max 1MB</small>
-            {errors.aadhaar && (
-              <span className="mt-1 text-xs text-red-500">{errors.aadhaar.message}</span>
-            )}
-          </div>
+          <FileUploadInput
+            label="Upload Aadhaar Card (PDF/JPG/PNG) *"
+            name="aadhaar"
+            register={register}
+            watch={watch}
+            error={errors.aadhaar}
+            required={true}
+            validate={validateFileSize}
+          />
 
           {/* PAN Upload */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-semibold">Upload PAN Card (PDF/JPG/PNG) *</label>
-            <input
-              type="file"
-              accept=".pdf,.jpg,.jpeg,.png"
-              className={`rounded border bg-gray-50 p-1 text-xs focus:outline-none ${
-                errors.pan ? 'border-red-500' : 'border-gray-300'
-              }`}
-              {...register('pan', {
-                required: 'PAN copy is required',
-                validate: validateFileSize,
-              })}
-            />
-            <small className="mt-0.5 text-gray-400">Max 1MB</small>
-            {errors.pan && <span className="mt-1 text-xs text-red-500">{errors.pan.message}</span>}
-          </div>
+          <FileUploadInput
+            label="Upload PAN Card (PDF/JPG/PNG) *"
+            name="pan"
+            register={register}
+            watch={watch}
+            error={errors.pan}
+            required={true}
+            validate={validateFileSize}
+          />
 
           {/* Trade Cert */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-semibold">
-              Upload Trade Certificate (PDF/JPG/PNG)
-            </label>
-            <input
-              type="file"
-              accept=".pdf,.jpg,.jpeg,.png"
-              className="rounded border border-gray-300 bg-gray-50 p-1 text-xs focus:outline-none"
-              {...register('trade', { validate: validateFileSize })}
-            />
-            <small className="mt-0.5 text-gray-400">Max 1MB</small>
-            {errors.trade && (
-              <span className="mt-1 text-xs text-red-500">{errors.trade.message}</span>
-            )}
-          </div>
+          <FileUploadInput
+            label="Upload Trade Certificate (PDF/JPG/PNG)"
+            name="trade"
+            register={register}
+            watch={watch}
+            error={errors.trade}
+            required={false}
+            validate={validateFileSize}
+          />
 
           {/* GST Cert */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-semibold">
-              Upload GST Certificate (PDF/JPG/PNG)
-            </label>
-            <input
-              type="file"
-              accept=".pdf,.jpg,.jpeg,.png"
-              className="rounded border border-gray-300 bg-gray-50 p-1 text-xs focus:outline-none"
-              {...register('gst', { validate: validateFileSize })}
-            />
-            <small className="mt-0.5 text-gray-400">Max 1MB</small>
-            {errors.gst && <span className="mt-1 text-xs text-red-500">{errors.gst.message}</span>}
-          </div>
+          <FileUploadInput
+            label="Upload GST Certificate (PDF/JPG/PNG)"
+            name="gst"
+            register={register}
+            watch={watch}
+            error={errors.gst}
+            required={false}
+            validate={validateFileSize}
+          />
 
           {/* Photo */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-semibold">Upload Photo (PDF/JPG/PNG) *</label>
-            <input
-              type="file"
-              accept=".pdf,.jpg,.jpeg,.png"
-              className={`rounded border bg-gray-50 p-1 text-xs focus:outline-none ${
-                errors.photo ? 'border-red-500' : 'border-gray-300'
-              }`}
-              {...register('photo', {
-                required: 'Photo is required',
-                validate: validateFileSize,
-              })}
-            />
-            <small className="mt-0.5 text-gray-400">Max 1MB</small>
-            {errors.photo && (
-              <span className="mt-1 text-xs text-red-500">{errors.photo.message}</span>
-            )}
-          </div>
+          <FileUploadInput
+            label="Upload Photo (PDF/JPG/PNG) *"
+            name="photo"
+            register={register}
+            watch={watch}
+            error={errors.photo}
+            required={true}
+            validate={validateFileSize}
+          />
 
           {/* Shop Photo */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-sm font-semibold">Upload Shop Photo (PDF/JPG/PNG) *</label>
-            <input
-              type="file"
-              accept=".pdf,.jpg,.jpeg,.png"
-              className={`rounded border bg-gray-50 p-1 text-xs focus:outline-none ${
-                errors.shop_photo ? 'border-red-500' : 'border-gray-300'
-              }`}
-              {...register('shop_photo', {
-                required: 'Shop photo is required',
-                validate: validateFileSize,
-              })}
-            />
-            <small className="mt-0.5 text-gray-400">Max 1MB</small>
-            {errors.shop_photo && (
-              <span className="mt-1 text-xs text-red-500">{errors.shop_photo.message}</span>
-            )}
-          </div>
+          <FileUploadInput
+            label="Upload Shop Photo (PDF/JPG/PNG) *"
+            name="shop_photo"
+            register={register}
+            watch={watch}
+            error={errors.shop_photo}
+            required={true}
+            validate={validateFileSize}
+          />
 
           {/* Bank Details Header */}
           <div className="col-span-1 mt-2 border-t pt-4 md:col-span-2">

@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FiChevronDown, FiPhone, FiArrowRight, FiMoon, FiSun } from 'react-icons/fi';
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { APP_CONFIG, CONTACT_INFO } from '@/constants/config';
+import { FiArrowRight } from 'react-icons/fi';
+
+
 import { ROUTES } from '@/constants/routes';
 import ApplicationForm from '@/components/forms/ApplicationForm';
 import DealershipForm from '@/components/forms/DealershipForm';
-import { useApp } from '@/context/AppContext';
 import Logo from '@/components/common/Logo';
 
 // Simple Modal wrapper for form overlays - Redesigned to be premium
@@ -32,10 +31,8 @@ function FormModal({ title, isOpen, onClose, children }) {
 }
 
 function Navbar() {
-  const { isDarkMode, toggleDarkMode } = useApp();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScroll, setHasScroll] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Modals state
   const [isApplyOpen, setIsApplyOpen] = useState(false);
@@ -44,7 +41,6 @@ function Navbar() {
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => {
     setIsMenuOpen(false);
-    setIsDropdownOpen(false);
   };
 
   useEffect(() => {
@@ -56,14 +52,7 @@ function Navbar() {
   const getLinkClass = ({ isActive }) =>
     `nav-link-premium ${isActive ? 'nav-link-premium-active' : ''}`;
 
-  const moreDropdownLinks = [
-    { label: 'Lending Partners', path: '/partners' },
-    { label: 'Team Member', path: '/team' },
-    { label: 'EMI Calculator', path: ROUTES.EMI_CALCULATOR },
-    { label: 'Achievements', path: '/achievements' },
-    { label: 'Association', path: '/association' },
-    { label: 'Contact Us', path: ROUTES.CONTACT },
-  ];
+
 
   return (
     <>
@@ -115,110 +104,22 @@ function Navbar() {
                 Dealership Form
               </button>
 
-              {/* More Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setIsDropdownOpen(true)}
-                onMouseLeave={() => setIsDropdownOpen(false)}
-              >
-                <button
-                  type="button"
-                  className="nav-link-premium flex items-center gap-1 text-sm font-semibold transition-colors"
-                >
-                  <span>More</span>
-                  <FiChevronDown className="h-4 w-4" />
-                </button>
+              <NavLink to={ROUTES.CONTACT} className={getLinkClass}>
+                Contact Us
+              </NavLink>
 
-                {isDropdownOpen && (
-                  <div className="animate-dropdown-fade-in absolute right-0 z-50 mt-2 w-52 rounded-[16px] border border-white/50 bg-white/90 p-1.5 shadow-[0_12px_32px_rgba(15,23,42,0.12)] backdrop-blur-[16px]">
-                    {moreDropdownLinks.map((link) => (
-                      <NavLink
-                        key={link.path}
-                        to={link.path}
-                        className={({ isActive }) =>
-                          `block rounded-[10px] px-4 py-2.5 text-xs font-semibold transition-colors ${
-                            isActive
-                              ? 'bg-secondary/10 text-secondary'
-                              : 'text-gray-700 hover:bg-gray-50 hover:text-secondary'
-                          }`
-                        }
-                        onClick={closeMenu}
-                      >
-                        {link.label}
-                      </NavLink>
-                    ))}
-                  </div>
-                )}
-              </div>
 
-              {/* Pay EMI Razorpay Link */}
-              <a
-                href="https://pages.razorpay.com/bfcindia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nav-link-premium text-sm font-semibold transition-colors"
-              >
-                Pay EMI
-              </a>
 
-              {/* Social Icons */}
-              <div className="flex items-center gap-3 border-l border-gray-200 pl-4">
-                <a
-                  href="https://www.facebook.com/BundelaFinCorp/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 transition-colors duration-200 hover:text-secondary"
-                  aria-label="Facebook"
-                >
-                  <FaFacebookF className="h-4 w-4" />
-                </a>
-                <a
-                  href="https://www.instagram.com/bundelafincorp/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 transition-colors duration-200 hover:text-secondary"
-                  aria-label="Instagram"
-                >
-                  <FaInstagram className="h-4 w-4" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/bundelafincorp/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 transition-colors duration-200 hover:text-secondary"
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedinIn className="h-4 w-4" />
-                </a>
-              </div>
+
+
+
             </div>
 
             {/* Right Desktop Actions Block */}
             <div className="hidden items-center gap-5 lg:flex">
-              {/* Optional Phone Call CTA */}
-              <a
-                href={`tel:${CONTACT_INFO.phone}`}
-                className="group flex items-center gap-2.5 text-xs font-semibold text-gray-600 transition-colors duration-200 hover:text-secondary dark:text-gray-300 dark:hover:text-wakanda-purple"
-              >
-                <div className="w-8.5 h-8.5 flex items-center justify-center rounded-full border border-gray-200/80 bg-white/50 shadow-sm transition-colors duration-200 group-hover:bg-white dark:border-wakanda-purple/40 dark:bg-dark-bg/50 dark:group-hover:bg-wakanda-purple/20">
-                  <FiPhone className="h-3.5 w-3.5 text-secondary dark:text-wakanda-purple-light" />
-                </div>
-                <span>{CONTACT_INFO.phone}</span>
-              </a>
 
-              {/* Theme Toggle Button */}
-              <button
-                onClick={toggleDarkMode}
-                type="button"
-                className="group flex h-11 w-11 items-center justify-center rounded-full border border-gray-200/80 bg-white/50 shadow-sm transition-all duration-300 hover:bg-white dark:border-wakanda-purple/40 dark:bg-dark-bg/50 dark:hover:bg-wakanda-purple/20 dark:shadow-[0_0_15px_rgba(124,58,237,0.3)]"
-                aria-label="Toggle dark mode"
-              >
-                {isDarkMode ? (
-                  <FiSun className="h-5 w-5 text-accent-400 transition-transform duration-300 group-hover:rotate-90" />
-                ) : (
-                  <FiMoon className="h-5 w-5 text-gray-600 transition-transform duration-300 group-hover:-rotate-12" />
-                )}
-              </button>
+
+
 
               {/* Apply Now Pill Button */}
               <button
@@ -233,18 +134,6 @@ function Navbar() {
 
             {/* Mobile Animated Hamburger Menu Toggle */}
             <div className="flex items-center gap-3 lg:hidden">
-              <button
-                onClick={toggleDarkMode}
-                type="button"
-                className="group flex h-9 w-9 items-center justify-center rounded-full border border-gray-200/80 bg-white/50 shadow-sm transition-all duration-300 hover:bg-white dark:border-wakanda-purple/40 dark:bg-dark-bg/50 dark:hover:bg-wakanda-purple/20 dark:shadow-[0_0_10px_rgba(124,58,237,0.3)]"
-                aria-label="Toggle dark mode"
-              >
-                {isDarkMode ? (
-                  <FiSun className="h-4 w-4 text-accent-400 transition-transform duration-300 group-hover:rotate-90" />
-                ) : (
-                  <FiMoon className="h-4 w-4 text-gray-600 transition-transform duration-300 group-hover:-rotate-12" />
-                )}
-              </button>
               
               <button
                 onClick={toggleMenu}
@@ -328,41 +217,25 @@ function Navbar() {
                   >
                     Dealership Form
                   </button>
+                  <NavLink
+                    to={ROUTES.CONTACT}
+                    className={({ isActive }) =>
+                      `rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${
+                        isActive
+                          ? 'bg-secondary/10 text-secondary'
+                          : 'text-gray-700 hover:bg-secondary/5'
+                      }`
+                    }
+                    onClick={closeMenu}
+                  >
+                    Contact Us
+                  </NavLink>
                 </div>
 
-                <div className="border-t border-gray-100 pt-3">
-                  <span className="mb-2 block px-3 text-xs font-bold uppercase tracking-wider text-gray-400">
-                    More Pages
-                  </span>
-                  <div className="grid grid-cols-2 gap-1 px-1">
-                    {moreDropdownLinks.map((link) => (
-                      <NavLink
-                        key={link.path}
-                        to={link.path}
-                        className={({ isActive }) =>
-                          `rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
-                            isActive
-                              ? 'bg-secondary/10 text-secondary'
-                              : 'text-gray-650 hover:bg-secondary/5'
-                          }`
-                        }
-                        onClick={closeMenu}
-                      >
-                        {link.label}
-                      </NavLink>
-                    ))}
-                  </div>
-                </div>
+
 
                 <div className="flex flex-col gap-3 border-t border-gray-100 pt-4">
-                  {/* Phone CTA on mobile */}
-                  <a
-                    href={`tel:${CONTACT_INFO.phone}`}
-                    className="flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white py-2.5 text-xs font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
-                  >
-                    <FiPhone className="h-3.5 w-3.5 text-secondary" />
-                    <span>Call: {CONTACT_INFO.phone}</span>
-                  </a>
+
 
                   {/* Apply Now Pill CTA */}
                   <button
@@ -378,15 +251,7 @@ function Navbar() {
                   </button>
 
                   {/* Pay EMI */}
-                  <a
-                    href="https://pages.razorpay.com/bfcindia"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-1 text-center text-xs font-semibold text-gray-500 transition-colors hover:text-secondary"
-                    onClick={closeMenu}
-                  >
-                    Pay EMI
-                  </a>
+
                 </div>
               </div>
             </div>
