@@ -76,11 +76,11 @@ function Navbar() {
               onClick={closeMenu}
             >
               <Logo
-                className={`duration-350 transition-all ${
-                  hasScroll ? 'h-9 w-9' : 'h-11 w-11'
+                className={`h-auto object-contain transition-all duration-350 ${
+                  hasScroll ? 'w-32' : 'w-40'
                 }`}
-                showText={true}
               />
+
             </NavLink>
 
             {/* Desktop Navigation Links */}

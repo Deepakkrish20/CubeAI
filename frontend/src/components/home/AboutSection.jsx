@@ -105,12 +105,9 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
               {/* Large dedicated image container with asymmetrical crop */}
               <div className="w-full h-full rounded-tl-[80px] rounded-br-[80px] rounded-tr-[24px] rounded-bl-[24px] overflow-hidden border border-white bg-slate-100 shadow-[0_16px_48px_rgba(15,23,42,0.06)] relative group">
                 <img
-                  src="/about-growth-finance.png"
-                  alt="Bundela Finance Business Growth & EV Financing"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
+                  src="/about-us-team.png"
+                  alt="Bundela Finance Professional Team"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
                 
                 {/* Fallback elegant silhouette if image fails */}

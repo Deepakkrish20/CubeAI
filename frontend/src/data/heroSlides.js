@@ -7,7 +7,7 @@ export const heroSlides = [
     id: 'financing-ev-future',
     tagline: 'Welcome to Bundela',
     heading: 'Financing the Future of EV',
-    image: 'https://www.bundelafinance.com/img/bundela-battery.jpg',
+    image: '/hero-ev-financing.png',
     imageAlt: 'Financing the Future of EV',
   },
   {

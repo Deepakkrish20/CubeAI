@@ -399,10 +399,10 @@ function HeroSection({ slides = heroSlides }) {
   };
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden border-b border-gray-100 bg-gradient-to-b from-slate-50 via-white to-slate-50">
-      {/* Grid Dots Background with Wavy Animation */}
+    <section id="hero" className="relative w-full overflow-hidden border-b border-gray-100 bg-gradient-to-b from-slate-50 via-white to-slate-50" style={{ height: '680px' }}>
+      {/* Grid Dots Background — LEFT HALF ONLY, behind text */}
       <div 
-        className="absolute inset-[-40px] opacity-40 pointer-events-none hero-wavy-grid"
+        className="absolute top-0 left-0 bottom-0 w-1/2 opacity-40 pointer-events-none hero-wavy-grid"
         style={{
           backgroundImage: 'radial-gradient(circle, #ec4899 0.8px, #a855f7 0.5px, #00D09C 0.3px, transparent 2px)',
           backgroundSize: '35px 35px',
@@ -424,7 +424,7 @@ function HeroSection({ slides = heroSlides }) {
           el: '.hero-swiper-pagination',
           clickable: true,
         }}
-        className="w-full"
+        className="w-full h-full"
       >
         {validSlides.map((slide) => {
           const details = slideDetails[slide.id] || {
@@ -441,138 +441,142 @@ function HeroSection({ slides = heroSlides }) {
 
           return (
             <SwiperSlide key={slide.id}>
-              {/* Unique key inside slide ensures animations replay when slide changes */}
-              <motion.div
-                key={slide.id}
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24"
-              >
-                <div className="grid items-center gap-16 lg:gap-24 lg:grid-cols-12">
-                  {/* Left content panel (58% width on desktop) */}
-                  <div className="lg:col-span-6 flex flex-col items-start text-left">
-                    {/* Trust Badge */}
-                    <motion.div
-                      variants={slideInVariants}
-                      whileHover={{ scale: 1.05, rotate: 1 }}
-                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-white/70 border border-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-[#00D09C] backdrop-blur-md mb-6"
-                    >
-                      <motion.span 
-                        className="flex h-1.5 w-1.5 rounded-full bg-[#00D09C]"
-                        animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      />
-                      {details.badge}
-                    </motion.div>
+              {/* Full-bleed flex row — no max-w container */}
+              <div className="flex h-full w-full">
 
-                    {/* Headline */}
-                    <motion.h1
-                      variants={itemVariants}
-                      className="font-heading text-[36px] sm:text-[46px] md:text-[54px] lg:text-[60px] font-black tracking-tight leading-[1.08] text-gray-900 text-balance mb-6"
-                    >
-                      {renderHighlightedHeading(slide.heading, details.highlightWords)}
-                    </motion.h1>
+                {/* LEFT 50% — text content with grid dot bg behind it */}
+                <motion.div
+                  key={slide.id}
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="relative z-10 w-1/2 flex flex-col justify-center pl-8 sm:pl-12 lg:pl-20 pr-8 lg:pr-12 py-12 md:py-16"
+                >
+                  {/* Trust Badge */}
+                  <motion.div
+                    variants={slideInVariants}
+                    whileHover={{ scale: 1.05, rotate: 1 }}
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-white/70 border border-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] text-[#00D09C] backdrop-blur-md mb-6 self-start"
+                  >
+                    <motion.span 
+                      className="flex h-1.5 w-1.5 rounded-full bg-[#00D09C]"
+                      animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    {details.badge}
+                  </motion.div>
 
-                    {/* Supporting Description */}
-                    <motion.p
-                      variants={slideInVariants}
-                      className="text-base sm:text-[17px] text-gray-500 font-medium leading-relaxed max-w-xl mb-8"
-                    >
-                      {details.description}
-                    </motion.p>
+                  {/* Headline */}
+                  <motion.h1
+                    variants={itemVariants}
+                    className="font-heading text-[34px] sm:text-[44px] md:text-[52px] lg:text-[58px] font-black tracking-tight leading-[1.08] text-gray-900 text-balance mb-6"
+                  >
+                    {renderHighlightedHeading(slide.heading, details.highlightWords)}
+                  </motion.h1>
 
-                    {/* CTA Area */}
-                    <motion.div
-                      variants={itemVariants}
-                      className="flex flex-wrap items-center gap-4 mb-12"
-                    >
-                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <Link
-                          to={slide.primaryBtnLink ?? ROUTES.APPLY_NOW}
-                          className="h-12 px-7 rounded-full flex items-center justify-center gap-2 group bg-gradient-to-r from-[#006B50] to-[#00B386] text-white font-semibold text-sm shadow-[0_8px_24px_rgba(0, 208, 156,0.18)] hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0, 208, 156,0.28)] transition-all duration-200"
-                        >
-                          <span>{slide.primaryBtnText ?? 'Apply Now'}</span>
-                          <motion.div
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                          >
-                            <FiArrowRight className="h-4 w-4" />
-                          </motion.div>
-                        </Link>
-                      </motion.div>
+                  {/* Supporting Description */}
+                  <motion.p
+                    variants={slideInVariants}
+                    className="text-base sm:text-[17px] text-gray-500 font-medium leading-relaxed max-w-lg mb-8"
+                  >
+                    {details.description}
+                  </motion.p>
 
-                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <Link
-                          to={ROUTES.EMI_CALCULATOR}
-                          className="h-12 px-7 rounded-full flex items-center justify-center font-semibold text-gray-700 text-sm bg-white/60 hover:bg-white/80 border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-200"
-                        >
-                          EMI Calculator
-                        </Link>
-                      </motion.div>
-                    </motion.div>
-
-                    {/* Social Proof & Trust Signals */}
-                    <motion.div
-                      variants={scaleInVariants}
-                      className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-6 border-t border-gray-200/60 w-full"
-                    >
-                      <motion.div 
-                        className="flex items-center gap-3"
-                        whileHover={{ scale: 1.05 }}
+                  {/* CTA Buttons */}
+                  <motion.div
+                    variants={itemVariants}
+                    className="flex flex-wrap items-center gap-4 mb-10"
+                  >
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Link
+                        to={slide.primaryBtnLink ?? ROUTES.APPLY_NOW}
+                        className="h-12 px-7 rounded-full flex items-center justify-center gap-2 group bg-gradient-to-r from-[#006B50] to-[#00B386] text-white font-semibold text-sm shadow-[0_8px_24px_rgba(0,208,156,0.18)] hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(0,208,156,0.28)] transition-all duration-200"
                       >
-                        <div className="flex -space-x-2.5">
-                          {[...Array(3)].map((_, i) => (
-                            <motion.img
-                              key={i}
-                              className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-sm"
-                              src={["https://images.unsplash.com/photo-1534528741775-53994a69daeb", "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d", "https://images.unsplash.com/photo-1494790108377-be9c29b29330"][i]}
-                              alt="customer"
-                              initial={{ scale: 0, rotate: -180 }}
-                              animate={{ scale: 1, rotate: 0 }}
-                              transition={{ delay: i * 0.1, duration: 0.5 }}
-                            />
-                          ))}
-                        </div>
-                        <div className="text-left">
-                          <p className="text-xs font-bold text-gray-900 leading-tight">10,000+ Customers</p>
-                          <p className="text-[10px] text-gray-400 font-semibold leading-none">Financed across India</p>
-                        </div>
-                      </motion.div>
+                        <span>{slide.primaryBtnText ?? 'Apply Now'}</span>
+                        <motion.div
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          <FiArrowRight className="h-4 w-4" />
+                        </motion.div>
+                      </Link>
+                    </motion.div>
 
-                      <div className="h-8 w-px bg-gray-200 hidden sm:block" />
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Link
+                        to={ROUTES.EMI_CALCULATOR}
+                        className="h-12 px-7 rounded-full flex items-center justify-center font-semibold text-gray-700 text-sm bg-white/60 hover:bg-white/80 border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-200"
+                      >
+                        EMI Calculator
+                      </Link>
+                    </motion.div>
+                  </motion.div>
 
-                      <div className="flex gap-6 sm:gap-8">
-                        {details.stats.map((stat, i) => (
-                          <motion.div 
-                            key={i} 
-                            className="text-left"
-                            variants={scaleInVariants}
-                            whileHover={{ scale: 1.1 }}
-                          >
-                            <p className="text-xs font-extrabold text-gray-900 leading-tight">{stat.value}</p>
-                            <p className="text-[10px] text-gray-400 font-semibold leading-none mt-0.5 text-nowrap">{stat.label}</p>
-                          </motion.div>
+                  {/* Social Proof */}
+                  <motion.div
+                    variants={scaleInVariants}
+                    className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-6 border-t border-gray-200/60 w-full"
+                  >
+                    <motion.div 
+                      className="flex items-center gap-3"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <div className="flex -space-x-2.5">
+                        {[...Array(3)].map((_, i) => (
+                          <motion.img
+                            key={i}
+                            className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-sm"
+                            src={["https://images.unsplash.com/photo-1534528741775-53994a69daeb", "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d", "https://images.unsplash.com/photo-1494790108377-be9c29b29330"][i]}
+                            alt="customer"
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ delay: i * 0.1, duration: 0.5 }}
+                          />
                         ))}
                       </div>
+                      <div className="text-left">
+                        <p className="text-xs font-bold text-gray-900 leading-tight">10,000+ Customers</p>
+                        <p className="text-[10px] text-gray-400 font-semibold leading-none">Financed across India</p>
+                      </div>
                     </motion.div>
-                  </div>
 
-                  {/* Right panel — bare full-size real photo, no card */}
-                  <div className="lg:col-span-6 relative py-4 lg:py-0">
-                    <motion.img
-                      key={slide.id + '-img'}
+                    <div className="h-8 w-px bg-gray-200 hidden sm:block" />
+
+                    <div className="flex gap-6 sm:gap-8">
+                      {details.stats.map((stat, i) => (
+                        <motion.div 
+                          key={i} 
+                          className="text-left"
+                          variants={scaleInVariants}
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          <p className="text-xs font-extrabold text-gray-900 leading-tight">{stat.value}</p>
+                          <p className="text-[10px] text-gray-400 font-semibold leading-none mt-0.5 text-nowrap">{stat.label}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                </motion.div>
+
+                {/* RIGHT 50% — image with proper spacing, contained */}
+                <div className="w-1/2 overflow-hidden flex items-center py-8 pr-10 pl-4">
+                  <motion.div
+                    key={slide.id + '-img-wrap'}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full h-full relative rounded-2xl overflow-hidden"
+                  >
+                    <img
                       src={slide.image}
                       alt={slide.imageAlt ?? slide.heading}
-                      initial={{ opacity: 0, x: 60 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.85, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                      className="w-full h-auto max-h-[520px] object-cover"
+                      className="absolute inset-0 w-full h-full object-cover"
                       loading="eager"
                     />
-                  </div>
+                  </motion.div>
                 </div>
-              </motion.div>
+
+              </div>
             </SwiperSlide>
           );
         })}

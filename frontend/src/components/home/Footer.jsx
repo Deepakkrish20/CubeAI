@@ -122,7 +122,8 @@ function Footer({ data = footerData }) {
           
           {/* Office Info */}
           <section className="flex flex-col gap-5">
-            <Logo showText={true} className="h-12 w-12" textColor="text-white" />
+            <Logo className="w-36 h-auto object-contain" />
+
             <h4 className="text-[10px] font-black uppercase tracking-widest text-white mt-2">Our Office</h4>
             {contactDetails.officeName && (
               <p className="text-sm font-black text-white">{contactDetails.officeName}</p>
