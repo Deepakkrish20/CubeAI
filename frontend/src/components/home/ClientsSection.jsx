@@ -8,14 +8,7 @@ function Circular3DCarousel({ items }) {
   const [angle, setAngle] = useState(0);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const startAngle = useRef(0);
-  const velocity = useRef(0);
-  const lastX = useRef(0);
-  const lastTime = useRef(0);
   const animationFrameId = useRef(null);
-  const isHovered = useRef(false);
 
   // Responsive width tracking
   useEffect(() => {
@@ -32,16 +25,11 @@ function Circular3DCarousel({ items }) {
       const delta = now - lastFrameTime;
       lastFrameTime = now;
 
-      if (!isDragging.current) {
-        // Apply friction to velocity
-        velocity.current *= Math.pow(0.95, delta / 16);
-
-        // Standard auto-rotation speed if not hovered, slower if hovered
-        const autoSpeed = isHovered.current ? 0.00003 : 0.00012; // rad per ms
-        
-        // Add auto-rotation and velocity to current angle
-        setAngle((prev) => (prev + autoSpeed * delta + velocity.current * (delta / 16)) % (2 * Math.PI));
-      }
+      // Constant auto-rotation speed for a lively flow
+      const autoSpeed = 0.00003; // rad per ms
+      
+      // Add auto-rotation to current angle
+      setAngle((prev) => (prev + autoSpeed * delta) % (2 * Math.PI));
 
       animationFrameId.current = requestAnimationFrame(updatePhysics);
     };
@@ -53,39 +41,6 @@ function Circular3DCarousel({ items }) {
       }
     };
   }, []);
-
-  // Drag handlers
-  const handleStart = (clientX) => {
-    isDragging.current = true;
-    startX.current = clientX;
-    startAngle.current = angle;
-    velocity.current = 0;
-    lastX.current = clientX;
-    lastTime.current = performance.now();
-  };
-
-  const handleMove = (clientX) => {
-    if (!isDragging.current) return;
-    const now = performance.now();
-    const dt = now - lastTime.current;
-    const dx = clientX - startX.current;
-    const dragDx = clientX - lastX.current;
-
-    // Calculate drag velocity
-    if (dt > 0) {
-      velocity.current = (dragDx * 0.0035) / (dt / 16);
-    }
-
-    setAngle(startAngle.current + dx * 0.004);
-    lastX.current = clientX;
-    lastTime.current = now;
-  };
-
-  const handleEnd = () => {
-    isDragging.current = false;
-    // Limit max velocity to prevent crazy spinning
-    velocity.current = Math.max(-0.1, Math.min(0.1, velocity.current));
-  };
 
   const clientCount = items.length;
   const angleStep = (2 * Math.PI) / clientCount;
@@ -101,14 +56,6 @@ function Circular3DCarousel({ items }) {
   return (
     <div
       ref={containerRef}
-      onMouseEnter={() => { isHovered.current = true; }}
-      onMouseLeave={() => { isHovered.current = false; handleEnd(); }}
-      onMouseDown={(e) => handleStart(e.clientX)}
-      onMouseMove={(e) => handleMove(e.clientX)}
-      onMouseUp={handleEnd}
-      onTouchStart={(e) => handleStart(e.touches[0].clientX)}
-      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-      onTouchEnd={handleEnd}
       style={{
         position: 'relative',
         width: '100%',
@@ -118,7 +65,6 @@ function Circular3DCarousel({ items }) {
         justifyContent: 'center',
         perspective: isMobile ? '800px' : '1500px',
         overflow: 'hidden',
-        cursor: isDragging.current ? 'grabbing' : 'grab',
         userSelect: 'none',
       }}
     >
@@ -152,7 +98,7 @@ function Circular3DCarousel({ items }) {
               transform: `translateX(${tx}px) translateY(${ty}px) translateZ(${tz}px) rotateY(${rotY}deg)`,
               opacity: opacity,
               zIndex: zIndex,
-              transition: isDragging.current ? 'none' : 'transform 0.1s linear',
+              transition: 'transform 0.1s linear',
               pointerEvents: opacity > 0.35 ? 'auto' : 'none', // Prevent clicking on faded elements
             }}
           >

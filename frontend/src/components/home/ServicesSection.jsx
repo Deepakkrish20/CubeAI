@@ -11,108 +11,25 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
   const services = resolveServices(data);
   const [activeTabId, setActiveTabId] = useState(services[0]?.id || '');
   const containerRef = useRef(null);
-  const lastSwitchTime = useRef(0);
-
-  const [isDesktop, setIsDesktop] = useState(false);
   const isInView = useInView(containerRef, { once: true, margin: '-60px' });
-
-  useEffect(() => {
-    const checkSize = () => setIsDesktop(window.innerWidth >= 1024);
-    checkSize();
-    window.addEventListener('resize', checkSize);
-    return () => window.removeEventListener('resize', checkSize);
-  }, []);
 
   const activeIndex = services.findIndex((s) => s.id === activeTabId);
 
+  // Auto-cycle through services
   useEffect(() => {
-    if (!isDesktop) return;
-
-    const section = containerRef.current;
-    if (!section) return;
-
-    const handleWheel = (e) => {
-      const rect = section.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const sectionHeight = rect.height;
-      const usableHeight = viewportHeight - 80; // subtracting sticky header offset
-
-      const targetScrollY = sectionHeight < usableHeight
-        ? window.scrollY + rect.top - 80 - (usableHeight - sectionHeight) / 2
-        : window.scrollY + rect.top - 80;
-
-      const diff = window.scrollY - targetScrollY;
-      const isCentered = Math.abs(diff) <= 20;
-
-      const sectionCenter = rect.top + sectionHeight / 2;
-      const viewportCenter = viewportHeight / 2;
-      const isNearCenter = Math.abs(sectionCenter - viewportCenter) < 250;
-
-      if (isNearCenter) {
-        const isScrollingDown = e.deltaY > 0;
-        const isScrollingUp = e.deltaY < 0;
-
-        // If the section is not centered, scroll to center it first
-        if (!isCentered) {
-          e.preventDefault();
-          const now = Date.now();
-          if (now - lastSwitchTime.current >= 400) {
-            window.scrollTo({
-              top: targetScrollY,
-              behavior: 'smooth'
-            });
-            lastSwitchTime.current = now;
-          }
-          return;
-        }
-
-        // Section is centered perfectly, now cycle tabs
-        const hasMoreTabsDown = activeIndex < services.length - 1;
-        const hasMoreTabsUp = activeIndex > 0;
-
-        if ((isScrollingDown && hasMoreTabsDown) || (isScrollingUp && hasMoreTabsUp)) {
-          e.preventDefault();
-          const now = Date.now();
-          const throttleDelay = 700;
-
-          if (now - lastSwitchTime.current >= throttleDelay) {
-            if (isScrollingDown) {
-              const nextIndex = activeIndex + 1;
-              setActiveTabId(services[nextIndex].id);
-            } else {
-              const prevIndex = activeIndex - 1;
-              setActiveTabId(services[prevIndex].id);
-            }
-            lastSwitchTime.current = now;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
-  }, [isDesktop, activeIndex, services]);
+    if (services.length <= 1) return;
+    const timer = setInterval(() => {
+      setActiveTabId((currentId) => {
+        const currIdx = services.findIndex(s => s.id === currentId);
+        const nextIdx = (currIdx + 1) % services.length;
+        return services[nextIdx].id;
+      });
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [services]);
 
   const handleTabClick = (serviceId) => {
     setActiveTabId(serviceId);
-    
-    if (isDesktop && containerRef.current) {
-      const element = containerRef.current;
-      const rect = element.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const sectionHeight = rect.height;
-      const usableHeight = viewportHeight - 80;
-
-      const targetScrollY = sectionHeight < usableHeight
-        ? window.scrollY + rect.top - 80 - (usableHeight - sectionHeight) / 2
-        : window.scrollY + rect.top - 80;
-      
-      window.scrollTo({
-        top: targetScrollY,
-        behavior: 'smooth'
-      });
-      lastSwitchTime.current = Date.now();
-    }
   };
 
   if (services.length === 0) {
@@ -136,18 +53,18 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
+        staggerChildren: 0.15,
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.3,
+        duration: 0.5,
         ease: "easeOut"
       }
     }
@@ -157,9 +74,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
     <section
       id={meta?.id ?? 'services'}
       ref={containerRef}
-      className={`relative w-full border-t border-gray-150 bg-gradient-to-b from-white via-slate-50/20 to-white py-6 lg:py-10 overflow-hidden ${
-        isDesktop ? 'cursor-ns-resize' : ''
-      }`}
+      className="relative w-full border-t border-gray-150 bg-gradient-to-b from-white via-slate-50/20 to-white py-12 lg:py-20 overflow-hidden"
     >
       <div className="absolute top-0 left-1/4 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-[#00D09C]/10 to-emerald-50/5 blur-3xl opacity-60" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0,208,156,0.006)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,208,156,0.006)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
@@ -172,7 +87,7 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
       >
         <motion.header 
           variants={itemVariants}
-          className="mb-6 text-center lg:text-left flex flex-col items-center lg:items-start"
+          className="mb-10 text-center lg:text-left flex flex-col items-center lg:items-start"
         >
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-3">
             Our Offerings
@@ -195,10 +110,10 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
               <AnimatePresence mode="wait">
                 <motion.h3
                   key={activeService.id}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
                   className="font-heading text-3xl sm:text-4xl lg:text-[40px] font-black tracking-[-0.02em] leading-[1.2] bg-clip-text text-transparent"
                   style={{
                     backgroundImage: 'linear-gradient(to right, #111827 20%, #00D09C 60%)'
@@ -210,17 +125,13 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
             </div>
 
             {/* Navigation Chevron buttons */}
-            <div className="flex items-center gap-3 mt-4">
+            <div className="flex items-center gap-3 mt-6">
               <button
                 onClick={() => {
-                  if (activeIndex > 0) handleTabClick(services[activeIndex - 1].id);
+                  const prevIndex = activeIndex > 0 ? activeIndex - 1 : services.length - 1;
+                  handleTabClick(services[prevIndex].id);
                 }}
-                disabled={activeIndex === 0}
-                className={`p-3 rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 cursor-pointer ${
-                  activeIndex === 0 
-                    ? 'opacity-30 cursor-not-allowed' 
-                    : 'hover:text-[#00D09C] hover:border-[#00D09C]/30 hover:shadow-[0_4px_12px_rgba(0,208,156,0.08)] active:scale-95'
-                }`}
+                className="p-3 rounded-xl border border-gray-200 bg-white shadow-sm hover:text-[#00D09C] hover:border-[#00D09C]/30 hover:shadow-[0_4px_12px_rgba(0,208,156,0.08)] active:scale-95 transition-all duration-300 cursor-pointer"
                 aria-label="Previous service"
                 type="button"
               >
@@ -228,14 +139,10 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
               </button>
               <button
                 onClick={() => {
-                  if (activeIndex < services.length - 1) handleTabClick(services[activeIndex + 1].id);
+                  const nextIndex = activeIndex < services.length - 1 ? activeIndex + 1 : 0;
+                  handleTabClick(services[nextIndex].id);
                 }}
-                disabled={activeIndex === services.length - 1}
-                className={`p-3 rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 cursor-pointer ${
-                  activeIndex === services.length - 1 
-                    ? 'opacity-30 cursor-not-allowed' 
-                    : 'hover:text-[#00D09C] hover:border-[#00D09C]/30 hover:shadow-[0_4px_12px_rgba(0,208,156,0.08)] active:scale-95'
-                }`}
+                className="p-3 rounded-xl border border-gray-200 bg-white shadow-sm hover:text-[#00D09C] hover:border-[#00D09C]/30 hover:shadow-[0_4px_12px_rgba(0,208,156,0.08)] active:scale-95 transition-all duration-300 cursor-pointer"
                 aria-label="Next service"
                 type="button"
               >
@@ -247,15 +154,15 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
           {/* Right Column: Active Card content */}
           <motion.div 
             variants={itemVariants}
-            className="lg:col-span-8 w-full"
+            className="lg:col-span-8 w-full relative"
           >
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeService.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.25, ease: 'easeOut' }}
+                initial={{ opacity: 0, scale: 0.95, x: 30 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 0.95, x: -30 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
                 className="flex flex-col gap-6 rounded-[24px] border border-gray-200/60 bg-white/80 backdrop-blur-md p-5 sm:p-6 md:p-8 md:flex-row shadow-[0_16px_48px_rgba(15,23,42,0.03)] w-full"
               >
                 <div className="flex flex-1 flex-col justify-between">
@@ -305,13 +212,16 @@ function ServicesSection({ data = servicesData, meta = SERVICES_SECTION_META }) 
                   </div>
                 </div>
 
-                <div className="flex w-full flex-shrink-0 items-center justify-center md:w-64 mt-6 md:mt-0">
+                <div className="flex w-full flex-shrink-0 items-center justify-center md:w-64 mt-6 md:mt-0 relative group">
                   {activeService.image ? (
-                    <div className="relative h-48 w-full overflow-hidden rounded-[20px] border border-white bg-slate-50 shadow-[0_12px_36px_rgba(15,23,42,0.06)] md:h-60 group">
-                      <img
+                    <div className="relative h-48 w-full overflow-hidden rounded-[20px] shadow-[0_12px_36px_rgba(15,23,42,0.06)] md:h-60">
+                      <motion.img
+                        initial={{ scale: 1.1 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.6 }}
                         src={activeService.image}
                         alt={activeService.title || 'Service image'}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.src =

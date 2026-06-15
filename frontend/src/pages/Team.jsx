@@ -7,7 +7,7 @@ const TEAM_MEMBERS = [
   {
     name: 'Abhay Singh',
     role: 'Director & Founder',
-    image: '/img/abhaysir.jpeg',
+    image: 'https://www.bundelafinance.com/img/abhaysir.jpeg',
     fallbackImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=80',
     initials: 'AS',
     isDirector: true,
@@ -17,7 +17,7 @@ const TEAM_MEMBERS = [
   {
     name: 'Rahul Pal',
     role: 'Business Analyst',
-    image: '/img/team-2.jpg',
+    image: 'https://www.bundelafinance.com/img/team-2.jpg',
     fallbackImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',
     initials: 'RP',
     isDirector: false,
@@ -27,7 +27,7 @@ const TEAM_MEMBERS = [
   {
     name: 'Shashank Anand',
     role: 'National Head - BD & Partnership',
-    image: '/img/img-6.jpeg',
+    image: 'https://www.bundelafinance.com/img/img-6.jpeg',
     fallbackImage: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&auto=format&fit=crop&q=80',
     initials: 'SA',
     isDirector: false,
@@ -38,7 +38,7 @@ const TEAM_MEMBERS = [
   {
     name: 'Sharandeep Kaur',
     role: 'Head-HR & Operations',
-    image: '/img/team-6.jpeg',
+    image: 'https://www.bundelafinance.com/img/team-6.jpeg',
     fallbackImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80',
     initials: 'SK',
     isDirector: false,
@@ -193,7 +193,7 @@ export function TeamSection() {
 
           <div className="relative overflow-hidden rounded-[32px] border border-gray-200/50 shadow-[0_16px_48px_rgba(15,23,42,0.06)]">
             <img
-              src="/img/team-group.jpeg"
+              src="https://www.bundelafinance.com/img/team-group.jpeg"
               alt="Bundela Fin Corp Core Team"
               className="h-auto w-full object-cover"
               onError={(e) => {
