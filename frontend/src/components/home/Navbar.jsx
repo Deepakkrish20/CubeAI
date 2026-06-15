@@ -260,7 +260,7 @@ function Navbar() {
 
       {/* Form overlay modals */}
       <FormModal title="Apply Now" isOpen={isApplyOpen} onClose={() => setIsApplyOpen(false)}>
-        <ApplicationForm />
+        <ApplicationForm isModal={true} />
       </FormModal>
 
       <FormModal

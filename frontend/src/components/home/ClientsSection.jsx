@@ -47,11 +47,11 @@ function Circular3DCarousel({ items }) {
 
   // Responsive scaling of layout values
   const isMobile = windowWidth < 768;
-  const radiusX = isMobile ? Math.min(240, windowWidth * 0.42) : Math.min(560, windowWidth * 0.38);
-  const radiusY = isMobile ? 24 : 48; // drop at the sides
-  const radiusZ = isMobile ? 120 : 260; // depth offset
-  const logoWidth = isMobile ? 190 : 290;
-  const logoHeight = isMobile ? 95 : 145;
+  const radiusX = isMobile ? windowWidth * 0.38 : Math.min(560, windowWidth * 0.38);
+  const radiusY = isMobile ? 36 : 48; // drop at the sides
+  const radiusZ = isMobile ? 160 : 260; // depth offset
+  const logoWidth = isMobile ? Math.min(190, windowWidth * 0.45) : 290;
+  const logoHeight = isMobile ? logoWidth * 0.5 : 145;
 
   return (
     <div
@@ -59,7 +59,7 @@ function Circular3DCarousel({ items }) {
       style={{
         position: 'relative',
         width: '100%',
-        height: isMobile ? '260px' : '380px',
+        height: isMobile ? '320px' : '380px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

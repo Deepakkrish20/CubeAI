@@ -53,7 +53,7 @@ const STEPS = [
   { id: 'address', title: 'Address Details', icon: FiMapPin },
 ];
 
-function ApplicationForm() {
+function ApplicationForm({ isModal = false }) {
   const location = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -157,21 +157,27 @@ function ApplicationForm() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl rounded-[32px] border border-gray-200/50 bg-white/70 backdrop-blur-md p-6 sm:p-8 md:p-10 shadow-[0_16px_48px_rgba(15,23,42,0.03)] relative overflow-hidden">
+    <div className={`mx-auto w-full max-w-2xl relative overflow-hidden ${
+      isModal 
+        ? '' 
+        : 'rounded-[32px] border border-gray-200/50 bg-white/70 backdrop-blur-md p-6 sm:p-8 md:p-10 shadow-[0_16px_48px_rgba(15,23,42,0.03)]'
+    }`}>
       {/* Decorative top radial gradient */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-violet-100/10 rounded-full blur-3xl -z-10" />
+      {!isModal && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-violet-100/10 rounded-full blur-3xl -z-10" />}
 
-      <header className="mb-10 text-center">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-4">
-          Onboarding
-        </span>
-        <h2 className="font-heading text-3xl font-black tracking-tight text-gray-900 leading-none">
-          Loan Application
-        </h2>
-        <p className="mt-2 text-sm text-gray-500 font-medium">
-          Complete our premium onboarding to request financing.
-        </p>
-      </header>
+      {!isModal && (
+        <header className="mb-10 text-center">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.01)] text-[#00D09C] mb-4">
+            Onboarding
+          </span>
+          <h2 className="font-heading text-3xl font-black tracking-tight text-gray-900 leading-none">
+            Loan Application
+          </h2>
+          <p className="mt-2 text-sm text-gray-500 font-medium">
+            Complete our premium onboarding to request financing.
+          </p>
+        </header>
+      )}
 
       {/* Modern Stepper Header */}
       <div className="mb-10 flex items-center justify-between relative px-2">
