@@ -4,6 +4,7 @@ import StatisticsSection from '@/components/home/StatisticsSection';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
 import ServicesSection from '@/components/home/ServicesSection';
 import PartnersSection from '@/components/home/PartnersSection';
+import AssociationsSection from '@/components/home/AssociationsSection';
 import ClientsSection from '@/components/home/ClientsSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 
@@ -19,6 +20,7 @@ function Home() {
       <WhyChooseUs />
       <ServicesSection />
       <PartnersSection />
+      <AssociationsSection />
       <ClientsSection />
       <TestimonialsSection />
     </div>

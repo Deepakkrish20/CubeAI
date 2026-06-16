@@ -164,6 +164,14 @@ function Navbar() {
               <NavLink to={ROUTES.CONTACT} className={getLinkClass}>
                 Contact Us
               </NavLink>
+              <a
+                href="https://pages.razorpay.com/bfcindia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link-premium text-sm font-semibold transition-colors focus:outline-none cursor-pointer"
+              >
+                Pay EMI
+              </a>
             </div>
 
             {/* Right Desktop Actions Block */}
@@ -323,6 +331,15 @@ function Navbar() {
                     >
                       Contact Us
                     </NavLink>
+                    <a
+                      href="https://pages.razorpay.com/bfcindia"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mobile-nav-link mobile-nav-link-default text-left"
+                      onClick={closeMenu}
+                    >
+                      Pay EMI
+                    </a>
 
                     {/* Collapsible More Menu in Mobile */}
                     <div>
