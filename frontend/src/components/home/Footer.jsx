@@ -4,8 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import NewsletterForm from '@/components/forms/NewsletterForm';
 import { footerData } from '@/data/footerData';
 import { FiMapPin, FiPhone, FiMail, FiX } from 'react-icons/fi';
-import { FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
-import Logo from '@/components/common/Logo';
+import { FaFacebookF, FaLinkedinIn, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 const UNAVAILABLE_MESSAGE = 'Footer information is currently unavailable.';
 
@@ -103,6 +102,8 @@ function Footer({ data = footerData }) {
         return <FaInstagram className="h-4 w-4" />;
       case 'linkedin':
         return <FaLinkedinIn className="h-4 w-4" />;
+      case 'whatsapp':
+        return <FaWhatsapp className="h-4 w-4" />;
       default:
         return null;
     }
@@ -122,12 +123,7 @@ function Footer({ data = footerData }) {
           
           {/* Office Info */}
           <section className="flex flex-col gap-5">
-            <Logo variant="onDark" showText textColor="text-white" />
-
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-white mt-2">Our Office</h4>
-            {contactDetails.officeName && (
-              <p className="text-sm font-black text-white">{contactDetails.officeName}</p>
-            )}
+            <h3 className="text-xl font-bold text-white">Our Office</h3>
             {contactDetails.address && (
               <div className="flex items-start gap-2.5 text-xs font-semibold leading-relaxed text-slate-400">
                 <FiMapPin className="mt-0.5 h-4.5 w-4.5 shrink-0 text-[#00D09C]" />
@@ -178,7 +174,7 @@ function Footer({ data = footerData }) {
 
           {/* Services Links */}
           <section className="flex flex-col gap-5">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Services</h4>
+            <h3 className="text-xl font-bold text-white">Services</h3>
             {serviceLinks.length > 0 ? (
               <ul className="space-y-3 text-xs font-bold text-slate-400">
                 {serviceLinks.map((link) => (
@@ -199,7 +195,7 @@ function Footer({ data = footerData }) {
 
           {/* Quick Links */}
           <section className="flex flex-col gap-5">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Quick Links</h4>
+            <h3 className="text-xl font-bold text-white">Quick Links</h3>
             {quickLinks.length > 0 ? (
               <ul className="space-y-3 text-xs font-bold text-slate-400">
                 {quickLinks.map((link) => (
@@ -230,9 +226,9 @@ function Footer({ data = footerData }) {
 
           {/* Newsletter section */}
           <section className="flex flex-col gap-5">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-white">
+            <h3 className="text-xl font-bold text-white">
               {newsletter.title || 'Newsletter'}
-            </h4>
+            </h3>
             {newsletter.description && (
               <p className="text-xs leading-relaxed text-slate-400 font-semibold">{newsletter.description}</p>
             )}

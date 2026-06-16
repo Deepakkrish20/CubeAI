@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiArrowRight, FiChevronDown } from 'react-icons/fi';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
 
 
 import { ROUTES } from '@/constants/routes';
@@ -167,9 +168,45 @@ function Navbar() {
 
             {/* Right Desktop Actions Block */}
             <div className="hidden items-center gap-5 lg:flex">
-
-
-
+              {/* Social Media Links */}
+              <div className="flex items-center gap-2.5 mr-1">
+                <a
+                  href="https://www.facebook.com/BundelaFinCorp/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/5 text-gray-500 dark:text-gray-400 hover:text-white hover:bg-[#00D09C] dark:hover:bg-[#06b6d4] transition-all duration-300 hover:scale-105 active:scale-95"
+                  aria-label="Facebook"
+                >
+                  <FaFacebookF className="h-3.5 w-3.5" />
+                </a>
+                <a
+                  href="https://www.instagram.com/bundelafincorp/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/5 text-gray-500 dark:text-gray-400 hover:text-white hover:bg-[#00D09C] dark:hover:bg-[#06b6d4] transition-all duration-300 hover:scale-105 active:scale-95"
+                  aria-label="Instagram"
+                >
+                  <FaInstagram className="h-3.5 w-3.5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/bundelafincorp/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/5 text-gray-500 dark:text-gray-400 hover:text-white hover:bg-[#00D09C] dark:hover:bg-[#06b6d4] transition-all duration-300 hover:scale-105 active:scale-95"
+                  aria-label="LinkedIn"
+                >
+                  <FaLinkedinIn className="h-3.5 w-3.5" />
+                </a>
+                <a
+                  href="https://wa.me/+919266372051"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/5 text-gray-500 dark:text-gray-400 hover:text-white hover:bg-[#00D09C] dark:hover:bg-[#06b6d4] transition-all duration-300 hover:scale-105 active:scale-95"
+                  aria-label="WhatsApp"
+                >
+                  <FaWhatsapp className="h-3.5 w-3.5" />
+                </a>
+              </div>
 
               {/* Apply Now Pill Button */}
               <button
@@ -340,6 +377,46 @@ function Navbar() {
                   </div>
 
                   <div className="flex flex-col gap-3 border-t border-gray-200 pt-4 dark:border-white/10">
+                    {/* Social Links for Mobile */}
+                    <div className="flex justify-center gap-4 mb-1">
+                      <a
+                        href="https://www.facebook.com/BundelaFinCorp/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 text-gray-650 dark:text-gray-400 hover:text-white hover:bg-[#00D09C] dark:hover:bg-[#06b6d4] transition-all duration-300"
+                        aria-label="Facebook"
+                      >
+                        <FaFacebookF className="h-4 w-4" />
+                      </a>
+                      <a
+                        href="https://www.instagram.com/bundelafincorp/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 text-gray-650 dark:text-gray-400 hover:text-white hover:bg-[#00D09C] dark:hover:bg-[#06b6d4] transition-all duration-300"
+                        aria-label="Instagram"
+                      >
+                        <FaInstagram className="h-4 w-4" />
+                      </a>
+                      <a
+                        href="https://www.linkedin.com/company/bundelafincorp/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 text-gray-655 dark:text-gray-400 hover:text-white hover:bg-[#00D09C] dark:hover:bg-[#06b6d4] transition-all duration-300"
+                        aria-label="LinkedIn"
+                      >
+                        <FaLinkedinIn className="h-4 w-4" />
+                      </a>
+                      <a
+                        href="https://wa.me/+919266372051"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 text-gray-655 dark:text-gray-400 hover:text-white hover:bg-[#00D09C] dark:hover:bg-[#06b6d4] transition-all duration-300"
+                        aria-label="WhatsApp"
+                      >
+                        <FaWhatsapp className="h-4 w-4" />
+                      </a>
+                    </div>
+
                     <button
                       onClick={() => {
                         setIsApplyOpen(true);

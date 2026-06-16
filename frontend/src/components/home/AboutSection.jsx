@@ -235,61 +235,31 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
                 </div>
               </motion.div>
 
-              {/* Key Strength Highlights - Dotted Flowing Grid Layout */}
+              {/* Key Strength Highlights - Connected Grid Layout */}
               {trustPillars.length > 0 && (
                 <motion.div
                   variants={itemVariants}
-                  className="relative p-[1.5px] rounded-[24px] overflow-hidden w-full shadow-[0_12px_40px_rgba(15,23,42,0.02)]"
+                  className="grid gap-px bg-slate-200/70 rounded-[20px] overflow-hidden w-full sm:grid-cols-3 border border-gray-200/50 shadow-[0_12px_40px_rgba(15,23,42,0.02)]"
                 >
-                  {/* Outer flowing dotted border */}
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-[24px] z-20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect 
-                      x="1" 
-                      y="1" 
-                      width="calc(100% - 2px)" 
-                      height="calc(100% - 2px)" 
-                      rx="24" 
-                      stroke="#00D09C" 
-                      strokeWidth="2" 
-                      strokeDasharray="4 6" 
-                      className="dark:stroke-[#06b6d4] animate-flow-dots" 
-                      style={{ width: 'calc(100% - 2px)', height: 'calc(100% - 2px)' }}
-                    />
-                  </svg>
-
-                  <div className="relative grid gap-0 bg-transparent rounded-[24px] overflow-hidden w-full sm:grid-cols-3">
-                    {/* Vertical flowing dotted dividers for Desktop */}
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none hidden sm:block z-20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <line x1="33.33%" y1="0%" x2="33.33%" y2="100%" stroke="#00D09C" strokeWidth="1.5" strokeDasharray="4 6" className="dark:stroke-[#06b6d4] animate-flow-dots" />
-                      <line x1="66.66%" y1="0%" x2="66.66%" y2="100%" stroke="#00D09C" strokeWidth="1.5" strokeDasharray="4 6" className="dark:stroke-[#06b6d4] animate-flow-dots" />
-                    </svg>
-
-                    {/* Horizontal flowing dotted dividers for Mobile */}
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none block sm:hidden z-20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <line x1="0%" y1="33.33%" x2="100%" y2="33.33%" stroke="#00D09C" strokeWidth="1.5" strokeDasharray="4 6" className="dark:stroke-[#06b6d4] animate-flow-dots" />
-                      <line x1="0%" y1="66.66%" x2="100%" y2="66.66%" stroke="#00D09C" strokeWidth="1.5" strokeDasharray="4 6" className="dark:stroke-[#06b6d4] animate-flow-dots" />
-                    </svg>
-
-                    {trustPillars.map((pillar) => (
-                      <div
-                        key={pillar.id}
-                        className="group flex flex-col justify-start bg-white/95 p-6 sm:p-8 hover:bg-gradient-to-br hover:from-white hover:to-teal-50/20 transition-all duration-300 cursor-default relative overflow-hidden"
-                      >
-                        {/* Subtle hover background highlight spot */}
-                        <div className="absolute -right-8 -top-8 w-24 h-24 bg-[#00D09C]/5 rounded-full blur-xl group-hover:bg-[#00D09C]/10 transition-all duration-500" />
-                        
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00D09C]/10 mb-4 group-hover:scale-110 group-hover:bg-[#00D09C]/20 transition-all duration-300 relative z-10">
-                          {PILLAR_ICONS[pillar.id] || <FiShield className="h-5 w-5 text-[#00D09C]" />}
-                        </div>
-                        <h3 className="text-base font-bold text-gray-900 leading-tight mb-2 relative z-10 group-hover:text-[#006B50] transition-colors duration-300">
-                          {pillar.title}
-                        </h3>
-                        <p className="text-sm text-gray-500 font-medium leading-relaxed relative z-10 group-hover:text-gray-700 transition-colors duration-300">
-                          {pillar.description}
-                        </p>
+                  {trustPillars.map((pillar) => (
+                    <div
+                      key={pillar.id}
+                      className="group flex flex-col justify-start bg-white/95 p-6 hover:border-transparent transition-all duration-300 cursor-default relative overflow-hidden"
+                    >
+                      {/* Dynamic hover background overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#00D09C] to-[#00b084] dark:from-[#06b6d4] dark:to-[#0891b2] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0" />
+                      
+                      <div className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#00D09C]/10 mb-4 group-hover:scale-110 group-hover:bg-white group-hover:shadow-[0_8px_20px_rgba(255,255,255,0.2)] transition-all duration-300">
+                        {PILLAR_ICONS[pillar.id] || <FiShield className="h-5 w-5 text-[#00D09C]" />}
                       </div>
-                    ))}
-                  </div>
+                      <h3 className="text-sm font-bold text-gray-900 group-hover:text-white transition-colors duration-300 leading-tight mb-2 relative z-10">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-[12px] text-gray-500 group-hover:text-white/90 transition-colors duration-300 font-medium leading-relaxed relative z-10">
+                        {pillar.description}
+                      </p>
+                    </div>
+                  ))}
                 </motion.div>
               )}
 

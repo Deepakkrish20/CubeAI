@@ -23,7 +23,7 @@ export const footerData = {
   contactDetails: {
     officeName: 'Bundela Fin Corp',
     address:
-      'C-420, 4th Floor, Block C Golden I, TechZone IV, Greater Noida West, 201308, Uttar Pradesh, India',
+      'Bundela Fin Corp, C-420, 4th Floor, Block C Golden I, TechZone IV, Greater Noida West, 201308, Uttar Pradesh India..',
     phone: '+91-1205095106',
     email: 'info@bundelafinance.com',
   },
@@ -35,6 +35,11 @@ export const footerData = {
     },
     { platform: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/BundelaFinCorp/' },
     { platform: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/bundelafincorp/' },
+    {
+      platform: 'whatsapp',
+      label: 'WhatsApp',
+      url: 'https://wa.me/+919266372051',
+    },
   ],
   newsletter: {
     title: 'Newsletter',

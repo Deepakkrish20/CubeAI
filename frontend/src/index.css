@@ -504,16 +504,28 @@
   }
 }
 
-/* Animated Dotted border flowing effect */
-@keyframes flow-dots {
+/* Flowing border and divider animations */
+@keyframes flow-border {
   from {
-    stroke-dashoffset: 20;
+    stroke-dashoffset: 3000;
   }
   to {
     stroke-dashoffset: 0;
   }
 }
-.animate-flow-dots {
-  animation: flow-dots 2s linear infinite;
+.animate-flow-border {
+  animation: flow-border 10s linear infinite;
+}
+
+@keyframes flow-divider {
+  from {
+    stroke-dashoffset: 340;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.animate-flow-divider {
+  animation: flow-divider 3s linear infinite;
 }
 
