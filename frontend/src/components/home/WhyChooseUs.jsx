@@ -17,23 +17,23 @@ function ValuePropositionItem({ item, index }) {
       initial={{ opacity: 0, x: 24 }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 24 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.12 }}
-      className="group relative flex flex-col sm:flex-row gap-5 p-6 sm:p-8 rounded-[24px] border border-gray-200/50 bg-white/70 backdrop-blur-sm shadow-[0_8px_30px_rgb(0,0,0,0.01)] hover:shadow-[0_16px_36px_rgba(0, 208, 156,0.03)] hover:border-violet-200/80 transition-all duration-300 cursor-default overflow-hidden"
+      className="group relative flex flex-col sm:flex-row gap-5 p-6 sm:p-8 rounded-[24px] border border-gray-200/50 bg-white/70 backdrop-blur-sm shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_40px_rgba(0,208,156,0.25)] hover:border-transparent hover:-translate-y-1.5 transition-all duration-300 cursor-default overflow-hidden will-change-transform"
       aria-labelledby={`vp-title-${item.id}`}
     >
-      {/* Dynamic hover overlay */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-transparent to-violet-50/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Dynamic hover overlay with smooth scaling and fade */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#00D09C] to-[#00b084] opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out z-0 rounded-[24px]" />
       
       {/* Icon Frame with glowing border */}
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#00D09C]/5 text-[#00D09C] border border-violet-100/10 group-hover:scale-110 group-hover:bg-[#00D09C]/10 group-hover:shadow-[0_0_15px_rgba(0, 208, 156,0.15)] transition-all duration-300">
-        <Icon className="h-5 w-5" aria-hidden="true" />
+      <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#00D09C]/5 text-[#00D09C] border border-[#00D09C]/10 group-hover:scale-110 group-hover:bg-white group-hover:text-[#00D09C] group-hover:shadow-[0_8px_20px_rgba(255,255,255,0.25)] transition-all duration-300">
+        <Icon className="h-5 w-5 group-hover:rotate-[360deg] transition-transform duration-500 ease-out" aria-hidden="true" />
       </div>
 
-      <div className="flex-1">
-        <h3 id={`vp-title-${item.id}`} className="text-lg font-bold text-gray-900 group-hover:text-[#006B50] transition-colors duration-250">
+      <div className="relative z-10 flex-1">
+        <h3 id={`vp-title-${item.id}`} className="text-lg font-bold text-gray-900 group-hover:text-white transition-colors duration-300">
           {item.title}
         </h3>
         {item.description && (
-          <p className="mt-2 text-sm text-gray-500 font-medium leading-relaxed">
+          <p className="mt-2 text-sm text-gray-500 group-hover:text-white/90 transition-colors duration-300 font-medium leading-relaxed">
             {item.description}
           </p>
         )}

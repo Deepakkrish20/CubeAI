@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiChevronDown } from 'react-icons/fi';
 
 
 import { ROUTES } from '@/constants/routes';
@@ -37,10 +37,12 @@ function Navbar() {
   // Modals state
   const [isApplyOpen, setIsApplyOpen] = useState(false);
   const [isDealerOpen, setIsDealerOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => {
     setIsMenuOpen(false);
+    setIsMoreOpen(false);
   };
 
   useEffect(() => {
@@ -99,20 +101,68 @@ function Navbar() {
               <button
                 onClick={() => setIsDealerOpen(true)}
                 type="button"
-                className="nav-link-premium text-left text-sm font-semibold transition-colors"
+                className="nav-link-premium text-left text-sm font-semibold transition-colors focus:outline-none cursor-pointer"
               >
                 Dealership Form
               </button>
 
+              {/* Dropdown Menu "More" */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsMoreOpen(true)}
+                onMouseLeave={() => setIsMoreOpen(false)}
+              >
+                <button
+                  type="button"
+                  className="nav-link-premium flex items-center gap-1 text-sm font-semibold transition-colors focus:outline-none cursor-pointer"
+                >
+                  <span>More</span>
+                  <FiChevronDown className={`h-4 w-4 transition-transform duration-250 ${isMoreOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isMoreOpen && (
+                  <div className="absolute top-full left-0 z-50 mt-1.5 w-48 rounded-[16px] border border-gray-100 bg-white/95 p-2 shadow-[0_12px_36px_rgba(15,23,42,0.12)] backdrop-blur-md">
+                    <NavLink
+                      to={ROUTES.ACHIEVEMENTS}
+                      className="block px-4 py-2 text-xs font-bold text-gray-700 hover:text-[#00D09C] hover:bg-slate-50/60 rounded-xl transition-all duration-200"
+                      onClick={() => setIsMoreOpen(false)}
+                    >
+                      Achievements
+                    </NavLink>
+                    <NavLink
+                      to={ROUTES.ASSOCIATION}
+                      className="block px-4 py-2 text-xs font-bold text-gray-700 hover:text-[#00D09C] hover:bg-slate-50/60 rounded-xl transition-all duration-200"
+                      onClick={() => setIsMoreOpen(false)}
+                    >
+                      Our Association
+                    </NavLink>
+                    <NavLink
+                      to={ROUTES.EMI_CALCULATOR}
+                      className="block px-4 py-2 text-xs font-bold text-gray-705 hover:text-[#00D09C] hover:bg-slate-50/60 rounded-xl transition-all duration-200"
+                      onClick={() => setIsMoreOpen(false)}
+                    >
+                      EMI Calculator
+                    </NavLink>
+                    <NavLink
+                      to="/#testimonials"
+                      className="block px-4 py-2 text-xs font-bold text-gray-705 hover:text-[#00D09C] hover:bg-slate-50/60 rounded-xl transition-all duration-200"
+                      onClick={() => setIsMoreOpen(false)}
+                    >
+                      Testimonials
+                    </NavLink>
+                    <NavLink
+                      to={ROUTES.PARTNERS}
+                      className="block px-4 py-2 text-xs font-bold text-gray-705 hover:text-[#00D09C] hover:bg-slate-50/60 rounded-xl transition-all duration-200"
+                      onClick={() => setIsMoreOpen(false)}
+                    >
+                      Lending Partners
+                    </NavLink>
+                  </div>
+                )}
+              </div>
+
               <NavLink to={ROUTES.CONTACT} className={getLinkClass}>
                 Contact Us
               </NavLink>
-
-
-
-
-
-
             </div>
 
             {/* Right Desktop Actions Block */}
@@ -236,6 +286,57 @@ function Navbar() {
                     >
                       Contact Us
                     </NavLink>
+
+                    {/* Collapsible More Menu in Mobile */}
+                    <div>
+                      <button
+                        onClick={() => setIsMoreOpen((prev) => !prev)}
+                        type="button"
+                        className="mobile-nav-link mobile-nav-link-default text-left w-full flex items-center justify-between focus:outline-none cursor-pointer"
+                      >
+                        <span>More</span>
+                        <FiChevronDown className={`h-4 w-4 transition-transform duration-200 ${isMoreOpen ? 'rotate-180' : ''}`} />
+                      </button>
+                      {isMoreOpen && (
+                        <div className="pl-4 flex flex-col gap-1 mt-1 bg-slate-50/50 rounded-2xl p-2 border border-slate-105">
+                          <NavLink
+                            to={ROUTES.ACHIEVEMENTS}
+                            className="mobile-nav-link mobile-nav-link-default text-xs font-semibold"
+                            onClick={closeMenu}
+                          >
+                            Achievements
+                          </NavLink>
+                          <NavLink
+                            to={ROUTES.ASSOCIATION}
+                            className="mobile-nav-link mobile-nav-link-default text-xs font-semibold"
+                            onClick={closeMenu}
+                          >
+                            Our Association
+                          </NavLink>
+                          <NavLink
+                            to={ROUTES.EMI_CALCULATOR}
+                            className="mobile-nav-link mobile-nav-link-default text-xs font-semibold"
+                            onClick={closeMenu}
+                          >
+                            EMI Calculator
+                          </NavLink>
+                          <NavLink
+                            to="/#testimonials"
+                            className="mobile-nav-link mobile-nav-link-default text-xs font-semibold"
+                            onClick={closeMenu}
+                          >
+                            Testimonials
+                          </NavLink>
+                          <NavLink
+                            to={ROUTES.PARTNERS}
+                            className="mobile-nav-link mobile-nav-link-default text-xs font-semibold"
+                            onClick={closeMenu}
+                          >
+                            Lending Partners
+                          </NavLink>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex flex-col gap-3 border-t border-gray-200 pt-4 dark:border-white/10">

@@ -13,7 +13,7 @@ const PILLAR_ICONS = {
 };
 
 function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
-  const [activeTab, setActiveTab] = useState('mission');
+  const [activeTab, setActiveTab] = useState('story');
 
   if (!data || !Array.isArray(data.paragraphs) || data.paragraphs.length === 0) {
     return (
@@ -30,14 +30,19 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
   // Group paragraphs logically for the tab experience:
   // Lead paragraph: index 0
   const leadParagraph = data.paragraphs[0];
-  // Our Story: indices 1, 2, 3, 4
-  const storyParagraphs = data.paragraphs.slice(1, 5);
+  // Our Story: indices 1, 2
+  const storyParagraphs = data.paragraphs.slice(1, 3);
+  // Our Mission: indices 3, 4
+  const missionParagraphs = data.paragraphs.slice(3, 5);
   // Our Vision: indices 5, 6
   const visionParagraphs = data.paragraphs.slice(5, 7);
-  // Our Mission: index 7 or remaining
-  const missionParagraphs = data.paragraphs.slice(7) || [data.paragraphs[data.paragraphs.length - 1]];
 
   const tabContent = {
+    story: {
+      title: 'Our Story',
+      subtitle: 'Bridging the Finance Gap',
+      text: storyParagraphs.join(' '),
+    },
     mission: {
       title: 'Our Mission',
       subtitle: 'Accessible Green Financing',
@@ -47,11 +52,6 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
       title: 'Our Vision',
       subtitle: 'Fostering Sustainable Growth',
       text: visionParagraphs.join(' '),
-    },
-    story: {
-      title: 'Our Story',
-      subtitle: 'Bridging the Finance Gap',
-      text: storyParagraphs.join(' '),
     }
   };
 
@@ -83,13 +83,13 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
     <section id={meta?.id ?? 'about'} className="relative w-full overflow-hidden border-t border-gray-150 py-16 lg:py-24 bg-gradient-to-b from-white via-slate-50/50 to-white">
       {/* Background ambient radial glow */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-tr from-violet-100/10 to-purple-50/5 blur-3xl opacity-60" />
-      
+
       {/* Sleek background editorial grid lines */}
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0, 208, 156,0.008)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0, 208, 156,0.008)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-60" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-12">
-          
+
           {/* Left Side: Visual Storytelling Area (45% width on desktop) */}
           <div className="lg:col-span-5 relative flex justify-center py-6">
             <motion.div
@@ -101,7 +101,7 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
             >
               {/* Offset background luxury card */}
               <div className="absolute inset-0 border border-violet-100 bg-gradient-to-br from-violet-50/40 to-teal-50/20 rounded-tl-[80px] rounded-br-[80px] rounded-tr-[24px] rounded-bl-[24px] -rotate-3 -z-10 shadow-[0_12px_40px_rgba(0, 208, 156,0.03)]" />
-              
+
               {/* Large dedicated image container with asymmetrical crop */}
               <div className="w-full h-full rounded-tl-[80px] rounded-br-[80px] rounded-tr-[24px] rounded-bl-[24px] overflow-hidden border border-white bg-slate-100 shadow-[0_16px_48px_rgba(15,23,42,0.06)] relative group">
                 <img
@@ -109,14 +109,14 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
                   alt="Bundela Finance Professional Team"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
-                
+
                 {/* Fallback elegant silhouette if image fails */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-gradient-to-br from-violet-900 to-[#006B50] text-white select-none text-center -z-10">
                   <FiUsers className="h-12 w-12 text-violet-200/80 mb-3 animate-pulse" />
                   <p className="font-heading text-lg font-bold">Bundela Finance</p>
                   <p className="text-xs text-violet-200/70 mt-1">Trust & Transparency</p>
                 </div>
-                
+
                 {/* Interactive premium overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#004D3A]/10 via-transparent to-transparent pointer-events-none" />
               </div>
@@ -198,11 +198,10 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
                     <button
                       key={tabKey}
                       onClick={() => setActiveTab(tabKey)}
-                      className={`flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-300 ${
-                        isActive
+                      className={`flex-1 text-center py-2 text-xs font-bold rounded-full transition-all duration-300 ${isActive
                           ? 'bg-[#00D09C] text-white shadow-sm'
                           : 'text-gray-500 hover:text-gray-900 hover:bg-slate-50/50'
-                      }`}
+                        }`}
                       type="button"
                     >
                       {tabContent[tabKey].title}
@@ -236,31 +235,61 @@ function AboutSection({ data = aboutData, meta = ABOUT_SECTION_META }) {
                 </div>
               </motion.div>
 
-              {/* Key Strength Highlights - Connected Grid Layout */}
+              {/* Key Strength Highlights - Dotted Flowing Grid Layout */}
               {trustPillars.length > 0 && (
                 <motion.div
                   variants={itemVariants}
-                  className="grid gap-px bg-slate-200/70 rounded-[20px] overflow-hidden w-full sm:grid-cols-3 border border-gray-200/50 shadow-[0_12px_40px_rgba(15,23,42,0.02)]"
+                  className="relative p-[1.5px] rounded-[24px] overflow-hidden w-full shadow-[0_12px_40px_rgba(15,23,42,0.02)]"
                 >
-                  {trustPillars.map((pillar) => (
-                    <div
-                      key={pillar.id}
-                      className="group flex flex-col justify-start bg-white/95 p-6 hover:bg-gradient-to-br hover:from-white hover:to-violet-50/20 transition-all duration-300 cursor-default relative overflow-hidden"
-                    >
-                      {/* Subtle hover background highlight spot */}
-                      <div className="absolute -right-8 -top-8 w-24 h-24 bg-violet-100/10 rounded-full blur-xl group-hover:bg-[#00D09C]/5 transition-all duration-500" />
-                      
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#00D09C]/10 mb-4 group-hover:scale-110 group-hover:bg-[#00D09C]/15 transition-all duration-300 relative z-10">
-                        {PILLAR_ICONS[pillar.id] || <FiShield className="h-5 w-5 text-[#00D09C]" />}
+                  {/* Outer flowing dotted border */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-[24px] z-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect 
+                      x="1" 
+                      y="1" 
+                      width="calc(100% - 2px)" 
+                      height="calc(100% - 2px)" 
+                      rx="24" 
+                      stroke="#00D09C" 
+                      strokeWidth="2" 
+                      strokeDasharray="4 6" 
+                      className="dark:stroke-[#06b6d4] animate-flow-dots" 
+                      style={{ width: 'calc(100% - 2px)', height: 'calc(100% - 2px)' }}
+                    />
+                  </svg>
+
+                  <div className="relative grid gap-0 bg-transparent rounded-[24px] overflow-hidden w-full sm:grid-cols-3">
+                    {/* Vertical flowing dotted dividers for Desktop */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none hidden sm:block z-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <line x1="33.33%" y1="0%" x2="33.33%" y2="100%" stroke="#00D09C" strokeWidth="1.5" strokeDasharray="4 6" className="dark:stroke-[#06b6d4] animate-flow-dots" />
+                      <line x1="66.66%" y1="0%" x2="66.66%" y2="100%" stroke="#00D09C" strokeWidth="1.5" strokeDasharray="4 6" className="dark:stroke-[#06b6d4] animate-flow-dots" />
+                    </svg>
+
+                    {/* Horizontal flowing dotted dividers for Mobile */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none block sm:hidden z-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <line x1="0%" y1="33.33%" x2="100%" y2="33.33%" stroke="#00D09C" strokeWidth="1.5" strokeDasharray="4 6" className="dark:stroke-[#06b6d4] animate-flow-dots" />
+                      <line x1="0%" y1="66.66%" x2="100%" y2="66.66%" stroke="#00D09C" strokeWidth="1.5" strokeDasharray="4 6" className="dark:stroke-[#06b6d4] animate-flow-dots" />
+                    </svg>
+
+                    {trustPillars.map((pillar) => (
+                      <div
+                        key={pillar.id}
+                        className="group flex flex-col justify-start bg-white/95 p-6 sm:p-8 hover:bg-gradient-to-br hover:from-white hover:to-teal-50/20 transition-all duration-300 cursor-default relative overflow-hidden"
+                      >
+                        {/* Subtle hover background highlight spot */}
+                        <div className="absolute -right-8 -top-8 w-24 h-24 bg-[#00D09C]/5 rounded-full blur-xl group-hover:bg-[#00D09C]/10 transition-all duration-500" />
+                        
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00D09C]/10 mb-4 group-hover:scale-110 group-hover:bg-[#00D09C]/20 transition-all duration-300 relative z-10">
+                          {PILLAR_ICONS[pillar.id] || <FiShield className="h-5 w-5 text-[#00D09C]" />}
+                        </div>
+                        <h3 className="text-base font-bold text-gray-900 leading-tight mb-2 relative z-10 group-hover:text-[#006B50] transition-colors duration-300">
+                          {pillar.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 font-medium leading-relaxed relative z-10 group-hover:text-gray-700 transition-colors duration-300">
+                          {pillar.description}
+                        </p>
                       </div>
-                      <h3 className="text-sm font-bold text-gray-900 leading-tight mb-2 relative z-10">
-                        {pillar.title}
-                      </h3>
-                      <p className="text-[12px] text-gray-500 font-medium leading-relaxed relative z-10">
-                        {pillar.description}
-                      </p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </motion.div>
               )}
 
